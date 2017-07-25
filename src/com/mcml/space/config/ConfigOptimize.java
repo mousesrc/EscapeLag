@@ -35,7 +35,10 @@ public abstract class ConfigOptimize extends Configurable {
     public static boolean timerGC = false;
     
     @Node(path = "TeleportPreLoader.enable")
-    public static boolean TeleportPreLoaderenable = false;
+    public static boolean usePreloader = true;
+    
+    @Node(path = "TeleportPreLoader.half-mode")
+    public static boolean halfPreloader = true;
     
     @Locale
     @Node(path = "HeapClear.Message")

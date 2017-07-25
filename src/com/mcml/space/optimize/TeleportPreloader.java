@@ -16,7 +16,6 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.Lists;
-import com.mcml.space.config.ConfigOptimize;
 import com.mcml.space.core.VLagger;
 import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.AzureAPI.Coord2D;
@@ -24,6 +23,9 @@ import com.mcml.space.util.VersionLevel;
 import com.mcml.space.util.VersionLevel.Version;
 
 import lombok.val;
+
+import static com.mcml.space.config.ConfigOptimize.usePreloader;
+import static com.mcml.space.config.ConfigOptimize.halfPreloader;
 
 /**
  * @author SotrForgotten
@@ -47,7 +49,7 @@ public class TeleportPreloader implements Listener {
     
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onTeleport(PlayerTeleportEvent evt) throws ExecutionException {
-        if (evt.isAsynchronous() || pending || !ConfigOptimize.TeleportPreLoaderenable) return;
+        if (evt.isAsynchronous() || pending || !usePreloader) return;
 
         val from = evt.getFrom();
         val to = evt.getTo();
@@ -135,7 +137,7 @@ public class TeleportPreloader implements Listener {
     }
     
     public static List<Coord2D> collectPreloadChunks(Location loc, Player player) {
-        val view = AzureAPI.viewDistanceBlock(player);
+        val view = AzureAPI.viewDistanceBlock(player) / (halfPreloader ? 2 : 1);
         int bX, bZ;
         bX = loc.getBlockX();
         bZ = loc.getBlockZ();
