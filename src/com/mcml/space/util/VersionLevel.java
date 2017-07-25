@@ -11,6 +11,7 @@ public class VersionLevel {
     private final static Version level = check();
     private static boolean paper;
     private static boolean spigot;
+    private static boolean forge;
     
     public static final Version get() {
         return level;
@@ -112,9 +113,15 @@ public class VersionLevel {
         return spigot;
     }
     
+    public static boolean isForge() {
+        return forge;
+    }
+    
     private static void checkType(String bukkitVersion) {
-        paper = bukkitVersion.contains("Paper") || bukkitVersion.contains("Taco") || bukkitVersion.contains("Torch");
-        spigot = (paper ? true : bukkitVersion.contains("Spigot"));
+        bukkitVersion = bukkitVersion.toLowerCase();
+        forge = bukkitVersion.contains("cauldron") || bukkitVersion.contains("mcpc");
+        paper = bukkitVersion.contains("paper") || bukkitVersion.contains("taco") || bukkitVersion.contains("torch");
+        spigot = (paper ? true : bukkitVersion.contains("spigot") || bukkitVersion.contains("hose") || bukkitVersion.contains("glowstone"));
     }
     
     public static boolean isLowerThan(Version other) {

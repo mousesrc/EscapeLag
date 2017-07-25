@@ -58,15 +58,15 @@ public abstract class ConfigFunction extends Configurable {
     public static boolean canAutoRespawn = false;
     
     @Node(path = "AutoRespawn.RespawnTitle.enable")
-    public static boolean sendTitleOnRespawn = false;
+    public static boolean sendTitleAutoRespawn = false;
     
     @Locale
     @Node(path = "AutoRespawn.RespawnTitle.MainMessage")
-    public static String AutoRespawnRespawnTitleMainMessage = "§e你死了！";
+    public static String titleAutoRespawn = "§e你死了！";
     
     @Locale
     @Node(path = "AutoRespawn.RespawnTitle.MiniMessage")
-    public static String AutoRespawnRespawnTitleMiniMessage = "§c已为您自动复活！";
+    public static String subtitleAutoRespawn = "§c已为您自动复活！";
     
     @Node(path = "NoExplode.enable")
     public static boolean controlExplode = true;

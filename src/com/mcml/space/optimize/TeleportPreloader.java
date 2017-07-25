@@ -20,6 +20,8 @@ import com.mcml.space.config.ConfigOptimize;
 import com.mcml.space.core.VLagger;
 import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.AzureAPI.Coord2D;
+import com.mcml.space.util.VersionLevel;
+import com.mcml.space.util.VersionLevel.Version;
 
 import lombok.val;
 
@@ -29,10 +31,11 @@ import lombok.val;
 public class TeleportPreloader implements Listener {
     public static final Cache<Location, List<Coord2D>> caches = CacheBuilder.newBuilder().maximumSize(Bukkit.getMaxPlayers() > 256 ? 256 : (Bukkit.getMaxPlayers() < 64 ? 64 : Bukkit.getMaxPlayers())).expireAfterWrite(5, TimeUnit.MINUTES).build();
     protected volatile static boolean pending;
+    protected static final boolean invulnerable = VersionLevel.isHigherEquals(Version.MINECRAFT_1_9_R1); // since 1.9
     
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onTeleport(PlayerTeleportEvent evt) throws ExecutionException {
-        if (evt.isCancelled() || evt.isAsynchronous() || pending || !ConfigOptimize.TeleportPreLoaderenable) return;
+        if (evt.isAsynchronous() || pending || !ConfigOptimize.TeleportPreLoaderenable) return;
 
         val from = evt.getFrom();
         val to = evt.getTo();
@@ -64,6 +67,7 @@ public class TeleportPreloader implements Listener {
         val preChunks = total / 3;
         val secondStage = preChunks * 2;
         
+        if (invulnerable) player.setInvulnerable(true);
         Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
             @Override
             public void run() {
@@ -97,6 +101,8 @@ public class TeleportPreloader implements Listener {
         Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
             @Override
             public void run() {
+                if (invulnerable) player.setInvulnerable(false);
+                
                 pending = true;
                 player.teleport(to);
                 pending = false;

@@ -5,14 +5,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
-
-import com.mcml.space.config.ConfigFunction;
 import com.mcml.space.core.VLagger;
 
 import lombok.val;
 
 import static com.mcml.space.config.ConfigFunction.canAutoRespawn;
+import static com.mcml.space.config.ConfigFunction.sendTitleAutoRespawn;
+import static com.mcml.space.config.ConfigFunction.titleAutoRespawn;
+import static com.mcml.space.config.ConfigFunction.subtitleAutoRespawn;
 
 /**
  * @author Vlvxingze, SotrForgotten
@@ -24,18 +24,15 @@ public class RespawnAction implements Listener {
             val player = evt.getEntity();
             Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
                 @Override
+                @SuppressWarnings("all")
                 public void run() {
                     player.spigot().respawn();
+                    
+                    if (sendTitleAutoRespawn) {
+                        player.sendTitle(titleAutoRespawn, subtitleAutoRespawn);
+                    }
                 }
             }, 1);
-        }
-    }
-
-    @SuppressWarnings("all")
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void title(PlayerRespawnEvent evt) {
-        if (ConfigFunction.sendTitleOnRespawn) {
-            evt.getPlayer().sendTitle(ConfigFunction.AutoRespawnRespawnTitleMainMessage, ConfigFunction.AutoRespawnRespawnTitleMiniMessage);
         }
     }
 }
