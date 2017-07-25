@@ -23,7 +23,7 @@ public abstract class ConfigOptimize extends Configurable {
     public static boolean AntiRedstoneenable = true;
     
     @Node(path = "AntiRedstone.Interval")
-    public static long AntiRedstoneInterval = 500L;
+    public static long AntiRedstoneInterval = 200L;
     
     @Node(path = "FireLimitor.enable")
     public static boolean FireLimitorenable = true;
