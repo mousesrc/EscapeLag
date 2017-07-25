@@ -29,9 +29,21 @@ import lombok.val;
  * @author SotrForgotten
  */
 public class TeleportPreloader implements Listener {
-    public static final Cache<Location, List<Coord2D>> caches = CacheBuilder.newBuilder().expireAfterWrite(5, TimeUnit.MINUTES).build();
+    public static boolean useCache;
+    public static Cache<Location, List<Coord2D>> caches;
     protected volatile static boolean pending;
     protected static final boolean invulnerable = VersionLevel.isHigherEquals(Version.MINECRAFT_1_9_R1); // since 1.9
+    
+    public TeleportPreloader() {
+        if (VersionLevel.isHigherThan(Version.MINECRAFT_1_7_R4)) {
+            useCache = true; // versions before this appear to be broken
+            
+            caches = CacheBuilder.newBuilder()
+                    .maximumSize(Bukkit.getMaxPlayers() > 256 ? 256 : (Bukkit.getMaxPlayers() < 64 ? 64 : Bukkit.getMaxPlayers()))
+                    .expireAfterWrite(5, TimeUnit.MINUTES)
+                    .build();
+        }
+    }
     
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onTeleport(PlayerTeleportEvent evt) throws ExecutionException {
@@ -52,16 +64,15 @@ public class TeleportPreloader implements Listener {
         val world = player.getWorld();
 
         boolean custom = AzureAPI.customViewDistance(player);
-        List<Coord2D> chunks = custom ? collectPreloadChunks(to, player) : caches.get(to, new Callable<List<Coord2D>>() {
+        List<Coord2D> chunks = custom ? collectPreloadChunks(to, player) : (useCache ? caches.get(to, new Callable<List<Coord2D>>() {
             @Override
             public List<Coord2D> call() {
-                return collectPreloadChunks(to, player);
+                List<Coord2D> c = collectPreloadChunks(to, player);
+                caches.put(to, c);
+                return c;
             }
-        });
-        if (chunks == null) {
-            chunks = collectPreloadChunks(to, player);
-            caches.put(to, chunks);
-        }
+        }) : collectPreloadChunks(to, player));
+        
         val fChunks = chunks;
         val total = chunks.size();
         val preChunks = total / 3;
