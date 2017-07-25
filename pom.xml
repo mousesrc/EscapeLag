@@ -7,7 +7,7 @@
 	<version>x</version>
 	<name>VLagger</name>
 	<description>VLagger 是一款 MineCraft Bukkit 服务端插件，主要作用为优化运行、修复漏洞、限制动作的一款插件。</description>
-	
+
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<resources>
@@ -51,9 +51,6 @@
 								<includes>
 									<include>org.projectlombok</include>
 								</includes>
-								<excludes>
-									<exclude>Class50</exclude>
-								</excludes>
 							</artifactSet>
 							<createDependencyReducedPom>false</createDependencyReducedPom>
 						</configuration>
@@ -62,8 +59,12 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<repositories>
+		<repository>
+			<id>in-project</id>
+			<url>file://${project.basedir}/lib</url>
+		</repository>
 		<repository>
 			<id>spigot-repo</id>
 			<url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
@@ -73,20 +74,26 @@
 			<url>http://ci.emc.gs/nexus/content/groups/aikar/</url>
 		</repository>
 	</repositories>
-	
+
 	<dependencies>
 		<!-- Ppaer API -->
 		<dependency>
 			<groupId>com.destroystokyo.paper</groupId>
 			<artifactId>paper-api</artifactId>
 			<version>1.9.4-R0.1-SNAPSHOT</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.spigotmc</groupId>
+			<artifactId>spigot-impl</artifactId>
+			<version>1.0</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.trove4j</groupId>
 			<artifactId>trove4j</artifactId>
 			<version>3.0.3</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>

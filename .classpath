@@ -16,5 +16,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Administrator/nms/1.7.2-v1_7_R1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

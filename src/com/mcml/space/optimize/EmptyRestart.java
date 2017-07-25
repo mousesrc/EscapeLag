@@ -10,7 +10,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import com.mcml.space.core.VLagger;
 import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.AzurePlayerList;
-
 import static com.mcml.space.config.ConfigFunction.emptyRestart;
 import static com.mcml.space.config.ConfigFunction.emptyRestartDelay;
 import static com.mcml.space.config.ConfigFunction.emptyRestartHookSpigot;
@@ -30,7 +29,7 @@ public class EmptyRestart implements Listener {
                 @Override
                 public void run(){
                     if (emptyRestartHookSpigot) {
-                        Bukkit.getCommandMap().getCommand("restart").execute(Bukkit.getConsoleSender(), null, null);
+                        new org.spigotmc.RestartCommand("restart").execute(Bukkit.getConsoleSender(), null, null);
                     } else {
                         // handle by lanuch-script
                         Bukkit.shutdown();

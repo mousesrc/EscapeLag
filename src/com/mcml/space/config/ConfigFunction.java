@@ -11,7 +11,7 @@ public abstract class ConfigFunction extends Configurable {
     public static boolean emptyRestart = false;
     
     @Node(path = "NooneRestart.hook-spigot")
-    public static boolean emptyRestartHookSpigot = false;
+    public static boolean emptyRestartHookSpigot = true;
     
     @Node(path = "NooneRestart.TimeLong")
     public static long emptyRestartDelay = 1200;
