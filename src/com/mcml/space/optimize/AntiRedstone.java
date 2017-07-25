@@ -11,6 +11,7 @@ import org.bukkit.event.block.BlockRedstoneEvent;
 import com.mcml.space.config.ConfigOptimize;
 import com.mcml.space.config.ConfigMain;
 import com.mcml.space.core.VLagger;
+import com.mcml.space.util.AzureAPI;
 
 public class AntiRedstone implements Listener {
 
@@ -45,7 +46,7 @@ public class AntiRedstone implements Listener {
                     if (TipCooldown == false) {
                         if(ConfigOptimize.AntiRedstoneMessage.equalsIgnoreCase("none") == false){
                         	ConfigOptimize.AntiRedstoneMessage = ConfigOptimize.AntiRedstoneMessage.replaceAll("%location%", bs);
-                            Bukkit.broadcastMessage(ConfigMain.PluginPrefix + ConfigOptimize.AntiRedstoneMessage);
+                        	AzureAPI.bc(ConfigOptimize.AntiRedstoneMessage);
                             TipCooldown = true;
                         }
                     }

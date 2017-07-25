@@ -7,6 +7,7 @@ import org.bukkit.event.block.SignChangeEvent;
 
 import com.mcml.space.config.ConfigFixing;
 import com.mcml.space.config.ConfigMain;
+import com.mcml.space.util.AzureAPI;
 
 public class AntiCrashSign implements Listener {
 
@@ -21,7 +22,7 @@ public class AntiCrashSign implements Listener {
                 if(line.length() >= 127){
                     event.setCancelled(true);
                     if(ConfigFixing.AntiCrashSignWarnMessage.equalsIgnoreCase("none") == false){
-                        player.sendMessage(ConfigMain.PluginPrefix + ConfigFixing.AntiCrashSignWarnMessage);
+                        AzureAPI.log(player, ConfigFixing.AntiCrashSignWarnMessage);
                     }
                 }
             }

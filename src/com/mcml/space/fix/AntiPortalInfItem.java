@@ -8,6 +8,7 @@ import org.bukkit.event.entity.EntityPortalEvent;
 
 import com.mcml.space.config.ConfigFixing;
 import com.mcml.space.config.ConfigMain;
+import com.mcml.space.util.AzureAPI;
 
 public class AntiPortalInfItem implements Listener {
 
@@ -18,7 +19,7 @@ public class AntiPortalInfItem implements Listener {
                 event.setCancelled(true);
                 event.getEntity().remove();
                 if(ConfigFixing.AntiPortalInfItemWarnMessage.equalsIgnoreCase("none") == false){
-                    Bukkit.broadcastMessage(ConfigMain.PluginPrefix + ConfigFixing.AntiPortalInfItemWarnMessage);
+                    AzureAPI.bc(ConfigFixing.AntiPortalInfItemWarnMessage);
                 }
             }
         }

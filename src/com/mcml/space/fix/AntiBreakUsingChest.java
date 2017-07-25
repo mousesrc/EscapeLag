@@ -8,6 +8,7 @@ import org.bukkit.inventory.InventoryHolder;
 
 import com.mcml.space.config.ConfigFixing;
 import com.mcml.space.config.ConfigMain;
+import com.mcml.space.util.AzureAPI;
 
 /**
  * @author jiongjionger
@@ -23,7 +24,7 @@ public class AntiBreakUsingChest implements Listener {
                 if (ih.getInventory().getViewers().isEmpty() == false) {
                     e.setCancelled(true);
                     if(ConfigFixing.AntiBreakUsingChestWarnMessage.equalsIgnoreCase("none") == false){
-                        p.sendMessage(ConfigMain.PluginPrefix + ConfigFixing.AntiBreakUsingChestWarnMessage);
+                        AzureAPI.log(p, ConfigFixing.AntiBreakUsingChestWarnMessage);
                     }
                 }
             }

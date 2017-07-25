@@ -10,6 +10,7 @@ import org.bukkit.plugin.Plugin;
 
 import com.mcml.space.config.ConfigFixing;
 import com.mcml.space.config.ConfigMain;
+import com.mcml.space.util.AzureAPI;
 
 public class AntiCrashChat implements Listener{
     private boolean HasEss;
@@ -30,14 +31,14 @@ public class AntiCrashChat implements Listener{
         if(message.contains("İ")){
             event.setCancelled(true);
             if(ConfigFixing.AntiCrashChatSpecialStringWarnMessage.equalsIgnoreCase("none") == false){
-                player.sendMessage(ConfigMain.PluginPrefix + ConfigFixing.AntiCrashChatSpecialStringWarnMessage);
+                AzureAPI.log(player, ConfigFixing.AntiCrashChatSpecialStringWarnMessage);
             }
         }
         if(HasEss == true){
             if(message.contains("&")){
                 event.setCancelled(true);
                 if(ConfigFixing.AntiCrashChatSpecialStringWarnMessage.equalsIgnoreCase("none") == false){
-                    player.sendMessage(ConfigMain.PluginPrefix + ConfigFixing.AntiCrashChatSpecialStringWarnMessage);
+                    AzureAPI.log(player, ConfigFixing.AntiCrashChatSpecialStringWarnMessage);
                 }
             }
         }

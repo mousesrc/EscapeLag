@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -69,13 +70,22 @@ public class VLagger extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+        MainThis = this;
         optimizeConfiguration = new File(this.getDataFolder(), "ClearLagConfig.yml");
         AntiBugConfigFile = new File(this.getDataFolder(), "AntiBugConfig.yml");
         PluginMainConfigFile = new File(this.getDataFolder(), "PluginMainConfig.yml");
         functionConfiguation = new File(this.getDataFolder(), "DoEventConfig.yml");
         PluginFile = this.getFile();
-        MainThis = this;
         LoadConfig();
+        
+        AzureAPI.setPrefix(ConfigMain.messagePrefix + ChatColor.RESET + " > ");
+        
+        AzureAPI.log("Version " + getDescription().getVersion() + " is ready for installation \n");
+        
+        Bukkit.getConsoleSender().sendMessage("Server: " + Bukkit.getServer().getVersion());
+        Bukkit.getConsoleSender().sendMessage("Bukkit: " + Bukkit.getServer().getBukkitVersion());
+        Bukkit.getConsoleSender().sendMessage("Level: " + VersionLevel.get() + "\n");
+        
         AzureAPI.log("VLagger —— 新一代的优化/稳定插件");
         AzureAPI.log("~(@^_^@)~ 玩的开心！~");
         AzureAPI.log("清理内存模块...");
@@ -111,8 +121,6 @@ public class VLagger extends JavaPlugin implements Listener {
         AzureAPI.log("|||"+ devs.get(0) +"/VLagger PluginCD小组作品.|||");
         AzureAPI.log("|||" + AzureAPI.contactBetween(devs, 1, ", ") + " 合作开发.|||");
         AzureAPI.log("§a您正在使用VLagger构建号 %BUILD_NUMBER%");
-        
-        AzureAPI.setPrefix(ConfigMain.PluginPrefix);
         
         if (ConfigOptimize.AutoSetenable == true) {
             try {

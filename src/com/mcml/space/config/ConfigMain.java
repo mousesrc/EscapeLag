@@ -4,7 +4,7 @@ import com.mcml.space.util.Configurable;
 
 public abstract class ConfigMain extends Configurable {
     @Node(path = "PluginPrefix")
-    public static String PluginPrefix = "§a§l[Vlagger]";
+    public static String messagePrefix = "&3Vlagger";
     
     @Node(path = "AutoUpdate")
     public static boolean AutoUpdate = false;

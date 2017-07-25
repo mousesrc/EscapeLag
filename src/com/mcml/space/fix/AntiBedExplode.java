@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import com.mcml.space.config.ConfigFixing;
 import com.mcml.space.config.ConfigMain;
+import com.mcml.space.util.AzureAPI;
 
 public class AntiBedExplode implements Listener {
 
@@ -24,7 +25,7 @@ public class AntiBedExplode implements Listener {
                     if (p.getWorld().getEnvironment() == World.Environment.NETHER || p.getWorld().getEnvironment() == World.Environment.THE_END) {
                         e.setCancelled(true);
                         if(ConfigFixing.AntiBedExplodeTipMessage.equalsIgnoreCase("none") == false){
-                            p.sendMessage(ConfigMain.PluginPrefix + ConfigFixing.AntiBedExplodeTipMessage);
+                            AzureAPI.log(p, ConfigFixing.AntiBedExplodeTipMessage);
                         }
                     }
                 }

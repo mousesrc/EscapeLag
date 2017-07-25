@@ -43,6 +43,7 @@ public abstract class Configurable {
                 val value = config.get(path);
                 if (value == null) {
                     config.set(path, def);
+                    field.set(null, colorzine(def)); // for colorzine
                 } else {
                     field.set(null, colorzine(value));
                 }
