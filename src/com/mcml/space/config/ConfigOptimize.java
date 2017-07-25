@@ -102,15 +102,9 @@ public abstract class ConfigOptimize extends Configurable {
     @Node(path = "ClearItem.enable")
     public static boolean ClearItemenable = true;
     
-    @Node(path = "NooneRestart.enable")
-    public static boolean NooneRestartenable = true;
-    
     @Node(path = "ChunkKeeper.enable")
     public static boolean ChunkKeeperenable = true;
     
     @Node(path = "ChunkUnloader.enable")
     public static boolean ChunkUnloaderenable = true;
-    
-    @Node(path = "NooneRestart.TimeLong")
-    public static int NooneRestartTimeLong = 1200;
 }

@@ -7,6 +7,14 @@ import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.Configurable;
 
 public abstract class ConfigFunction extends Configurable {
+    @Node(path = "NooneRestart.enable")
+    public static boolean emptyRestart = false;
+    
+    @Node(path = "NooneRestart.hook-spigot")
+    public static boolean emptyRestartHookSpigot = false;
+    
+    @Node(path = "NooneRestart.TimeLong")
+    public static long emptyRestartDelay = 1200;
     
     @Node(path = "AntiSpam.enable")
     public static boolean AntiSpamenable = true;

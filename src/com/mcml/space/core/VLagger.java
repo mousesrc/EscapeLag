@@ -30,7 +30,7 @@ import com.mcml.space.fix.AntiInfRail;
 import com.mcml.space.fix.AntiNetherHopperInfItem;
 import com.mcml.space.fix.AntiPortalInfItem;
 import com.mcml.space.fix.RPGItemPatch;
-import com.mcml.space.fix.AntiSkullCrash;
+import com.mcml.space.fix.FixSkullCrash;
 import com.mcml.space.fix.FixDupeLogin;
 import com.mcml.space.function.AntiSpam;
 import com.mcml.space.function.RespawnAction;
@@ -48,7 +48,7 @@ import com.mcml.space.optimize.FireLimitor;
 import com.mcml.space.optimize.HeapShut;
 import com.mcml.space.optimize.ItemClear;
 import com.mcml.space.optimize.NoCrowdEntity;
-import com.mcml.space.optimize.NoOneRestart;
+import com.mcml.space.optimize.EmptyRestart;
 import com.mcml.space.optimize.TeleportPreloader;
 import com.mcml.space.optimize.TimerGarbageCollect;
 import com.mcml.space.optimize.WaterFlowLimiter;
@@ -137,14 +137,12 @@ public class VLagger extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new NoCrowdEntity(), this);
         Bukkit.getPluginManager().registerEvents(new AntiCrashSign(), this);
         Bukkit.getPluginManager().registerEvents(new AntiSpam(), this);
-        if (VersionLevel.isHigherEquals(Version.MINECRAFT_1_8_R2)) Bukkit.getPluginManager().registerEvents(new ExplosionController.BlockDetector(), this);
         Bukkit.getPluginManager().registerEvents(new ExplosionController.EntityDetector(), this);
         Bukkit.getPluginManager().registerEvents(new AntiRedstone(), this);
         Bukkit.getPluginManager().registerEvents(new ItemClear(), this);
         Bukkit.getPluginManager().registerEvents(new ChunkUnloaderofListener(), this);
         Bukkit.getPluginManager().registerEvents(new AntiInfRail(), this);
         Bukkit.getPluginManager().registerEvents(new AutoSave(), this);
-        Bukkit.getPluginManager().registerEvents(new AntiSkullCrash(), this);
         Bukkit.getPluginManager().registerEvents(new FixDupeLogin(), this);
         Bukkit.getPluginManager().registerEvents(new NoEggChangeSpawner(), this);
         Bukkit.getPluginManager().registerEvents(new AntiDupeDropItem(), this);
@@ -152,14 +150,32 @@ public class VLagger extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new TeleportPreloader(), this);
         Bukkit.getPluginManager().registerEvents(new AntiBedExplode(), this);
         Bukkit.getPluginManager().registerEvents(new BlockCommander(), this);
-        if (VersionLevel.isSpigot()) Bukkit.getPluginManager().registerEvents(new RespawnAction(), this);
         Bukkit.getPluginManager().registerEvents(new WaterFlowLimiter(), this);
         Bukkit.getPluginManager().registerEvents(new FireLimitor(), this);
         Bukkit.getPluginManager().registerEvents(new AutoUpdateCheck(), this);
-        Bukkit.getPluginManager().registerEvents(new NoOneRestart(), this);
         Bukkit.getPluginManager().registerEvents(new FarmProtecter(), this);
         Bukkit.getPluginManager().registerEvents(new AntiBoneBug(), this);
-
+        
+        if (VersionLevel.isSpigot()) {
+            Bukkit.getPluginManager().registerEvents(new RespawnAction(), this);
+        }
+        
+        if (ConfigFunction.emptyRestart) {
+            if (ConfigFunction.emptyRestartHookSpigot) {
+                if (VersionLevel.isSpigot()) Bukkit.getPluginManager().registerEvents(new EmptyRestart(), this);
+            } else {
+                Bukkit.getPluginManager().registerEvents(new EmptyRestart(), this);
+            }
+        }
+        
+        if (VersionLevel.isLowerThan(Version.MINECRAFT_1_9_R1)) {
+            Bukkit.getPluginManager().registerEvents(new FixSkullCrash(), this);
+        }
+        
+        if (VersionLevel.isHigherEquals(Version.MINECRAFT_1_8_R2)) {
+            Bukkit.getPluginManager().registerEvents(new ExplosionController.BlockDetector(), this);
+        }
+        
         ChunkKeeper.ChunkKeeperofTask();
         AzurePlayerList.bind(this);
         getServer().getScheduler().runTaskTimer(this, new ChunkUnloader(), 0, ConfigOptimize.ChunkUnloaderInterval * 20);
