@@ -31,8 +31,8 @@ public abstract class ConfigOptimize extends Configurable {
     @Node(path = "FireLimitor.Period")
     public static long FireLimitorPeriod = 3000L;
     
-    @Node(path = "HeapClear.enable")
-    public static boolean timerGC = false;
+    @Node(path = "TimerGc.enable")
+    public static boolean TimerGC = false;
     
     @Node(path = "TeleportPreLoader.enable")
     public static boolean TeleportPreLoaderenable = false;

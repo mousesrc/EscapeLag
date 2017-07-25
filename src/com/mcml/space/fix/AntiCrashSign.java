@@ -6,7 +6,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 
 import com.mcml.space.config.ConfigFixing;
-import com.mcml.space.config.ConfigMain;
 import com.mcml.space.util.AzureAPI;
 
 public class AntiCrashSign implements Listener {

@@ -1,6 +1,7 @@
 package com.mcml.space.optimize;
 
 import java.util.HashMap;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -9,7 +10,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockRedstoneEvent;
 
 import com.mcml.space.config.ConfigOptimize;
-import com.mcml.space.config.ConfigMain;
 import com.mcml.space.core.VLagger;
 import com.mcml.space.util.AzureAPI;
 

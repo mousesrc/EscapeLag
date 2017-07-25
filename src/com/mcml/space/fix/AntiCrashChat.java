@@ -9,7 +9,6 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.Plugin;
 
 import com.mcml.space.config.ConfigFixing;
-import com.mcml.space.config.ConfigMain;
 import com.mcml.space.util.AzureAPI;
 
 public class AntiCrashChat implements Listener{

@@ -13,7 +13,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 
 import com.mcml.space.config.ConfigFixing;
-import com.mcml.space.config.ConfigMain;
 import com.mcml.space.util.AzureAPI;
 
 public class AntiInfItem implements Listener {

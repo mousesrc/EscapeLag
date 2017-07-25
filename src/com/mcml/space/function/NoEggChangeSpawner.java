@@ -1,14 +1,12 @@
 package com.mcml.space.function;
 
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.*;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 import com.mcml.space.config.ConfigFunction;
-import com.mcml.space.config.ConfigMain;
 import com.mcml.space.util.AzureAPI;
-
-import org.bukkit.Material;
 
 public class NoEggChangeSpawner implements Listener {
 
