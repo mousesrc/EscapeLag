@@ -1,6 +1,4 @@
 # Eclipse stuff
-.classpath
-.project
 .settings/
 .externalToolBuilders/
 
@@ -36,7 +34,6 @@ nbactions.xml
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 *.zip
