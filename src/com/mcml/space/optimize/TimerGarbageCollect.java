@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import com.mcml.space.util.AzureAPI;
 
 import static com.mcml.space.config.ConfigOptimize.messageGC;
-import static com.mcml.space.config.ConfigOptimize.TimerGC;
+import static com.mcml.space.config.ConfigOptimize.timerGC;
 
 /**
  * @author Vlvxingze, SotrForgotten
@@ -16,7 +16,7 @@ public class TimerGarbageCollect implements Runnable {
 
     @Override
     public void run() {
-        if(!TimerGC) return;
+        if(!timerGC) return;
 
         long mark = System.nanoTime();
         long released = collectGarbage();

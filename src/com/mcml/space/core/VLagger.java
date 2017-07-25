@@ -82,9 +82,9 @@ public class VLagger extends JavaPlugin implements Listener {
         
         AzureAPI.log("Version " + getDescription().getVersion() + " is ready for installation \n");
         
-        Bukkit.getConsoleSender().sendMessage("Server: " + Bukkit.getServer().getVersion());
-        Bukkit.getConsoleSender().sendMessage("Bukkit: " + Bukkit.getServer().getBukkitVersion());
-        Bukkit.getConsoleSender().sendMessage("Level: " + VersionLevel.get() + "\n");
+        AzureAPI.log("Server: " + Bukkit.getServer().getVersion());
+        AzureAPI.log("Bukkit: " + Bukkit.getServer().getBukkitVersion());
+        AzureAPI.log("Level: " + VersionLevel.get() + "\n");
         
         AzureAPI.log("VLagger —— 新一代的优化/稳定插件");
         AzureAPI.log("~(@^_^@)~ 玩的开心！~");

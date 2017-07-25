@@ -32,7 +32,7 @@ public abstract class ConfigOptimize extends Configurable {
     public static long FireLimitorPeriod = 3000L;
     
     @Node(path = "TimerGc.enable")
-    public static boolean TimerGC = false;
+    public static boolean timerGC = false;
     
     @Node(path = "TeleportPreLoader.enable")
     public static boolean TeleportPreLoaderenable = false;
