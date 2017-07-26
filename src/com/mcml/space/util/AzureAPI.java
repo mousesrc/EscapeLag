@@ -236,7 +236,7 @@ public class AzureAPI {
             
             @Override
             public String set(int index, String element) {
-                return set(index, toLowerCase(element));
+                return super.set(index, toLowerCase(element));
             }
             
             @Override
@@ -246,7 +246,7 @@ public class AzureAPI {
             
             @Override
             public void add(int index, String element) {
-                add(index, toLowerCase(element));
+                super.add(index, toLowerCase(element));
             }
             
             @Override
@@ -260,7 +260,7 @@ public class AzureAPI {
     @SuppressWarnings("serial")
     public static class ChainArrayList<E> extends ArrayList<E> {
         public ChainArrayList<E> to(E e) {
-            super.add(e);
+            add(e);
             return this;
         }
     }

@@ -4,24 +4,26 @@ import java.util.HashMap;
 
 import org.bukkit.Chunk;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFromToEvent;
-
 import com.mcml.space.config.ConfigOptimize;
+
+import lombok.val;
 
 public class WaterFlowLimiter implements Listener {
 
     private final static HashMap<Chunk, Long> ChunkChecked = new HashMap<Chunk, Long>();
-    // TODO nice but tied to tick
-    @EventHandler
-    public void WaterFowLimitor(BlockFromToEvent event) {
-        if(ConfigOptimize.WaterFlowLimitorenable == true){
-            Block block = event.getBlock();
-            if (block.getType() == Material.STATIONARY_WATER || block.getType() == Material.STATIONARY_LAVA) {
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void WaterFowLimitor(BlockFromToEvent evt) {
+        if(ConfigOptimize.WaterFlowLimitorenable){
+            val block = evt.getBlock();
+            val type = block.getType();
+            
+            if (type == Material.STATIONARY_WATER || type == Material.STATIONARY_LAVA) {
                 if(CheckFast(block.getChunk())){
-                    event.setCancelled(true);
+                    evt.setCancelled(true);
                 }else{
                     ChunkChecked.put(block.getChunk(), System.currentTimeMillis());
                 }
