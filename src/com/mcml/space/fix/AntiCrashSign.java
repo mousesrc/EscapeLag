@@ -20,9 +20,7 @@ public class AntiCrashSign implements Listener {
                 String line = lines[i];
                 if(line.length() >= 127){
                     event.setCancelled(true);
-                    if(ConfigFixing.AntiCrashSignWarnMessage.equalsIgnoreCase("none") == false){
-                        AzureAPI.log(player, ConfigFixing.AntiCrashSignWarnMessage);
-                    }
+                    AzureAPI.log(player, ConfigFixing.AntiCrashSignWarnMessage);
                 }
             }
         }

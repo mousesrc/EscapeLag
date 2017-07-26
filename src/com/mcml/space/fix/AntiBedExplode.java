@@ -23,9 +23,7 @@ public class AntiBedExplode implements Listener {
                 if (block.getType() == Material.BED_BLOCK) {
                     if (p.getWorld().getEnvironment() == World.Environment.NETHER || p.getWorld().getEnvironment() == World.Environment.THE_END) {
                         e.setCancelled(true);
-                        if(ConfigFixing.AntiBedExplodeTipMessage.equalsIgnoreCase("none") == false){
-                            AzureAPI.log(p, ConfigFixing.AntiBedExplodeTipMessage);
-                        }
+                        AzureAPI.log(p, ConfigFixing.AntiBedExplodeTipMessage);
                     }
                 }
             }

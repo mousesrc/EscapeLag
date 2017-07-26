@@ -26,9 +26,7 @@ public class AntiInfItem implements Listener {
                 if (event.getItem().getAmount() <= 0) {
                     event.setCancelled(true);
                     player.setItemInHand(null);
-                    if(ConfigFixing.AntiInfItemClickcWarnMessage.equalsIgnoreCase("none") == false){
-                        AzureAPI.log(player, ConfigFixing.AntiInfItemClickcWarnMessage);
-                    }
+                    AzureAPI.log(player, ConfigFixing.AntiInfItemClickcWarnMessage);
                 }
             }
         }

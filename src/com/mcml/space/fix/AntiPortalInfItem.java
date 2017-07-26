@@ -16,9 +16,7 @@ public class AntiPortalInfItem implements Listener {
             if (event.getEntityType() == EntityType.MINECART_CHEST || event.getEntityType() == EntityType.MINECART_FURNACE || event.getEntityType() == EntityType.MINECART_HOPPER) {
                 event.setCancelled(true);
                 event.getEntity().remove();
-                if(ConfigFixing.AntiPortalInfItemWarnMessage.equalsIgnoreCase("none") == false){
-                    AzureAPI.bc(ConfigFixing.AntiPortalInfItemWarnMessage);
-                }
+                AzureAPI.bc(ConfigFixing.AntiPortalInfItemWarnMessage);
             }
         }
     }

@@ -29,16 +29,12 @@ public class AntiCrashChat implements Listener{
         String message = event.getMessage();
         if(message.contains("İ")){
             event.setCancelled(true);
-            if(ConfigFixing.AntiCrashChatSpecialStringWarnMessage.equalsIgnoreCase("none") == false){
-                AzureAPI.log(player, ConfigFixing.AntiCrashChatSpecialStringWarnMessage);
-            }
+            AzureAPI.log(player, ConfigFixing.AntiCrashChatSpecialStringWarnMessage);
         }
         if(HasEss == true){
             if(message.contains("&")){
                 event.setCancelled(true);
-                if(ConfigFixing.AntiCrashChatSpecialStringWarnMessage.equalsIgnoreCase("none") == false){
-                    AzureAPI.log(player, ConfigFixing.AntiCrashChatSpecialStringWarnMessage);
-                }
+                AzureAPI.log(player, ConfigFixing.AntiCrashChatSpecialStringWarnMessage);
             }
         }
     }

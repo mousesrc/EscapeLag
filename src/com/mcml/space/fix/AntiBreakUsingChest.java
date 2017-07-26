@@ -22,9 +22,7 @@ public class AntiBreakUsingChest implements Listener {
                 InventoryHolder ih = (InventoryHolder) e.getBlock().getState();
                 if (ih.getInventory().getViewers().isEmpty() == false) {
                     e.setCancelled(true);
-                    if(ConfigFixing.AntiBreakUsingChestWarnMessage.equalsIgnoreCase("none") == false){
-                        AzureAPI.log(p, ConfigFixing.AntiBreakUsingChestWarnMessage);
-                    }
+                    AzureAPI.log(p, ConfigFixing.AntiBreakUsingChestWarnMessage);
                 }
             }
         }

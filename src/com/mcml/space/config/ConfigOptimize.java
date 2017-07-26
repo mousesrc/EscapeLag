@@ -8,7 +8,7 @@ import com.mcml.space.util.Configurable;
 
 public abstract class ConfigOptimize extends Configurable {
     @Node(path = "HeapShut.enable")
-    public static boolean HeapShutenable = true;
+    public static boolean overloadMemoryRestart = true;
     
     @Node(path = "ChunkUnloader.Interval")
     public static long ChunkUnloaderInterval = 30;
@@ -76,7 +76,7 @@ public abstract class ConfigOptimize extends Configurable {
     public static String AntiRedstoneMessage = "§c检测到高频红石在 %location% ，插件已经将其清除，不许玩了！ (╰_╯)#";
     
     @Node(path = "HeapShut.Percent")
-    public static int HeapShutPercent = 90;
+    public static int overloadMemoryPercent = 90;
     
     @Node(path = "AntiRedstone.RemoveBlockList")
     public static List<String> AntiRedstoneRemoveBlockList = AzureAPI.newChainStringList().to("REDSTONE_WIRE")
@@ -91,10 +91,13 @@ public abstract class ConfigOptimize extends Configurable {
     
     @Locale
     @Node(path = "HeapShut.WarnMessage")
-    public static String HeapShutWarnMessage = "服务器会在15秒后重启，请玩家不要游戏，耐心等待！ ╮(╯_╰)╭";
+    public static String messageOverloadMemory = "服务器会在15秒后重启，请玩家不要游戏，耐心等待！ ╮(╯_╰)╭";
     
     @Node(path = "HeapShut.WaitingTime")
-    public static int HeapShutWaitingTime = 15;
+    public static int overloadMemoryRestartDelay = 15;
+    
+    @Node(path = "HeapShut.can-cancel")
+    public static boolean overloadMemoryCancellable = true;
     
     @Node(path = "AutoSet.enable")
     public static boolean AutoSetenable = true;
