@@ -33,7 +33,7 @@ import static com.mcml.space.config.ConfigOptimize.halfPreloader;
 public class TeleportPreloader implements Listener {
     public static boolean useCache;
     public static Cache<Location, List<Coord2D>> caches;
-    protected volatile static boolean pending;
+    protected static boolean pending;
     protected static final boolean invulnerable = VersionLevel.isHigherEquals(Version.MINECRAFT_1_9_R1); // since 1.9
     
     public TeleportPreloader() {

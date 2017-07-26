@@ -275,7 +275,7 @@ public class AzureAPI {
     }
     
     public static FileConfiguration loadOrCreateFile(File file) {
-        if (file.exists()) {
+        if (!file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException ex) {

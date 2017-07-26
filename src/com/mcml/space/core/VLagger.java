@@ -50,10 +50,11 @@ import com.mcml.space.optimize.NoCrowdEntity;
 import com.mcml.space.optimize.EmptyRestart;
 import com.mcml.space.optimize.TeleportPreloader;
 import com.mcml.space.optimize.TimerGarbageCollect;
-import com.mcml.space.optimize.WaterFlowLimiter;
+import com.mcml.space.optimize.FlowingController;
 import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.Configurable;
 import com.mcml.space.util.NetWorker;
+import com.mcml.space.util.Ticker;
 import com.mcml.space.util.AzurePlayerList;
 import com.mcml.space.util.VersionLevel;
 import com.mcml.space.util.VersionLevel.Version;
@@ -70,6 +71,8 @@ public class VLagger extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         MainThis = this;
+        Ticker.bind(MainThis);
+        
         optimizeConfiguration = new File(this.getDataFolder(), "ClearLagConfig.yml");
         AntiBugConfigFile = new File(this.getDataFolder(), "AntiBugConfig.yml");
         PluginMainConfigFile = new File(this.getDataFolder(), "PluginMainConfig.yml");
@@ -149,7 +152,7 @@ public class VLagger extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new TeleportPreloader(), this);
         Bukkit.getPluginManager().registerEvents(new AntiBedExplode(), this);
         Bukkit.getPluginManager().registerEvents(new BlockCommander(), this);
-        Bukkit.getPluginManager().registerEvents(new WaterFlowLimiter(), this);
+        Bukkit.getPluginManager().registerEvents(new FlowingController(), this);
         Bukkit.getPluginManager().registerEvents(new FireLimitor(), this);
         Bukkit.getPluginManager().registerEvents(new AutoUpdateCheck(), this);
         Bukkit.getPluginManager().registerEvents(new FarmProtecter(), this);

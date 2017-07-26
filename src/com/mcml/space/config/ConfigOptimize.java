@@ -17,7 +17,7 @@ public abstract class ConfigOptimize extends Configurable {
     public static boolean WaterFlowLimitorenable;
     
     @Node(path = "WaterFlowLimitor.Period")
-    public static long WaterFlowLimitorPeriod = 200L;
+    public static long flowingMaxConcurrent = 10L;
     
     @Node(path = "AntiRedstone.enable")
     public static boolean AntiRedstoneenable = true;
