@@ -83,6 +83,7 @@
 			<version>1.9.4-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- org.spigotmc -->
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-impl</artifactId>
