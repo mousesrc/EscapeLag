@@ -1,5 +1,10 @@
 package com.mcml.space.optimize;
 
+import static com.mcml.space.config.ConfigFunction.emptyRestart;
+import static com.mcml.space.config.ConfigFunction.emptyRestartDelay;
+
+import java.util.concurrent.TimeUnit;
+
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -10,11 +15,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import com.mcml.space.core.VLagger;
 import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.AzurePlayerList;
-import static com.mcml.space.config.ConfigFunction.emptyRestart;
-import static com.mcml.space.config.ConfigFunction.emptyRestartDelay;
-import static com.mcml.space.config.ConfigFunction.emptyRestartHookSpigot;
-
-import java.util.concurrent.TimeUnit;
+import com.mcml.space.util.Utils;
 
 /**
  * @author Vlvxingze, SotrForgotten
@@ -28,12 +29,7 @@ public class EmptyRestart implements Listener {
             restartTaskId = Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable(){
                 @Override
                 public void run(){
-                    if (emptyRestartHookSpigot) {
-                        new org.spigotmc.RestartCommand("restart").execute(Bukkit.getConsoleSender(), null, null);
-                    } else {
-                        // handle by lanuch-script
-                        Bukkit.shutdown();
-                    }
+                    Utils.RestartServer();
                 }
             }, AzureAPI.toTicks(TimeUnit.SECONDS, emptyRestartDelay)).getTaskId();
         }

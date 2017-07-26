@@ -26,7 +26,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 /**
- * @author SotrForgotten
+ * @author SotrForgotten,Vlvxingze
  */
 public class AzureAPI {
     private static String loggerPrefix = "";
@@ -273,15 +273,13 @@ public class AzureAPI {
         return sender.isOp() || sender.hasPermission(perm);
     }
     
-    public static FileConfiguration loadOrCreate(File file) {
-        if (!file.exists()) {
+    public static FileConfiguration LoadAndCreateFile(File file) {
+        if (file.exists() == false) {
             try {
                 file.createNewFile();
-            } catch (IOException ignored) {
-                ;
+            } catch (IOException ex) {
             }
         }
-        
         return YamlConfiguration.loadConfiguration(file);
     }
 
