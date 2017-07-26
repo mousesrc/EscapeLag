@@ -1,39 +1,37 @@
 package com.mcml.space.optimize;
 
+
 import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
+
+import com.mcml.space.config.ConfigOptimize;
 import com.mcml.space.core.VLagger;
 import com.mcml.space.util.AzureAPI;
+import com.mcml.space.util.Utils;
 
 import lombok.val;
-
-import static com.mcml.space.config.ConfigOptimize.overloadMemoryRestart;
-import static com.mcml.space.config.ConfigOptimize.messageOverloadMemory;
-import static com.mcml.space.config.ConfigOptimize.overloadMemoryRestartDelay;
-import static com.mcml.space.config.ConfigOptimize.overloadMemoryPercent;
-import static com.mcml.space.config.ConfigOptimize.overloadMemoryCancellable;
 
 /**
  * @author Vlvxingze, SotrForgotten
  */
-public class OverloadAction implements Runnable {
+public class OverLoadMemoryRestart implements Runnable {
     private int restartTaskId = -1;
     
     @Override
     public void run() {
-        if (overloadMemoryRestart && isMemoryOverload() && restartTaskId == -1) {
-            AzureAPI.bc(messageOverloadMemory);
+        if (ConfigOptimize.OverLoadMemoryRestartenable && isMemoryOverload() && restartTaskId == -1) {
+            AzureAPI.bc(ConfigOptimize.OverLoadMemoryRestartWarnMessage);
             val bsc = Bukkit.getServer().getScheduler();
 
             restartTaskId = bsc.runTaskLater(VLagger.MainThis, new Runnable() {
                 @Override
                 public void run() {
-                    Bukkit.shutdown();
+                    Utils.RestartServer();
                 }
-            }, AzureAPI.toTicks(TimeUnit.SECONDS, overloadMemoryRestartDelay)).getTaskId();
+            }, AzureAPI.toTicks(TimeUnit.SECONDS, ConfigOptimize.OverLoadMemoryRestartDelayTime)).getTaskId();
             
-            if (!overloadMemoryCancellable) return;
+            if (!ConfigOptimize.OverLoadMemoryRestartCanCancel) return;
             bsc.runTaskTimer(VLagger.MainThis, new Runnable() {
                 @Override
                 public void run() {
@@ -48,7 +46,7 @@ public class OverloadAction implements Runnable {
     
     public static boolean isMemoryOverload() {
         val run = Runtime.getRuntime();
-        return run.totalMemory() - run.freeMemory() > run.maxMemory() / 100 * overloadMemoryPercent;
+        return run.totalMemory() - run.freeMemory() > run.maxMemory() / 100 * ConfigOptimize.OverLoadMemoryRestartPercent;
     }
     
 }

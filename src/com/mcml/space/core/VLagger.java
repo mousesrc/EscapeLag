@@ -44,7 +44,7 @@ import com.mcml.space.optimize.ChunkKeeper;
 import com.mcml.space.optimize.ChunkUnloader;
 import com.mcml.space.optimize.NoSpawnChunks;
 import com.mcml.space.optimize.FireLimitor;
-import com.mcml.space.optimize.OverloadAction;
+import com.mcml.space.optimize.OverLoadMemoryRestart;
 import com.mcml.space.optimize.ItemClear;
 import com.mcml.space.optimize.NoCrowdEntity;
 import com.mcml.space.optimize.EmptyRestart;
@@ -178,7 +178,7 @@ public class VLagger extends JavaPlugin implements Listener {
         ChunkKeeper.ChunkKeeperofTask();
         AzurePlayerList.bind(this);
         getServer().getScheduler().runTaskTimer(this, new ChunkUnloader(), 0, ConfigOptimize.ChunkUnloaderInterval * 20);
-        Bukkit.getScheduler().runTaskTimer(this, new OverloadAction(), 1 * 60 * 20, 1 * 60 * 20);
+        Bukkit.getScheduler().runTaskTimer(this, new OverLoadMemoryRestart(), 1 * 60 * 20, 1 * 60 * 20);
         Bukkit.getScheduler().runTaskTimer(this, new TimerGarbageCollect(), ConfigOptimize.HeapClearPeriod * 20, ConfigOptimize.HeapClearPeriod * 20);
         Bukkit.getScheduler().runTaskAsynchronously(this, new NetWorker());
         Bukkit.getScheduler().runTaskTimer(this, new AntiFakeDeath(), 7 * 20, 7 * 20);
@@ -301,7 +301,7 @@ public class VLagger extends JavaPlugin implements Listener {
                         sender.sendMessage("§6区块清理完毕！");
                     }
                     if (args[1].equalsIgnoreCase("heapshut")) {
-                        getServer().getScheduler().runTask(this, new OverloadAction());
+                        getServer().getScheduler().runTask(this, new OverLoadMemoryRestart());
                         sender.sendMessage("§6成功检测一次内存濒临重启！");
                     }
                     if (args[1].equalsIgnoreCase("chunkunloadlog")) {
