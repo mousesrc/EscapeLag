@@ -37,7 +37,7 @@ import com.mcml.space.function.RespawnAction;
 import com.mcml.space.function.AutoUpdateCheck;
 import com.mcml.space.function.BlockCommander;
 import com.mcml.space.function.FarmProtecter;
-import com.mcml.space.function.NoEggChangeSpawner;
+import com.mcml.space.function.SpawnerController;
 import com.mcml.space.function.ExplosionController;
 import com.mcml.space.optimize.AntiRedstone;
 import com.mcml.space.optimize.AutoSave;
@@ -144,7 +144,7 @@ public class VLagger extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new AntiInfRail(), this);
         Bukkit.getPluginManager().registerEvents(new AutoSave(), this);
         Bukkit.getPluginManager().registerEvents(new FixDupeLogin(), this);
-        Bukkit.getPluginManager().registerEvents(new NoEggChangeSpawner(), this);
+        Bukkit.getPluginManager().registerEvents(new SpawnerController(), this);
         Bukkit.getPluginManager().registerEvents(new AntiDupeDropItem(), this);
         Bukkit.getPluginManager().registerEvents(new AntiDoorInfItem(), this);
         Bukkit.getPluginManager().registerEvents(new TeleportPreloader(), this);

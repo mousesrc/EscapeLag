@@ -30,11 +30,11 @@ public abstract class ConfigFunction extends Configurable {
     public static List<String> AntiSpamDirtyList = AzureAPI.newChainStringList().to("傻逼").to("智障").to("SB");
     
     @Node(path = "NoEggChangeSpawner.enable")
-    public static boolean NoEggChangeSpawnerenable = true;
+    public static boolean preventSpawnerModify = true;
     
     @Locale
     @Node(path = "NoEggChangeSpawner.TipMessage")
-    public static String NoEggChangeSpawnerTipMessage = "&c抱歉，禁止使用刷怪蛋修改刷怪笼";
+    public static String messagePreventSpawnerModify = "&c抱歉，禁止使用刷怪蛋修改刷怪笼";
     
     public static List<String[]> AntiSpamDirtyListStrings(){
     	List<String[]> DirtyListStrings = new ArrayList<String[]>();

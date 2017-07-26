@@ -15,6 +15,7 @@ import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permission;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -216,6 +217,14 @@ public class AzureAPI {
             super.add(e);
             return this;
         }
+    }
+    
+    public static boolean hasPerm(CommandSender sender, String perm) {
+        return sender.isOp() || sender.hasPermission(perm);
+    }
+    
+    public static boolean hasPerm(CommandSender sender, Permission perm) {
+        return sender.isOp() || sender.hasPermission(perm);
     }
 
 }
