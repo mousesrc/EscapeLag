@@ -37,7 +37,9 @@ public class TeleportPreloader implements Listener {
     protected static final boolean invulnerable = VersionLevel.isHigherEquals(Version.MINECRAFT_1_9_R1); // since 1.9
     
     public TeleportPreloader() {
-        if (VersionLevel.isHigherThan(Version.MINECRAFT_1_7_R4)) {
+    	System.out.println("插件获取到的版本" + VersionLevel.get());
+    	
+        if (VersionLevel.isHigherThan(Version.MINECRAFT_1_8_R1)) {
             useCache = true; // versions before this appear to be broken
             
             caches = CacheBuilder.newBuilder()

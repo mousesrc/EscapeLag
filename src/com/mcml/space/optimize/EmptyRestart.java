@@ -29,7 +29,7 @@ public class EmptyRestart implements Listener {
                 @Override
                 public void run(){
                     if (emptyRestartHookSpigot) {
-                        new org.spigotmc.RestartCommand("restart").execute(Bukkit.getConsoleSender(), null, null);
+                    	Bukkit.spigot().restart();
                     } else {
                         // handle by lanuch-script
                         Bukkit.shutdown();
