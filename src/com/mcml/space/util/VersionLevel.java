@@ -2,6 +2,7 @@ package com.mcml.space.util;
 
 import org.bukkit.Bukkit;
 
+import lombok.Getter;
 import lombok.val;
 
 /**
@@ -173,6 +174,6 @@ public class VersionLevel {
         MINECRAFT_1_4_R1,
         MINECRAFT_1_4_6,
         
-        UNKNOWN
+        UNKNOWN;
     }
 }
