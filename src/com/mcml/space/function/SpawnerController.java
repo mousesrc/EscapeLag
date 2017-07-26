@@ -28,14 +28,13 @@ public class SpawnerController implements Listener {
             return;
         }
         
-        val type = evt.getItem().getType();
-        if (type == Material.MOB_SPAWNER) {
+        if (evt.getClickedBlock().getType() == Material.MOB_SPAWNER) {
+            val type = evt.getItem().getType();
             if (type == Material.MONSTER_EGG || type == Material.MONSTER_EGGS) {
                 evt.setCancelled(true);
                 AzureAPI.log(player, messagePreventSpawnerModify);
             }
         }
     }
-    
     
 }
