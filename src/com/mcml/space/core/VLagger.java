@@ -11,7 +11,6 @@ import org.bukkit.Chunk;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -43,7 +42,7 @@ import com.mcml.space.optimize.AntiRedstone;
 import com.mcml.space.optimize.AutoSave;
 import com.mcml.space.optimize.ChunkKeeper;
 import com.mcml.space.optimize.ChunkUnloader;
-import com.mcml.space.optimize.ChunkUnloaderofListener;
+import com.mcml.space.optimize.NoSpawnChunks;
 import com.mcml.space.optimize.FireLimitor;
 import com.mcml.space.optimize.OverloadAction;
 import com.mcml.space.optimize.ItemClear;
@@ -140,7 +139,7 @@ public class VLagger extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new ExplosionController.EntityDetector(), this);
         Bukkit.getPluginManager().registerEvents(new AntiRedstone(), this);
         Bukkit.getPluginManager().registerEvents(new ItemClear(), this);
-        Bukkit.getPluginManager().registerEvents(new ChunkUnloaderofListener(), this);
+        Bukkit.getPluginManager().registerEvents(new NoSpawnChunks(), this);
         Bukkit.getPluginManager().registerEvents(new AntiInfRail(), this);
         Bukkit.getPluginManager().registerEvents(new AutoSave(), this);
         Bukkit.getPluginManager().registerEvents(new FixDupeLogin(), this);
@@ -179,7 +178,7 @@ public class VLagger extends JavaPlugin implements Listener {
         ChunkKeeper.ChunkKeeperofTask();
         AzurePlayerList.bind(this);
         getServer().getScheduler().runTaskTimer(this, new ChunkUnloader(), 0, ConfigOptimize.ChunkUnloaderInterval * 20);
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new OverloadAction(), 1 * 60 * 20, 1 * 60 * 20);
+        Bukkit.getScheduler().runTaskTimer(this, new OverloadAction(), 1 * 60 * 20, 1 * 60 * 20);
         Bukkit.getScheduler().runTaskTimer(this, new TimerGarbageCollect(), ConfigOptimize.HeapClearPeriod * 20, ConfigOptimize.HeapClearPeriod * 20);
         Bukkit.getScheduler().runTaskAsynchronously(this, new NetWorker());
         Bukkit.getScheduler().runTaskTimer(this, new AntiFakeDeath(), 7 * 20, 7 * 20);
@@ -195,7 +194,7 @@ public class VLagger extends JavaPlugin implements Listener {
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("updateon")) {
-                    FileConfiguration MainConfig = load(PluginMainConfigFile);
+                    FileConfiguration MainConfig = AzureAPI.loadOrCreate(PluginMainConfigFile);
                     MainConfig.set("AutoUpdate", true);
                     try {
                         MainConfig.save(PluginMainConfigFile);
@@ -381,7 +380,7 @@ public class VLagger extends JavaPlugin implements Listener {
     @SuppressWarnings("unused")
 	private void OldLoadConfig() {
     	this.saveResource("说明文档.txt", true);
-        FileConfiguration MainConfig = load(PluginMainConfigFile);
+        FileConfiguration MainConfig = AzureAPI.loadOrCreate(PluginMainConfigFile);
         if (MainConfig.getInt("Version") < 272) {
             MainConfig.set("Version", 272);
             MainConfig.set("PluginPrefix", "§a§l[Vlagger]");
@@ -392,7 +391,7 @@ public class VLagger extends JavaPlugin implements Listener {
         } catch (IOException ex) {
         }
 
-        FileConfiguration ClearLagConfig = load(optimizeConfiguration);
+        FileConfiguration ClearLagConfig = AzureAPI.loadOrCreate(optimizeConfiguration);
         if (ClearLagConfig.getInt("Version") < 272) {
             ClearLagConfig.set("Version", 272);
             ClearLagConfig.set("AutoSet.enable", true);
@@ -458,7 +457,7 @@ public class VLagger extends JavaPlugin implements Listener {
         }
         
 
-        FileConfiguration NoBugConfig = load(AntiBugConfigFile);
+        FileConfiguration NoBugConfig = AzureAPI.loadOrCreate(AntiBugConfigFile);
         if (NoBugConfig.getInt("Version") < 272) {
             NoBugConfig.set("Version", 272);
             NoBugConfig.set("AntiInfItem.enable", true);
@@ -484,7 +483,7 @@ public class VLagger extends JavaPlugin implements Listener {
             NoBugConfig.save(AntiBugConfigFile);
         } catch (IOException ex) {
         }
-        FileConfiguration EventConfig = load(functionConfiguation);
+        FileConfiguration EventConfig = AzureAPI.loadOrCreate(functionConfiguation);
         if (EventConfig.getInt("Version") < 272) {
             EventConfig.set("Version", 272);
             EventConfig.set("AntiSpam.enable", true);
@@ -542,7 +541,7 @@ public class VLagger extends JavaPlugin implements Listener {
         long heapmb = Runtime.getRuntime().maxMemory() / 1024 / 1024;
         File BukkitFile = new File("bukkit.yml");
         if (BukkitFile.exists()) {
-            FileConfiguration bukkit = load(BukkitFile);
+            FileConfiguration bukkit = AzureAPI.loadOrCreate(BukkitFile);
             File backupBukkitFile = new File("backup_bukkit.yml");
             if (backupBukkitFile.exists() == false) {
                 backupBukkitFile.createNewFile();
@@ -562,7 +561,7 @@ public class VLagger extends JavaPlugin implements Listener {
         }
         File SpigotFile = new File("spigot.yml");
         if (SpigotFile.exists()) {
-            FileConfiguration spigot = load(SpigotFile);
+            FileConfiguration spigot = AzureAPI.loadOrCreate(SpigotFile);
             File backupSpigotFile = new File("backup_spigot.yml");
             if (backupSpigotFile.exists() == false) {
                 backupSpigotFile.createNewFile();
@@ -608,7 +607,7 @@ public class VLagger extends JavaPlugin implements Listener {
         }
         File PaperFile = new File("paper.yml");
         if (PaperFile.exists()) {
-            FileConfiguration paper = load(PaperFile);
+            FileConfiguration paper = AzureAPI.loadOrCreate(PaperFile);
             File backupPaperFile = new File("backup_paper.yml");
             if (backupPaperFile.exists() == false) {
                 backupPaperFile.createNewFile();
@@ -626,7 +625,7 @@ public class VLagger extends JavaPlugin implements Listener {
             paper.save(PaperFile);
         }
         if (BukkitFile.exists()) {
-            FileConfiguration bukkit = load(BukkitFile);
+            FileConfiguration bukkit = AzureAPI.loadOrCreate(BukkitFile);
             if (bukkit.getInt("VLagger.SetStep") == 1) {
                 bukkit.set("VLagger.SetStep", 2);
                 try {
@@ -642,16 +641,6 @@ public class VLagger extends JavaPlugin implements Listener {
                 Bukkit.shutdown();
             }
         }
-    }
-
-    public static FileConfiguration load(File file) {
-        if (file.exists() == false) {
-            try {
-                file.createNewFile();
-            } catch (IOException ex) {
-            }
-        }
-        return YamlConfiguration.loadConfiguration(file);
     }
 
     @Override

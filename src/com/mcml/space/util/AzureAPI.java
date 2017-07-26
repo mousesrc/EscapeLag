@@ -1,7 +1,10 @@
 package com.mcml.space.util;
 
 import static com.mcml.space.util.VersionLevel.isPaper;
+import static com.mcml.space.util.CaseInsensitiveMap.toLowerCase;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +17,8 @@ import java.util.logging.Logger;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 
@@ -207,8 +212,49 @@ public class AzureAPI {
         return r;
     }
     
-    public static ChainArrayList<String> newChainStringList() { // TODO: any
-        return new ChainArrayList<>();
+    public static ChainArrayList<String> newChainStringList() {
+        return newChainStringList(true);
+    }
+    
+    @SuppressWarnings("serial")
+    public static ChainArrayList<String> newChainStringList(boolean caseInsensitive) { // TODO any
+        return caseInsensitive ? new ChainArrayList<String>() { 
+            @Override
+            public boolean contains(Object o) {
+                return super.contains(toLowerCase(o));
+            }
+            
+            @Override
+            public int indexOf(Object o) {
+                return super.indexOf(toLowerCase(o));
+            }
+            
+            @Override
+            public int lastIndexOf(Object o) {
+                return super.lastIndexOf(toLowerCase(o));
+            }
+            
+            @Override
+            public String set(int index, String element) {
+                return set(index, toLowerCase(element));
+            }
+            
+            @Override
+            public boolean add(String e) {
+                return super.add(toLowerCase(e));
+            }
+            
+            @Override
+            public void add(int index, String element) {
+                add(index, toLowerCase(element));
+            }
+            
+            @Override
+            public boolean remove(Object o) {
+                return super.remove(toLowerCase(o));
+            }
+            // TODO complete
+        } : new ChainArrayList<String>();
     }
     
     @SuppressWarnings("serial")
@@ -225,6 +271,18 @@ public class AzureAPI {
     
     public static boolean hasPerm(CommandSender sender, Permission perm) {
         return sender.isOp() || sender.hasPermission(perm);
+    }
+    
+    public static FileConfiguration loadOrCreate(File file) {
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException ignored) {
+                ;
+            }
+        }
+        
+        return YamlConfiguration.loadConfiguration(file);
     }
 
 }

@@ -112,5 +112,11 @@ public abstract class ConfigOptimize extends Configurable {
     public static boolean ChunkKeeperenable = true;
     
     @Node(path = "ChunkUnloader.enable")
-    public static boolean ChunkUnloaderenable = true;
+    public static boolean chunkUnloader = false;
+    
+    @Node(path = "chunks.no-spawn-chunks.enable")
+    public static boolean noSpawnChunks = true;
+    
+    @Node(path = "chunks.no-spawn-chunks.exclude-worlds")
+    public static List<String> nscExcludeWorlds = AzureAPI.newChainStringList().to("world");
 }

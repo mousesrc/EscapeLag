@@ -13,7 +13,7 @@ public class ChunkUnloader implements Runnable {
 
     @Override
     public void run() {
-        if (ConfigOptimize.ChunkUnloaderenable == true) {
+        if (ConfigOptimize.chunkUnloader == true) {
             List<World> worlds = Bukkit.getWorlds();
             int ws = worlds.size();
             for (int i = 0; i < ws; i++) {

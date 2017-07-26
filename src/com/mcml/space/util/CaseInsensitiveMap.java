@@ -20,7 +20,7 @@ public class CaseInsensitiveMap<V> implements Map<String, V> {
         map = concurrent ? new ConcurrentHashMap<String, V>() : new HashMap<String, V>();
     }
     
-    private static String toLowerCase(Object s) {
+    protected static String toLowerCase(Object s) {
         return ((String) s).toLowerCase();
     }
 

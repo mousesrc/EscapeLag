@@ -1,6 +1,5 @@
 package com.mcml.space.function;
 
-import java.io.*;
 import org.bukkit.configuration.file.*;
 import org.bukkit.entity.*;
 import org.bukkit.event.*;
@@ -16,7 +15,7 @@ public class BlockCommander implements Listener {
     public void CommanderBlocker(PlayerCommandPreprocessEvent event) {
         if (ConfigFunction.BlockCommanderenable == true) {
             Player p = event.getPlayer();
-            FileConfiguration config = load(VLagger.functionConfiguation); // TODO bad
+            FileConfiguration config = AzureAPI.loadOrCreate(VLagger.functionConfiguation);
             if (p.hasPermission("VLagger.admin") == true) {
                 return;
             }
@@ -25,15 +24,5 @@ public class BlockCommander implements Listener {
                 AzureAPI.log(p, config.getString("BlockCommander.List." + p.getWorld().getName() + "." + event.getMessage() + ".Message"));
             }
         }
-    }
-
-    private static FileConfiguration load(File file) { // TODO move to api
-        if (file.exists() == false) {
-            try {
-                file.createNewFile();
-            } catch (IOException ex) {
-            }
-        }
-        return YamlConfiguration.loadConfiguration(file);
     }
 }
