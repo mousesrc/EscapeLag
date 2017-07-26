@@ -48,8 +48,7 @@ public class OverloadAction implements Runnable {
     
     public static boolean isMemoryOverload() {
         val run = Runtime.getRuntime();
-        val max = run.maxMemory();
-        return max - run.totalMemory() > max / 100 * overloadMemoryPercent;
+        return run.totalMemory() - run.freeMemory() > run.maxMemory() / 100 * overloadMemoryPercent;
     }
     
 }
