@@ -1,6 +1,5 @@
 package com.mcml.space.optimize;
 
-
 import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
@@ -8,7 +7,6 @@ import org.bukkit.Bukkit;
 import com.mcml.space.config.ConfigOptimize;
 import com.mcml.space.core.VLagger;
 import com.mcml.space.util.AzureAPI;
-import com.mcml.space.util.Utils;
 
 import lombok.val;
 
@@ -27,7 +25,7 @@ public class OverLoadMemoryRestart implements Runnable {
             restartTaskId = bsc.runTaskLater(VLagger.MainThis, new Runnable() {
                 @Override
                 public void run() {
-                    Utils.RestartServer();
+                    AzureAPI.tryRestartServer();
                 }
             }, AzureAPI.toTicks(TimeUnit.SECONDS, ConfigOptimize.OverLoadMemoryRestartDelayTime)).getTaskId();
             

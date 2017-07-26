@@ -24,6 +24,7 @@ import org.bukkit.permissions.Permission;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.mcml.space.util.VersionLevel.Version;
 
 /**
  * @author SotrForgotten,Vlvxingze
@@ -273,8 +274,8 @@ public class AzureAPI {
         return sender.isOp() || sender.hasPermission(perm);
     }
     
-    public static FileConfiguration LoadAndCreateFile(File file) {
-        if (file.exists() == false) {
+    public static FileConfiguration loadOrCreateFile(File file) {
+        if (file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException ex) {
@@ -283,4 +284,12 @@ public class AzureAPI {
         return YamlConfiguration.loadConfiguration(file);
     }
 
+    public static void tryRestartServer(){
+        if (VersionLevel.isSpigot() | VersionLevel.isHigherEquals(Version.MINECRAFT_1_7_R1)) {
+            new org.spigotmc.RestartCommand("restart").execute(Bukkit.getConsoleSender(), null, null);
+        } else {
+            // handle by lanuch-script
+            Bukkit.shutdown();
+        }
+    }
 }

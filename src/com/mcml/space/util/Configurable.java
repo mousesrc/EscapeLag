@@ -29,7 +29,7 @@ public abstract class Configurable {
     
     public static void restoreNodes(File file, Class<? extends Configurable> clazz) throws IllegalArgumentException, IllegalAccessException, IOException {
         assert VLagger.MainThis != null;
-        val config = AzureAPI.LoadAndCreateFile(file);
+        val config = AzureAPI.loadOrCreateFile(file);
         
         for (Field field : clazz.getDeclaredFields()) {
             Node node = field.getAnnotation(Node.class);

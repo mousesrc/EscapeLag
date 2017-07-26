@@ -15,7 +15,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import com.mcml.space.core.VLagger;
 import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.AzurePlayerList;
-import com.mcml.space.util.Utils;
 
 /**
  * @author Vlvxingze, SotrForgotten
@@ -29,7 +28,7 @@ public class EmptyRestart implements Listener {
             restartTaskId = Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable(){
                 @Override
                 public void run(){
-                    Utils.RestartServer();
+                    AzureAPI.tryRestartServer();
                 }
             }, AzureAPI.toTicks(TimeUnit.SECONDS, emptyRestartDelay)).getTaskId();
         }

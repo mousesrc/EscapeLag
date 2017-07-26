@@ -194,7 +194,7 @@ public class VLagger extends JavaPlugin implements Listener {
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("updateon")) {
-                    FileConfiguration MainConfig = AzureAPI.LoadAndCreateFile(PluginMainConfigFile);
+                    FileConfiguration MainConfig = AzureAPI.loadOrCreateFile(PluginMainConfigFile);
                     MainConfig.set("AutoUpdate", true);
                     try {
                         MainConfig.save(PluginMainConfigFile);
@@ -380,7 +380,7 @@ public class VLagger extends JavaPlugin implements Listener {
     @SuppressWarnings("unused")
 	private void OldLoadConfig() {
     	this.saveResource("说明文档.txt", true);
-        FileConfiguration MainConfig = AzureAPI.LoadAndCreateFile(PluginMainConfigFile);
+        FileConfiguration MainConfig = AzureAPI.loadOrCreateFile(PluginMainConfigFile);
         if (MainConfig.getInt("Version") < 272) {
             MainConfig.set("Version", 272);
             MainConfig.set("PluginPrefix", "§a§l[Vlagger]");
@@ -391,7 +391,7 @@ public class VLagger extends JavaPlugin implements Listener {
         } catch (IOException ex) {
         }
 
-        FileConfiguration ClearLagConfig = AzureAPI.LoadAndCreateFile(optimizeConfiguration);
+        FileConfiguration ClearLagConfig = AzureAPI.loadOrCreateFile(optimizeConfiguration);
         if (ClearLagConfig.getInt("Version") < 272) {
             ClearLagConfig.set("Version", 272);
             ClearLagConfig.set("AutoSet.enable", true);
@@ -457,7 +457,7 @@ public class VLagger extends JavaPlugin implements Listener {
         }
         
 
-        FileConfiguration NoBugConfig = AzureAPI.LoadAndCreateFile(AntiBugConfigFile);
+        FileConfiguration NoBugConfig = AzureAPI.loadOrCreateFile(AntiBugConfigFile);
         if (NoBugConfig.getInt("Version") < 272) {
             NoBugConfig.set("Version", 272);
             NoBugConfig.set("AntiInfItem.enable", true);
@@ -483,7 +483,7 @@ public class VLagger extends JavaPlugin implements Listener {
             NoBugConfig.save(AntiBugConfigFile);
         } catch (IOException ex) {
         }
-        FileConfiguration EventConfig = AzureAPI.LoadAndCreateFile(functionConfiguation);
+        FileConfiguration EventConfig = AzureAPI.loadOrCreateFile(functionConfiguation);
         if (EventConfig.getInt("Version") < 272) {
             EventConfig.set("Version", 272);
             EventConfig.set("AntiSpam.enable", true);
@@ -541,7 +541,7 @@ public class VLagger extends JavaPlugin implements Listener {
         long heapmb = Runtime.getRuntime().maxMemory() / 1024 / 1024;
         File BukkitFile = new File("bukkit.yml");
         if (BukkitFile.exists()) {
-            FileConfiguration bukkit = AzureAPI.LoadAndCreateFile(BukkitFile);
+            FileConfiguration bukkit = AzureAPI.loadOrCreateFile(BukkitFile);
             File backupBukkitFile = new File("backup_bukkit.yml");
             if (backupBukkitFile.exists() == false) {
                 backupBukkitFile.createNewFile();
@@ -561,7 +561,7 @@ public class VLagger extends JavaPlugin implements Listener {
         }
         File SpigotFile = new File("spigot.yml");
         if (SpigotFile.exists()) {
-            FileConfiguration spigot = AzureAPI.LoadAndCreateFile(SpigotFile);
+            FileConfiguration spigot = AzureAPI.loadOrCreateFile(SpigotFile);
             File backupSpigotFile = new File("backup_spigot.yml");
             if (backupSpigotFile.exists() == false) {
                 backupSpigotFile.createNewFile();
@@ -607,7 +607,7 @@ public class VLagger extends JavaPlugin implements Listener {
         }
         File PaperFile = new File("paper.yml");
         if (PaperFile.exists()) {
-            FileConfiguration paper = AzureAPI.LoadAndCreateFile(PaperFile);
+            FileConfiguration paper = AzureAPI.loadOrCreateFile(PaperFile);
             File backupPaperFile = new File("backup_paper.yml");
             if (backupPaperFile.exists() == false) {
                 backupPaperFile.createNewFile();
@@ -625,7 +625,7 @@ public class VLagger extends JavaPlugin implements Listener {
             paper.save(PaperFile);
         }
         if (BukkitFile.exists()) {
-            FileConfiguration bukkit = AzureAPI.LoadAndCreateFile(BukkitFile);
+            FileConfiguration bukkit = AzureAPI.loadOrCreateFile(BukkitFile);
             if (bukkit.getInt("VLagger.SetStep") == 1) {
                 bukkit.set("VLagger.SetStep", 2);
                 try {

@@ -15,7 +15,7 @@ public class BlockCommander implements Listener {
     public void CommanderBlocker(PlayerCommandPreprocessEvent event) {
         if (ConfigFunction.BlockCommanderenable == true) {
             Player p = event.getPlayer();
-            FileConfiguration config = AzureAPI.LoadAndCreateFile(VLagger.functionConfiguation);
+            FileConfiguration config = AzureAPI.loadOrCreateFile(VLagger.functionConfiguation);
             if (p.hasPermission("VLagger.admin") == true) {
                 return;
             }
