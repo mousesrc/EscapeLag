@@ -44,7 +44,7 @@ public class TeleportPreloader implements Listener {
                     .maximumSize(Bukkit.getMaxPlayers() > 256 ? 256 : (Bukkit.getMaxPlayers() < 64 ? 64 : Bukkit.getMaxPlayers()))
                     .expireAfterWrite(5, TimeUnit.MINUTES)
                     .build();
-        } else AzureAPI.log("TeleportPreload的缓存没有启用, 当前服务端版本: " + VersionLevel.get());
+        }
     }
     
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
