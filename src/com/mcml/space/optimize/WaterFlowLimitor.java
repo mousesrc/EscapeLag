@@ -25,7 +25,7 @@ public class WaterFlowLimitor
 			Chunk chunk = block.getChunk();
 	        if (block.getType() == Material.STATIONARY_WATER || block.getType() == Material.STATIONARY_LAVA) {
 	            if(CheckFast(block.getChunk())){
-	            	Bukkit.broadcastMessage("触发了一次流水检查")
+	            	Bukkit.broadcastMessage("触发了一次流水检查");
 	            	if(CheckedTimes.get(chunk) == null){
 	        			CheckedTimes.put(chunk, 0);
 	        		}
