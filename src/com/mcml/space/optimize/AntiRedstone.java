@@ -29,16 +29,17 @@ public class AntiRedstone implements Listener {
 	
 	@EventHandler
 	public void CheckRedstone(BlockRedstoneEvent event){
-		Bukkit.broadcastMessage("红石监听器被触发！");
+		if(event.getOldCurrent() > event.getNewCurrent()){
+			return;
+		}
 		Block block = event.getBlock();
 		Location loc = block.getLocation();
 		if(CheckedTimes.get(loc) == null){
 			CheckedTimes.put(loc, 0);
 		}
 		CheckedTimes.put(loc, CheckedTimes.get(loc) + 1);
-		Bukkit.broadcastMessage("当前阀值" + CheckedTimes.get(loc) + "配置限制阀值" + ConfigOptimize.AntiRedstoneTimes);
 		if(CheckedTimes.get(loc) > ConfigOptimize.AntiRedstoneTimes){
-			Bukkit.broadcastMessage("超出阀值！");
+			Bukkit.broadcastMessage(ConfigOptimize.AntiRedstoneRemoveBlockList + "");
 			if(ConfigOptimize.AntiRedstoneRemoveBlockList.contains(block.getType().name())){
 				block.setType(Material.AIR);
 				String message = ConfigOptimize.AntiRedstoneMessage;

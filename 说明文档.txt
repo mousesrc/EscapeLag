@@ -1,0 +1,174 @@
+欢迎来到配置指南！
+首先感谢您使用了 VLagger 插件。
+该插件是一款 集成优化、修复漏洞、限制动作、高算法效率 的技术性为主的优化插件。
+
+查阅该指南即可将你的Config.yml文件配置正确，
+如果您在配置中或者使用中有疑问或Bug反馈，请联系 QQ 1207223090 来获取帮助。
+
+需要注意的是：本插件第一次放入服务器可能会重启一次您的服务器，
+这不是插件导致服务器崩溃，而是插件重启来应用插件保存的数值。
+
+祝您玩的愉快~
+
+1.准备服务器
+本插件与其他插件不同，本插件将自动匹配服务器编码来生成配置。
+无需担心乱码问题，您的编辑也请遵循配置编码规则。
+为了给服务器实现自动重启，请给自己的服务器设立自动重启脚本。
+如果您的服务器是网页面板操控服务器，则无需担心这一点。
+如果您的服务器是VPS，则在启动服务端脚本中加入自重启脚本。
+如果您不会加入自重启脚本，请参考帖子：XXXXXXXXXX
+提示：如果你的提示信息选项输入了“”或 '' (留空但需要保持引号)，那么意味着你关闭了这个提示信息。
+
+2.PluginMainConfig —— 为插件的主要工作
+PluginPrefix: "§a[Vlagger]" #插件的提示信息的前缀文字。
+AutoUpdate: false #是否进行自动更新，每当服务器开启，插件都将检测自动更新，推荐开启。
+
+3.ClearLagConfig —— 为插件的优化模块配置
+HeapShut: #濒临重启功能
+  enable: true #是否在服务器内存过载的时候进行重启
+  Percent: 90 #当服务器内存达到多少百分比的时候进行重启
+  WarnMessage: "服务器会在15秒后重启，请玩家不要游戏，耐心等待！ ╮(╯_╰)╭" #当重启前的警告信息
+  WaitingTime: 15 #提示信息过后多少秒进行重启操作
+TPSSleep: #是否进行TPS休眠，强制压低TPS来降低CPU使用率
+  enable: false #是否开启TPS休眠
+  Period: 10 #每1TICK休眠多少毫秒。
+AutoSet: #是否开启自动配端
+  enable: true #是否开启自动配端
+AutoSave: #优化算法的保存技术
+  enable: true #是否开启优化算法的保存技术
+  Interval: 15 #每过多少秒进行一次保存
+ClearItem: #自动清理垃圾掉落物品
+  enable: true #是否开启这项设定
+NooneRestart: #服务器无人重启
+  enable: true #是否在服务器无人时进行重启操作
+  CheckInterval: 6000 #每次检查间隔时间（秒）
+ChunkKeeper: #区块保持者
+  enable: true #是否将有玩家常驻的区块进行永久保存
+ChunkUnloader: #区块卸载清理内存
+  enable: true #是否卸载区块来清理内存
+  Interval: 30 #每次清理检查间隔多长时间（秒）
+NoCrowdedEntity: #反密集实体
+  enable: true #是否开启
+  PerChunkLimit: 30 #每个区块允许多少个实体存在
+  TypeList: #会被计数、清理的实体类型
+  - ZOMBIE #比如这只就是僵尸，写入时请全大写，支持MOD怪物名字。
+  - SKELETON
+  - SPIDER
+  - CREEPER
+  - SHEEP
+  - PIG
+  - CHICKEN
+TilesClear: #清理无用Tiles
+  enable: true #是否定期清理无用Tiles
+  Interval: 360 #每次清理的间隔时间（秒）
+  Message: "§e服务器清理Tiles完毕 ~(@^_^@)~"
+NoExplode: #是否防止爆炸
+  enable: true #是否进行防止爆炸
+  Type: NoBlockBreak #NoUse 不进行防护 NoBlockBreak 爆炸不破坏方块 NoExplode 禁止任何爆炸产生
+AntiRedstone: #防御高频红石
+  enable: true #是否进行防御
+  Interval: 500 #同一个红石线路多少毫秒允许执行一次通电
+  Message: "§c检测到高频红石在 %location% ，插件已经将其清除，不许玩了！ (╰_╯)#" #当检测到高频红石时，全服公告的提示信息。%location%为变量指示高频位置。
+HeapClear: #显性内存清理
+  enable: false #是否开启这项功能
+  Period: 600 #每次清理的间隔是多少（秒）
+  Message: "§e服务器清理内存中... ԅ(¯ㅂ¯ԅ)" #清理时的提示信息是什么
+TeleportPreLoader: #区块预加载
+  enable: true #是否开启区块预加载
+WaterFlowLimitor: #流水限制
+  enable: true #是否开启高空、大量流水限制
+  Period: 200 #每多少毫秒允许一次流水
+FireLimitor: #火焰限制
+  enable: true #是否限制火焰蔓延
+  Period: 3000 #每多少毫秒允许一次火焰蔓延
+WorldSpawnLimitor: #世界生物生成限制
+  worldname: #世界名字
+    enable: true #是否开启限制
+    PerChunkMonsters: 3 #每个区块允许多少个怪物生成
+    PerChunkAnimals: 3 #每个区块允许多少个动物生成
+    PerChunkAmbient: 10 #每个区块周围允许多少个攻击性生物生成
+
+4.AntiBugConfig —— 为修复漏洞（包括MC漏洞和部分插件漏洞）配置文件\
+AntiCrashChat:
+  enable: true #是否防御崩服代码
+  SpecialStringWarnMessage: §c严禁使用崩服代码炸服！ #当玩家被拦截的时候的提示信息
+  ColorChatWarnMessage: §c抱歉！为了防止服务器被破坏，服务器禁止使用颜色代码. #当玩家被禁止使用ESS颜色字符时的提示信息
+AntiBoneBug:
+  enable: true #是否防御骨粉树苗BUG（顶掉牌子/骨粉刷物品）
+  WarnMessage: §c严禁卡树苗催熟BUG！ #当玩家被阻止时的提示信息
+AntiFakeDeath:
+  KickMessage: §c严禁卡假死BUG！ #当玩家被反假死踢出游戏的信息
+  enable: true #是否开启反假死
+AntiInfItem: #反负数物品
+  enable: true #是否禁止负数物品的产生和使用
+AntiPortalInfItem: #地狱门传送刷物品
+  enable: true #是否禁止矿车们通过地狱门
+AntiNetherHopperInfItem: #地狱漏洞刷物品
+  enable: true #是否禁止漏斗在地狱的运行
+AntiRPGITEM: #RPGITEM刷物品BUG
+  enable: true #如果您的服务器安装了RPGITEM，请开启本设定
+AntiCrashSign: #崩服木牌
+  enable: true #是否防御崩服木牌BUG
+AntiSkullCrash: #崩服头颅
+  enable: true #是否禁止活塞或其他使得头颅移动崩服
+NoDoubleOnline: #大小号登入修复
+  enable: true #是否禁止同一个ID的不同大小写登入游戏
+  KickMessage: "抱歉，服务器中您已经在线了。ԅ(¯ㅂ¯ԅ)"
+AntiDupeDropItem: #假死刷物品
+  enable: true #是否防御假死刷物品
+AntiDoorInfItem: #甘蔗门BUG
+  enable: true #是否防御甘蔗门刷甘蔗、仙人掌BUG
+AntiCheatBook: #反书与笔无敌BUG
+  enable: true #是否防御书与笔BUG
+  WarnMessage: "§c严禁利用超级书Bug！"
+AntiBedExplode: #防止床在地狱、末地爆炸导致的领地破坏
+  enable: true #是否禁止床在地狱、末地交互
+AntiBreakUseingChest: #实体卡成虚体BUG
+  enable: true #是否禁止玩家破坏一个正在使用的容器
+AntiInfRail: #无限铁轨BUG
+  enable: true #是否防御无限铁轨BUG
+
+5.DoEventConfig.yml —— 为限制动作模块配置
+Version: 256 #版本号，请勿修改
+AntiSpam:
+  enable: true #是否开启反刷屏/反脏话
+  Period: #间隔设定
+    Period: 2 #每隔多少秒允许一次发言
+    WarnMessage: §c请慢点说话，别激动嘛！ _(:з」∠)_ #当玩家被禁止说话的提示信息
+  Dirty: #是否反脏话
+    List: #脏话列表
+    - 操你妈
+    - 妈逼
+    - SB
+    - 弱智
+    - 智障
+    - 杂种
+    - 狗娘
+    WarnMessage: §c什么事情激动得你都想骂人啦？ #当玩家骂人被阻止的时候提示信息
+ProtectFarm:
+  enable: true #是否阻止怪物或玩家破坏他人农田
+NoEggChangeSpawner: #禁止刷怪蛋修改刷怪笼类型
+  enable: true #是否禁止刷怪蛋点击刷怪笼
+BlockCommander: #命令禁止者（多世界）该配置对OP无效
+  enable: true #是否禁止命令在不同世界的设定
+  List: #配置列表
+    NoSpawnWorld: #世界名字
+      /spawn: #禁止的命令
+        Message: "想在这个世界回城？没门！" #被禁止命令的时候的提示信息
+    worldname: #世界名字
+      /back: #禁止的命令
+        Message: "不好使，不可以用back!"
+      /tpa: #禁止的命令
+        Message: "WIFI没信号，不能传送。"
+AutoRespawn: #自动复活
+  enable: true #是否自动复活玩家
+  RespawnTitle: #复活文字
+    enable: true #是否在复活时屏幕中央显示文字（仅1.8.8+）
+    MainMessage: "§e你死了！" #大标题文字
+    MiniMessage: "§c已为您自动复活！" #小标题文字
+
+感谢您对 VLagger 插件的支持，本插件由PCD小组全员开发。
+您可以随时查阅本插件的发布帖子在MCBBS（或ZUIMC论坛）：
+http://www.mcbbs.net/forum.php?mod=viewthread&tid=703929
+
+Have A Good Time! XD!
