@@ -14,7 +14,7 @@ public abstract class ConfigOptimize extends Configurable {
     public static long ChunkUnloaderInterval = 30;
     
     @Node(path = "WaterFlowLimitor.enable")
-    public static boolean WaterFlowLimitorenable;
+    public static boolean WaterFlowLimitorenable = true;
     
     @Node(path = "WaterFlowLimitor.PerChunkTimes")
     public static long WaterFlowLimitorPerChunkTimes = 2;

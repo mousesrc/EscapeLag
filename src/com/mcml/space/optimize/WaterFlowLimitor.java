@@ -2,6 +2,7 @@ package com.mcml.space.optimize;
 
 import java.util.HashMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -24,6 +25,7 @@ public class WaterFlowLimitor
 			Chunk chunk = block.getChunk();
 	        if (block.getType() == Material.STATIONARY_WATER || block.getType() == Material.STATIONARY_LAVA) {
 	            if(CheckFast(block.getChunk())){
+	            	Bukkit.broadcastMessage("触发了一次流水检查")
 	            	if(CheckedTimes.get(chunk) == null){
 	        			CheckedTimes.put(chunk, 0);
 	        		}

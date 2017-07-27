@@ -1,13 +1,10 @@
 package com.mcml.space.optimize;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.World;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,29 +20,6 @@ public class AutoSave implements Listener {
     private HashMap<Player, Integer> TaskId = new HashMap<Player, Integer>();
     private static HashMap<Player, Chunk> PlayerInChunkMap = new HashMap<Player, Chunk>();
     private static HashMap<Player, Chunk> PlayerClickedMap = new HashMap<Player, Chunk>();
-
-    public AutoSave() {
-        String ver = Bukkit.getVersion();
-        VLagger.MainThis.getLogger().info("您的服务器版本为:" + ver);
-        boolean isCannotSave = false;
-        File BukkitFile = new File("bukkit.yml");
-        YamlConfiguration bukkit = YamlConfiguration.loadConfiguration(BukkitFile);
-        if (ver.contains("1.7.10")) {
-            isCannotSave = false;//测试：在1.7.10开启自动保存
-        }
-        if (isCannotSave != true) {
-            if (BukkitFile.exists()) {
-                bukkit.set("ticks-per.autosave", 0);
-            }
-        } else {
-            VLagger.MainThis.getLogger().info("警告！您的服务器版本为一个不支持自动储存的版本，为您恢复为默认存储方式！");
-            bukkit.set("ticks-per.autosave", 6000);
-        }
-        try {
-            bukkit.save(BukkitFile);
-        } catch (IOException e) {
-        }
-    }
 
     @EventHandler
     public void JoinTaskGiver(PlayerJoinEvent e) {
