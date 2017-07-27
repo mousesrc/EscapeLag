@@ -2,6 +2,7 @@ package com.mcml.space.optimize;
 
 import java.util.HashMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -10,13 +11,22 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFromToEvent;
 
 import com.mcml.space.config.ConfigOptimize;
+import com.mcml.space.core.VLagger;
 
 public class WaterFlowLimitor
         implements Listener {
 	
 	private final static HashMap<Chunk, Long> ChunkLastTime = new HashMap<Chunk, Long>();
 	private final static HashMap<Chunk, Integer> CheckedTimes = new HashMap<Chunk, Integer>();
-
+	
+	public WaterFlowLimitor(){
+		Bukkit.getScheduler().runTaskTimer(VLagger.MainThis, new Runnable(){
+			public void run(){
+				CheckedTimes.clear();
+			}
+		}, 7 * 20, 7 * 20);
+	}
+	
 	@EventHandler
     public void WaterFowLimitor(BlockFromToEvent event) {
 		if(ConfigOptimize.WaterFlowLimitorenable == true){
