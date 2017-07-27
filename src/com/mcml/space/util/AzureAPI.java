@@ -14,7 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -84,12 +83,16 @@ public class AzureAPI {
         Bukkit.shutdown();
     }
     
+    public static boolean isBlank(final String s) {
+        return s.equals("");
+    }
+    
     public static void warn(final String context) {
         warn(loggerPrefix, context);
     }
     
     public static void warn(final String prefix, final String context) {
-        if (StringUtils.isBlank(context)) return;
+        if (isBlank(context)) return;
         Bukkit.getLogger().warning(prefix + context);
     }
     
@@ -98,7 +101,7 @@ public class AzureAPI {
     }
 
     public static void log(final String prefix, final String context) {
-        if (StringUtils.isBlank(context)) return;
+        if (isBlank(context)) return;
         Bukkit.getConsoleSender().sendMessage(prefix + context);
     }
 
@@ -107,7 +110,7 @@ public class AzureAPI {
     }
 
     public static void log(final CommandSender sender, final String prefix, final String msg) {
-        if (StringUtils.isBlank(msg)) return;
+        if (isBlank(msg)) return;
         sender.sendMessage(prefix + msg);
     }
     
@@ -116,7 +119,7 @@ public class AzureAPI {
     }
     
     public static void bc(final String prefix, final String context) {
-        if (StringUtils.isBlank(context)) return;
+        if (isBlank(context)) return;
         Bukkit.broadcastMessage(prefix + context);
     }
 
