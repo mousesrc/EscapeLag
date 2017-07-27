@@ -15,6 +15,7 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -294,5 +295,9 @@ public class AzureAPI {
             // handle by lanuch-script
             Bukkit.shutdown();
         }
+    }
+    
+    public static void playSound(Player player, Sound sound) {
+        player.playSound(player.getLocation(), sound, 1F, 1F);
     }
 }
