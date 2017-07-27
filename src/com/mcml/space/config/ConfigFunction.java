@@ -1,6 +1,5 @@
 package com.mcml.space.config;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.mcml.space.util.AzureAPI;
@@ -27,8 +26,7 @@ public abstract class ConfigFunction extends Configurable {
 	public static String AntiSpamPeriodWarnMessage = "§c请慢点说话，别激动嘛！ _(:з」∠)_";
 
 	@Node(path = "AntiSpam.Dirty.List")
-	public static List<String> AntiSpamDirtyList = AzureAPI.newChainStringList(false).to("ZOMBIE").to("SKELETON")
-			.to("SPIDER").to("CREEPER").to("SHEEP").to("PIG").to("CHICKEN");
+	public static List<String> AntiSpamDirtyList = AzureAPI.newChainStringList(false).to("智障").to("傻逼").to("儿子");
 
 	@Node(path = "NoEggChangeSpawner.enable")
 	public static boolean preventSpawnerModify = true;
@@ -36,22 +34,6 @@ public abstract class ConfigFunction extends Configurable {
 	@Locale
 	@Node(path = "NoEggChangeSpawner.TipMessage")
 	public static String messagePreventSpawnerModify = "&c抱歉，禁止使用刷怪蛋修改刷怪笼";
-
-	public static List<String[]> AntiSpamDirtyListStrings() {
-		List<String[]> DirtyListStrings = new ArrayList<String[]>();
-		List<String> DirtyList = ConfigFunction.AntiSpamDirtyList;
-		int ds = DirtyList.size();
-		for (int i = 0; i < ds; i++) {
-			String thisdirty = DirtyList.get(i);
-			int tdl = thisdirty.length();
-			String[] thisdirtystrings = new String[tdl];
-			for (int ii = 0; ii < tdl; ii++) {
-				thisdirtystrings[ii] = thisdirty.substring(ii, ii + 1);
-			}
-			DirtyListStrings.add(thisdirtystrings);
-		}
-		return DirtyListStrings;
-	}
 
 	@Node(path = "BlockCommander.enable")
 	public static boolean BlockCommanderenable = true;

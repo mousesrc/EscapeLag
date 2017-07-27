@@ -1,8 +1,7 @@
 package com.mcml.space.function;
 
 import java.util.HashMap;
-import java.util.List;
-
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -47,22 +46,14 @@ public class AntiSpam implements Listener {
             if (p.hasPermission("VLagger.bypass.Spam")) {
                 return;
             }
-            List<String[]> DirtyListStrings = ConfigFunction.AntiSpamDirtyListStrings();
-            int dlsl = DirtyListStrings.size();
-            for(int i = 0;i<dlsl;i++){
-            	String[] thisdirty = DirtyListStrings.get(i);
-            	int DirtyTimes = 0;
-            	int tdl = thisdirty.length;
-            	for(int ii = 0;ii<tdl;ii++){
-            		if(message.contains(thisdirty[ii])){
-            			DirtyTimes++;
-            		}
-            	}
-            	if(DirtyTimes >= tdl){
-            		event.setCancelled(true);
+            
+            for (String each : ConfigFunction.AntiSpamDirtyList) {
+                if (StringUtils.containsAny(message, each)) {
+                    event.setCancelled(true);
                     AzureAPI.log(p, ConfigFunction.AntiSpamDirtyWarnMessage);
-            	}
+                }
             }
+            
         }
     }
 }
