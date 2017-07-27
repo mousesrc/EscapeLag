@@ -11,8 +11,8 @@ import com.mcml.space.util.AzureAPI;
 
 import lombok.val;
 
-import static com.mcml.space.config.ConfigFunction.preventSpawnerModify;
-import static com.mcml.space.config.ConfigFunction.messagePreventSpawnerModify;
+import static com.mcml.space.config.Functions.preventSpawnerModify;
+import static com.mcml.space.config.Functions.messagePreventSpawnerModify;
 
 /**
  * @author Vlvxingze

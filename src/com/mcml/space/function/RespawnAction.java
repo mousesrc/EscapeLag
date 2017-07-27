@@ -9,10 +9,10 @@ import com.mcml.space.core.VLagger;
 
 import lombok.val;
 
-import static com.mcml.space.config.ConfigFunction.canAutoRespawn;
-import static com.mcml.space.config.ConfigFunction.sendTitleAutoRespawn;
-import static com.mcml.space.config.ConfigFunction.titleAutoRespawn;
-import static com.mcml.space.config.ConfigFunction.subtitleAutoRespawn;
+import static com.mcml.space.config.Functions.canAutoRespawn;
+import static com.mcml.space.config.Functions.sendTitleAutoRespawn;
+import static com.mcml.space.config.Functions.titleAutoRespawn;
+import static com.mcml.space.config.Functions.subtitleAutoRespawn;
 
 /**
  * @author Vlvxingze, SotrForgotten

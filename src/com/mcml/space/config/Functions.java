@@ -6,7 +6,7 @@ import java.util.List;
 import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.Configurable;
 
-public abstract class ConfigFunction extends Configurable {
+public abstract class Functions extends Configurable {
 	@Node(path = "NooneRestart.enable")
 	public static boolean emptyRestart = false;
 
@@ -27,8 +27,7 @@ public abstract class ConfigFunction extends Configurable {
 	public static String AntiSpamPeriodWarnMessage = "§c请慢点说话，别激动嘛！ _(:з」∠)_";
 
 	@Node(path = "AntiSpam.Dirty.List")
-	public static List<String> AntiSpamDirtyList = AzureAPI.newChainStringList(false).to("ZOMBIE").to("SKELETON")
-			.to("SPIDER").to("CREEPER").to("SHEEP").to("PIG").to("CHICKEN");
+	public static List<String> AntiSpamDirtyList = AzureAPI.newChainStringList().to("S?B");
 
 	@Node(path = "NoEggChangeSpawner.enable")
 	public static boolean preventSpawnerModify = true;
@@ -39,7 +38,7 @@ public abstract class ConfigFunction extends Configurable {
 
 	public static List<String[]> AntiSpamDirtyListStrings() {
 		List<String[]> DirtyListStrings = new ArrayList<String[]>();
-		List<String> DirtyList = ConfigFunction.AntiSpamDirtyList;
+		List<String> DirtyList = Functions.AntiSpamDirtyList;
 		int ds = DirtyList.size();
 		for (int i = 0; i < ds; i++) {
 			String thisdirty = DirtyList.get(i);

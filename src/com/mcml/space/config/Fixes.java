@@ -6,7 +6,7 @@ import com.mcml.space.util.Configurable;
 import com.mcml.space.util.VersionLevel;
 import com.mcml.space.util.VersionLevel.Version;
 
-public abstract class ConfigFixing extends Configurable {
+public abstract class Fixes extends Configurable {
     @Node(path = "AntiBoneBug.enable") // issue-fixer.bonemeal-inf-item
     public static boolean safetyBonemeal = true;
     

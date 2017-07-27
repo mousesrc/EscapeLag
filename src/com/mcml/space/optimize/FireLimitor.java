@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
 
-import com.mcml.space.config.ConfigOptimize;
+import com.mcml.space.config.Optimizes;
 
 public class FireLimitor implements Listener {
     // TODO tied to tick
@@ -17,7 +17,7 @@ public class FireLimitor implements Listener {
 
     @EventHandler
     public void WhenFireLimitor(BlockIgniteEvent event) {
-        if (ConfigOptimize.FireLimitorenable == true) {
+        if (Optimizes.FireLimitorenable == true) {
             if (event.getCause() == IgniteCause.FLINT_AND_STEEL) {
                 return;
             }
@@ -32,7 +32,7 @@ public class FireLimitor implements Listener {
 
     private static boolean CheckFast(Chunk chunk) {
         if (ChunkChecked.containsKey(chunk)) {
-            return (ChunkChecked.get(chunk).longValue() + ConfigOptimize.FireLimitorPeriod > System
+            return (ChunkChecked.get(chunk).longValue() + Optimizes.FireLimitorPeriod > System
                     .currentTimeMillis());
         }
         return false;

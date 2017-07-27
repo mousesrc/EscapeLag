@@ -5,7 +5,7 @@ import org.bukkit.entity.*;
 import org.bukkit.event.*;
 import org.bukkit.event.player.*;
 
-import com.mcml.space.config.ConfigFunction;
+import com.mcml.space.config.Functions;
 import com.mcml.space.core.VLagger;
 import com.mcml.space.util.AzureAPI;
 
@@ -13,7 +13,7 @@ public class BlockCommander implements Listener {
 
     @EventHandler
     public void CommanderBlocker(PlayerCommandPreprocessEvent event) {
-        if (ConfigFunction.BlockCommanderenable == true) {
+        if (Functions.BlockCommanderenable == true) {
             Player p = event.getPlayer();
             FileConfiguration config = AzureAPI.loadOrCreateFile(VLagger.functionConfiguation);
             if (p.hasPermission("VLagger.admin") == true) {

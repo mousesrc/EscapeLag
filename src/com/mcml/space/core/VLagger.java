@@ -14,10 +14,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-import com.mcml.space.config.ConfigFixing;
-import com.mcml.space.config.ConfigOptimize;
-import com.mcml.space.config.ConfigFunction;
-import com.mcml.space.config.ConfigMain;
+import com.mcml.space.config.Fixes;
+import com.mcml.space.config.Optimizes;
+import com.mcml.space.config.Functions;
+import com.mcml.space.config.Settings;
 import com.mcml.space.fix.AntiBedExplode;
 import com.mcml.space.fix.AntiBoneBug;
 import com.mcml.space.fix.AntiCrashSign;
@@ -80,7 +80,7 @@ public class VLagger extends JavaPlugin implements Listener {
         PluginFile = this.getFile();
         LoadConfig();
         
-        AzureAPI.setPrefix(ConfigMain.PluginPrefix + ChatColor.RESET + " > ");
+        AzureAPI.setPrefix(Settings.PluginPrefix + ChatColor.RESET + " > ");
         AzureAPI.log("VLagger —— 新一代的优化/稳定插件");
         AzureAPI.log("~(@^_^@)~ 玩的开心！~");
         
@@ -92,7 +92,7 @@ public class VLagger extends JavaPlugin implements Listener {
         
         AzureAPI.log("开始加载插件模块中...");
         
-        if (ConfigOptimize.AutoSetenable == true) {
+        if (Optimizes.AutoSetenable == true) {
             try {
                 VLagger.AutoSetServer();
             } catch (IOException | InterruptedException e) {
@@ -127,8 +127,8 @@ public class VLagger extends JavaPlugin implements Listener {
         if (VersionLevel.isSpigot()) {
             Bukkit.getPluginManager().registerEvents(new RespawnAction(), this);
         }
-        if (ConfigFunction.emptyRestart) {
-            if (ConfigFunction.emptyRestartHookSpigot) {
+        if (Functions.emptyRestart) {
+            if (Functions.emptyRestartHookSpigot) {
                 if (VersionLevel.isSpigot()) Bukkit.getPluginManager().registerEvents(new EmptyRestart(), this);
             } else {
                 Bukkit.getPluginManager().registerEvents(new EmptyRestart(), this);
@@ -142,9 +142,9 @@ public class VLagger extends JavaPlugin implements Listener {
         }
         
         ChunkKeeper.ChunkKeeperofTask();
-        getServer().getScheduler().runTaskTimer(this, new ChunkUnloader(), 0, ConfigOptimize.ChunkUnloaderInterval * 20);
+        getServer().getScheduler().runTaskTimer(this, new ChunkUnloader(), 0, Optimizes.ChunkUnloaderInterval * 20);
         Bukkit.getScheduler().runTaskTimer(this, new OverLoadMemoryRestart(), 1 * 60 * 20, 1 * 60 * 20);
-        Bukkit.getScheduler().runTaskTimer(this, new TimerGarbageCollect(), ConfigOptimize.HeapClearPeriod * 20, ConfigOptimize.HeapClearPeriod * 20);
+        Bukkit.getScheduler().runTaskTimer(this, new TimerGarbageCollect(), Optimizes.HeapClearPeriod * 20, Optimizes.HeapClearPeriod * 20);
         Bukkit.getScheduler().runTaskAsynchronously(this, new NetWorker());
         Bukkit.getScheduler().runTaskTimer(this, new AntiFakeDeath(), 7 * 20, 7 * 20);
         
@@ -175,7 +175,7 @@ public class VLagger extends JavaPlugin implements Listener {
                         MainConfig.save(PluginMainConfigFile);
                     } catch (IOException ex) {
                     }
-                    ConfigMain.AutoUpdate = true;
+                    Settings.AutoUpdate = true;
                     sender.sendMessage("§a§l[VLagger]§b已经成功开启自动更新！");
                 }
                 if (args[0].equalsIgnoreCase("help")) {
@@ -328,25 +328,25 @@ public class VLagger extends JavaPlugin implements Listener {
     	this.saveResource("说明文档.txt", true);
     	
     	try {
-            Configurable.restoreNodes(PluginMainConfigFile, ConfigMain.class);
+            Configurable.restoreNodes(PluginMainConfigFile, Settings.class);
         } catch (IllegalArgumentException | IllegalAccessException | IOException e) {
             e.printStackTrace();
         }
     	
     	try {
-            Configurable.restoreNodes(optimizeConfiguration, ConfigOptimize.class);
+            Configurable.restoreNodes(optimizeConfiguration, Optimizes.class);
         } catch (IllegalArgumentException | IllegalAccessException | IOException e) {
             e.printStackTrace();
         }
         
         try {
-            Configurable.restoreNodes(AntiBugConfigFile, ConfigFixing.class);
+            Configurable.restoreNodes(AntiBugConfigFile, Fixes.class);
         } catch (IllegalArgumentException | IllegalAccessException | IOException e) {
             e.printStackTrace();
         }
         
         try {
-            Configurable.restoreNodes(functionConfiguation, ConfigFunction.class);
+            Configurable.restoreNodes(functionConfiguation, Functions.class);
         } catch (IllegalArgumentException | IllegalAccessException | IOException e) {
             e.printStackTrace();
         }
@@ -494,19 +494,19 @@ public class VLagger extends JavaPlugin implements Listener {
         }
         
         try {
-            Configurable.restoreNodes(optimizeConfiguration, ConfigOptimize.class);
+            Configurable.restoreNodes(optimizeConfiguration, Optimizes.class);
         } catch (IllegalArgumentException | IllegalAccessException | IOException e) {
             e.printStackTrace();
         }
         
         try {
-            Configurable.restoreNodes(AntiBugConfigFile, ConfigFixing.class);
+            Configurable.restoreNodes(AntiBugConfigFile, Fixes.class);
         } catch (IllegalArgumentException | IllegalAccessException | IOException e) {
             e.printStackTrace();
         }
         
         try {
-            Configurable.restoreNodes(functionConfiguation, ConfigFunction.class);
+            Configurable.restoreNodes(functionConfiguation, Functions.class);
         } catch (IllegalArgumentException | IllegalAccessException | IOException e) {
             e.printStackTrace();
         }

@@ -8,19 +8,19 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.StructureGrowEvent;
 
-import com.mcml.space.config.ConfigFixing;
+import com.mcml.space.config.Fixes;
 
 public class AntiBoneBug implements Listener {
 
     @EventHandler
     public void TreeGrowChecker(StructureGrowEvent event) {
-        if (ConfigFixing.safetyBonemeal) {
+        if (Fixes.safetyBonemeal) {
             Location loc = event.getLocation();
             Block block = loc.getBlock();
             if (block.getRelative(BlockFace.UP).getType() != Material.AIR) {
                 event.setCancelled(true);
                 if (event.getPlayer() != null) {
-                    event.getPlayer().sendMessage(ConfigFixing.messageBonemeal);
+                    event.getPlayer().sendMessage(Fixes.messageBonemeal);
                 }
             }
         }
@@ -28,11 +28,11 @@ public class AntiBoneBug implements Listener {
 
     @EventHandler
     public void BoneGrowBlocker(StructureGrowEvent event) {
-        if(ConfigFixing.safetyBonemeal){
+        if(Fixes.safetyBonemeal){
             if (event.isFromBonemeal()) {
                 event.setCancelled(true);
                 if (event.getPlayer() != null) {
-                    event.getPlayer().sendMessage(ConfigFixing.messageBonemeal);
+                    event.getPlayer().sendMessage(Fixes.messageBonemeal);
                 }
             }
         }

@@ -12,7 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.ChunkUnloadEvent;
 
-import com.mcml.space.config.ConfigOptimize;
+import com.mcml.space.config.Optimizes;
 import com.mcml.space.core.VLagger;
 import com.mcml.space.util.AzurePlayerList;
 
@@ -23,7 +23,7 @@ public class ChunkKeeper implements Listener {
 
     @EventHandler
     public void onChunkUnload(ChunkUnloadEvent event) {
-        if (ShouldKeepList.contains(event.getChunk()) & ConfigOptimize.ChunkKeeperenable == true) {
+        if (ShouldKeepList.contains(event.getChunk()) & Optimizes.ChunkKeeperenable == true) {
             event.setCancelled(true);
         }
     }
@@ -40,7 +40,7 @@ public class ChunkKeeper implements Listener {
 
             @Override
             public void run() {
-                if (ConfigOptimize.ChunkKeeperenable == true) {
+                if (Optimizes.ChunkKeeperenable == true) {
                     List<Player> onlinePlayers = AzurePlayerList.players();
                     if (!onlinePlayers.isEmpty()) {
                         Iterator<? extends Player> players = onlinePlayers.iterator();

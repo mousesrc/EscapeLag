@@ -6,13 +6,13 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPhysicsEvent;
 
-import com.mcml.space.config.ConfigFixing;
+import com.mcml.space.config.Fixes;
 
 public class AntiInfRail implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void PhysicsCheck(BlockPhysicsEvent event) {
-        if (ConfigFixing.fixInfRail == true) {
+        if (Fixes.fixInfRail == true) {
             int checkedtimes = 0;
             if (event.getChangedType() == Material.RAILS) {
                 checkedtimes = checkedtimes + 1;

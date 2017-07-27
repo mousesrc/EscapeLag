@@ -8,7 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import com.mcml.space.config.ConfigFunction;
+import com.mcml.space.config.Functions;
 import com.mcml.space.util.AzureAPI;
 
 public class AntiSpam implements Listener {
@@ -17,14 +17,14 @@ public class AntiSpam implements Listener {
 
     private static boolean CheckFast(String bs) {
         if (CheckList.containsKey(bs)) {
-            return (CheckList.get(bs).longValue() + ConfigFunction.AntiSpamPeriodPeriod * 1000 > System.currentTimeMillis());
+            return (CheckList.get(bs).longValue() + Functions.AntiSpamPeriodPeriod * 1000 > System.currentTimeMillis());
         }
         return false;
     }
 
     @EventHandler
     public void SpamChecker(AsyncPlayerChatEvent event) {
-        if (ConfigFunction.AntiSpamenable) {
+        if (Functions.AntiSpamenable) {
             Player p = event.getPlayer();
             if (p.hasPermission("VLagger.bypass.Spam")) { // TODO add permission utils
                 return;
@@ -32,7 +32,7 @@ public class AntiSpam implements Listener {
             String pn = p.getName();
             if (CheckFast(pn)) {
                 event.setCancelled(true);
-                AzureAPI.log(p, ConfigFunction.AntiSpamPeriodWarnMessage);
+                AzureAPI.log(p, Functions.AntiSpamPeriodWarnMessage);
             }else{
                 CheckList.put(pn, System.currentTimeMillis());
             }
@@ -41,13 +41,13 @@ public class AntiSpam implements Listener {
 
     @EventHandler
     public void AntiDirty(AsyncPlayerChatEvent event) {
-        if (ConfigFunction.AntiSpamenable) {
+        if (Functions.AntiSpamenable) {
             Player p = event.getPlayer();
             String message = event.getMessage();
             if (p.hasPermission("VLagger.bypass.Spam")) {
                 return;
             }
-            List<String[]> DirtyListStrings = ConfigFunction.AntiSpamDirtyListStrings();
+            List<String[]> DirtyListStrings = Functions.AntiSpamDirtyListStrings();
             int dlsl = DirtyListStrings.size();
             for(int i = 0;i<dlsl;i++){
             	String[] thisdirty = DirtyListStrings.get(i);
@@ -60,7 +60,7 @@ public class AntiSpam implements Listener {
             	}
             	if(DirtyTimes >= tdl){
             		event.setCancelled(true);
-                    AzureAPI.log(p, ConfigFunction.AntiSpamDirtyWarnMessage);
+                    AzureAPI.log(p, Functions.AntiSpamDirtyWarnMessage);
             	}
             }
         }

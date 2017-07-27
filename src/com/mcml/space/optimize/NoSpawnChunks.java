@@ -8,8 +8,8 @@ import com.mcml.space.util.AzureAPI;
 
 import lombok.val;
 
-import static com.mcml.space.config.ConfigOptimize.noSpawnChunks;
-import static com.mcml.space.config.ConfigOptimize.nscExcludeWorlds;
+import static com.mcml.space.config.Optimizes.noSpawnChunks;
+import static com.mcml.space.config.Optimizes.nscExcludeWorlds;
 
 public class NoSpawnChunks implements Listener {
     

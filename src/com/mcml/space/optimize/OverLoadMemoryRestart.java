@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
 
-import com.mcml.space.config.ConfigOptimize;
+import com.mcml.space.config.Optimizes;
 import com.mcml.space.core.VLagger;
 import com.mcml.space.util.AzureAPI;
 
@@ -18,8 +18,8 @@ public class OverLoadMemoryRestart implements Runnable {
     
     @Override
     public void run() {
-        if (ConfigOptimize.OverLoadMemoryRestartenable && isMemoryOverload() && restartTaskId == -1) {
-            AzureAPI.bc(ConfigOptimize.OverLoadMemoryRestartWarnMessage);
+        if (Optimizes.OverLoadMemoryRestartenable && isMemoryOverload() && restartTaskId == -1) {
+            AzureAPI.bc(Optimizes.OverLoadMemoryRestartWarnMessage);
             val bsc = Bukkit.getServer().getScheduler();
 
             restartTaskId = bsc.runTaskLater(VLagger.MainThis, new Runnable() {
@@ -27,9 +27,9 @@ public class OverLoadMemoryRestart implements Runnable {
                 public void run() {
                     AzureAPI.tryRestartServer();
                 }
-            }, AzureAPI.toTicks(TimeUnit.SECONDS, ConfigOptimize.OverLoadMemoryRestartDelayTime)).getTaskId();
+            }, AzureAPI.toTicks(TimeUnit.SECONDS, Optimizes.OverLoadMemoryRestartDelayTime)).getTaskId();
             
-            if (!ConfigOptimize.OverLoadMemoryRestartCanCancel) return;
+            if (!Optimizes.OverLoadMemoryRestartCanCancel) return;
             bsc.runTaskTimer(VLagger.MainThis, new Runnable() {
                 @Override
                 public void run() {
@@ -44,7 +44,7 @@ public class OverLoadMemoryRestart implements Runnable {
     
     public static boolean isMemoryOverload() {
         val run = Runtime.getRuntime();
-        return run.totalMemory() - run.freeMemory() > run.maxMemory() / 100 * ConfigOptimize.OverLoadMemoryRestartPercent;
+        return run.totalMemory() - run.freeMemory() > run.maxMemory() / 100 * Optimizes.OverLoadMemoryRestartPercent;
     }
     
 }

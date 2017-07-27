@@ -9,8 +9,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 
-import static com.mcml.space.config.ConfigFunction.controlExplode;
-import static com.mcml.space.config.ConfigFunction.explodeControlType;
+import static com.mcml.space.config.Functions.controlExplode;
+import static com.mcml.space.config.Functions.explodeControlType;
 
 /**
  * @author Vlvxingze, SotrForgotten

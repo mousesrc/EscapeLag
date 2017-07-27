@@ -5,7 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import com.mcml.space.config.ConfigMain;
+import com.mcml.space.config.Settings;
 
 public class AutoUpdateCheck implements Listener{
 
@@ -13,7 +13,7 @@ public class AutoUpdateCheck implements Listener{
     public void JoinChecker(PlayerJoinEvent event){
         Player player = event.getPlayer();
         if(player.hasPermission("VLagger.admin")){
-            if(ConfigMain.AutoUpdate == false){
+            if(Settings.AutoUpdate == false){
                 player.sendMessage("§a§l[VLagger]§e提示:§b输入/vlg updateon 来开启自动更新，永远保持你的服务器运行高效！"); // TODO better way?
             }
         }

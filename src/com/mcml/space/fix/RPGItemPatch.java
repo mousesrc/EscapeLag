@@ -5,7 +5,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 
-import static com.mcml.space.config.ConfigFixing.fixRPGItemInfItem;
+import static com.mcml.space.config.Fixes.fixRPGItemInfItem;
 
 /**
  * @author Vlvxingze

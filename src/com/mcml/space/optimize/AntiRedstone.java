@@ -10,8 +10,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockRedstoneEvent;
 
-import com.mcml.space.config.ConfigMain;
-import com.mcml.space.config.ConfigOptimize;
+import com.mcml.space.config.Settings;
+import com.mcml.space.config.Optimizes;
 import com.mcml.space.core.VLagger;
 import com.mcml.space.util.AzureAPI;
 
@@ -38,13 +38,13 @@ public class AntiRedstone implements Listener {
 			CheckedTimes.put(loc, 0);
 		}
 		CheckedTimes.put(loc, CheckedTimes.get(loc) + 1);
-		if(CheckedTimes.get(loc) > ConfigOptimize.AntiRedstoneTimes){
-			Bukkit.broadcastMessage(ConfigOptimize.AntiRedstoneRemoveBlockList + "");
-			if(ConfigOptimize.AntiRedstoneRemoveBlockList.contains(block.getType().name())){
+		if(CheckedTimes.get(loc) > Optimizes.AntiRedstoneTimes){
+			Bukkit.broadcastMessage(Optimizes.AntiRedstoneRemoveBlockList + "");
+			if(Optimizes.AntiRedstoneRemoveBlockList.contains(block.getType().name())){
 				block.setType(Material.AIR);
-				String message = ConfigOptimize.AntiRedstoneMessage;
+				String message = Optimizes.AntiRedstoneMessage;
 				message = message.replaceAll("%location%", loc.toString());
-				AzureAPI.bc(ConfigMain.PluginPrefix, message);
+				AzureAPI.bc(Settings.PluginPrefix, message);
 			}
 		}
 	}

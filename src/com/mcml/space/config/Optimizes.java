@@ -6,7 +6,7 @@ import com.google.common.collect.Lists;
 import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.Configurable;
 
-public abstract class ConfigOptimize extends Configurable {
+public abstract class Optimizes extends Configurable {
     @Node(path = "OverLoadMemoryRestart.enable")
     public static boolean OverLoadMemoryRestartenable = true;
     

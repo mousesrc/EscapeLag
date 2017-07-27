@@ -2,7 +2,7 @@ package com.mcml.space.config;
 
 import com.mcml.space.util.Configurable;
 
-public abstract class ConfigMain extends Configurable {
+public abstract class Settings extends Configurable {
     @Node(path = "PluginPrefix")
     public static String PluginPrefix = "&3Vlagger";
     

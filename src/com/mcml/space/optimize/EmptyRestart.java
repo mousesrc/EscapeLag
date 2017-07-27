@@ -1,7 +1,7 @@
 package com.mcml.space.optimize;
 
-import static com.mcml.space.config.ConfigFunction.emptyRestart;
-import static com.mcml.space.config.ConfigFunction.emptyRestartDelay;
+import static com.mcml.space.config.Functions.emptyRestart;
+import static com.mcml.space.config.Functions.emptyRestartDelay;
 
 import java.util.concurrent.TimeUnit;
 

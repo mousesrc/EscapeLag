@@ -24,8 +24,8 @@ import com.mcml.space.util.VersionLevel.Version;
 
 import lombok.val;
 
-import static com.mcml.space.config.ConfigOptimize.usePreloader;
-import static com.mcml.space.config.ConfigOptimize.halfPreloader;
+import static com.mcml.space.config.Optimizes.usePreloader;
+import static com.mcml.space.config.Optimizes.halfPreloader;
 
 /**
  * @author SotrForgotten

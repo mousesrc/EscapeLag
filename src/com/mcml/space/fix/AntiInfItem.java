@@ -12,7 +12,7 @@ import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 
-import com.mcml.space.config.ConfigFixing;
+import com.mcml.space.config.Fixes;
 import com.mcml.space.util.AzureAPI;
 
 public class AntiInfItem implements Listener {
@@ -20,13 +20,13 @@ public class AntiInfItem implements Listener {
     @EventHandler
     @SuppressWarnings("deprecation")
     public void InteractCheck(PlayerInteractEvent event) {
-        if (ConfigFixing.noInfItem) {
+        if (Fixes.noInfItem) {
             Player player = event.getPlayer();
             if (event.getItem() != null) {
                 if (event.getItem().getAmount() <= 0) {
                     event.setCancelled(true);
                     player.setItemInHand(null);
-                    AzureAPI.log(player, ConfigFixing.AntiInfItemClickcWarnMessage);
+                    AzureAPI.log(player, Fixes.AntiInfItemClickcWarnMessage);
                 }
             }
         }
@@ -34,7 +34,7 @@ public class AntiInfItem implements Listener {
 
     @EventHandler
     public void DispenseCheck(BlockDispenseEvent event) {
-        if (ConfigFixing.noInfItem == true) {
+        if (Fixes.noInfItem == true) {
             Block block = event.getBlock();
             int i;
             if (block.getType() == Material.DISPENSER) {
