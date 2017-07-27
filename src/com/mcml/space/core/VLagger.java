@@ -14,7 +14,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-import com.mcml.space.config.ConfigFixing;
+import com.mcml.space.config.ConfigPatch;
 import com.mcml.space.config.ConfigOptimize;
 import com.mcml.space.config.ConfigFunction;
 import com.mcml.space.config.ConfigMain;
@@ -340,7 +340,7 @@ public class VLagger extends JavaPlugin implements Listener {
         }
         
         try {
-            Configurable.restoreNodes(AntiBugConfigFile, ConfigFixing.class);
+            Configurable.restoreNodes(AntiBugConfigFile, ConfigPatch.class);
         } catch (IllegalArgumentException | IllegalAccessException | IOException e) {
             e.printStackTrace();
         }
@@ -500,7 +500,7 @@ public class VLagger extends JavaPlugin implements Listener {
         }
         
         try {
-            Configurable.restoreNodes(AntiBugConfigFile, ConfigFixing.class);
+            Configurable.restoreNodes(AntiBugConfigFile, ConfigPatch.class);
         } catch (IllegalArgumentException | IllegalAccessException | IOException e) {
             e.printStackTrace();
         }

@@ -10,8 +10,8 @@ import com.mcml.space.util.AzureAPI;
 
 import lombok.val;
 
-import static com.mcml.space.config.ConfigFixing.messageCheatBook;
-import static com.mcml.space.config.ConfigFixing.noCheatBook;
+import static com.mcml.space.config.ConfigPatch.messageCheatBook;
+import static com.mcml.space.config.ConfigPatch.noCheatBook;
 
 /**
  * @author SotrForgotten

@@ -6,7 +6,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFromToEvent;
 
-import static com.mcml.space.config.ConfigFixing.noSkullCrash;
+import static com.mcml.space.config.ConfigPatch.noSkullCrash;
 
 /**
  * @author jiongjionger
