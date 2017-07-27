@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockRedstoneEvent;
 
@@ -26,6 +27,7 @@ public class AntiRedstone implements Listener {
 		}, 7 * 20, 7 * 20);
 	}
 	
+	@EventHandler
 	public void CheckRedstone(BlockRedstoneEvent event){
 		Block block = event.getBlock();
 		Location loc = block.getLocation();

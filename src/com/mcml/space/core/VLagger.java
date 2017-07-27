@@ -50,7 +50,7 @@ import com.mcml.space.optimize.NoCrowdEntity;
 import com.mcml.space.optimize.EmptyRestart;
 import com.mcml.space.optimize.TeleportPreloader;
 import com.mcml.space.optimize.TimerGarbageCollect;
-import com.mcml.space.optimize.FlowingController;
+import com.mcml.space.optimize.WaterFlowLimitor;
 import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.Configurable;
 import com.mcml.space.util.NetWorker;
@@ -85,7 +85,7 @@ public class VLagger extends JavaPlugin implements Listener {
         AzureAPI.log("~(@^_^@)~ 玩的开心！~");
         
         AzureAPI.log("开始收集服务器信息中...");
-        AzureAPI.log("Version " + getDescription().getVersion() + " is ready for installation \n");
+        AzureAPI.log("Version " + getDescription().getVersion() + " is ready for installation");
         AzureAPI.log("Server: " + Bukkit.getServer().getVersion());
         AzureAPI.log("Bukkit: " + Bukkit.getServer().getBukkitVersion());
         AzureAPI.log("Level: " + VersionLevel.get() + "\n");
@@ -119,7 +119,7 @@ public class VLagger extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new TeleportPreloader(), this);
         Bukkit.getPluginManager().registerEvents(new AntiBedExplode(), this);
         Bukkit.getPluginManager().registerEvents(new BlockCommander(), this);
-        Bukkit.getPluginManager().registerEvents(new FlowingController(), this);
+        Bukkit.getPluginManager().registerEvents(new WaterFlowLimitor(), this);
         Bukkit.getPluginManager().registerEvents(new FireLimitor(), this);
         Bukkit.getPluginManager().registerEvents(new AutoUpdateCheck(), this);
         Bukkit.getPluginManager().registerEvents(new FarmProtecter(), this);
@@ -611,8 +611,7 @@ public class VLagger extends JavaPlugin implements Listener {
             if (bukkit.getInt("VLagger.SetStep") == 0) {
                 bukkit.set("VLagger.SetStep", 1);
                 bukkit.save(BukkitFile);
-                MainThis.getLogger().info("成功改动服务器配端，正在重启来启用它.");
-                Thread.sleep(4000);
+                AzureAPI.log("成功改动服务器配端，正在重启来启用它.");
                 Bukkit.shutdown();
             }
         }
