@@ -80,49 +80,17 @@ public class VLagger extends JavaPlugin implements Listener {
         PluginFile = this.getFile();
         LoadConfig();
         
-        AzureAPI.setPrefix(ConfigMain.messagePrefix + ChatColor.RESET + " > ");
+        AzureAPI.setPrefix(ConfigMain.PluginPrefix + ChatColor.RESET + " > ");
+        AzureAPI.log("VLagger —— 新一代的优化/稳定插件");
+        AzureAPI.log("~(@^_^@)~ 玩的开心！~");
         
+        AzureAPI.log("开始收集服务器信息中...");
         AzureAPI.log("Version " + getDescription().getVersion() + " is ready for installation \n");
-        
         AzureAPI.log("Server: " + Bukkit.getServer().getVersion());
         AzureAPI.log("Bukkit: " + Bukkit.getServer().getBukkitVersion());
         AzureAPI.log("Level: " + VersionLevel.get() + "\n");
         
-        AzureAPI.log("VLagger —— 新一代的优化/稳定插件");
-        AzureAPI.log("~(@^_^@)~ 玩的开心！~");
-        AzureAPI.log("清理内存模块...");
-        AzureAPI.log("濒临重启模块...");
-        AzureAPI.log("区块保持者模块...");
-        AzureAPI.log("自动配端模块...");
-        AzureAPI.log("自动储存模块...");
-        AzureAPI.log("自动清理掉落物模块...");
-        AzureAPI.log("无人重启模块...");
-        AzureAPI.log("修复游戏Bug模块...");
-        AzureAPI.log("反密集实体模块...");
-        AzureAPI.log("禁止高频红石模块...");
-        AzureAPI.log("区块清理者模块...");
-        AzureAPI.log("高级反爆炸模块...");
-        AzureAPI.log("Tiles内存处理模块...");
-        AzureAPI.log("区块卸载者模块...");
-        AzureAPI.log("反玩家刷屏机器模块...");
-        AzureAPI.log("限制刷怪蛋修改刷怪笼模块...");
-        AzureAPI.log("显性内存清理模块...");
-        AzureAPI.log("计划预加载传送模块...");
-        AzureAPI.log("命令拦截模块...");
-        AzureAPI.log("自动重生模块...");
-        AzureAPI.log("流水限制模块...");
-        AzureAPI.log("火焰限制模块...");
-        AzureAPI.log("队列登入游戏模块...");
-        AzureAPI.log("生成限制模块...");
-        AzureAPI.log("脏话屏蔽模块...");
-        AzureAPI.log("耕地保护模块...");
-        AzureAPI.log("------加载完毕------");
-        AzureAPI.log("乐乐感谢您的使用——有建议务必反馈，QQ1207223090");
-        AzureAPI.log("您可以在插件根目录找到本插件的说明文档 说明文档.txt");
-        List<String> devs = getDescription().getAuthors();
-        AzureAPI.log("|||"+ devs.get(0) +"/VLagger PluginCD小组作品.|||");
-        AzureAPI.log("|||" + AzureAPI.contactBetween(devs, 1, ", ") + " 合作开发.|||");
-        AzureAPI.log("§a您正在使用VLagger构建号 %BUILD_NUMBER%");
+        AzureAPI.log("开始加载插件模块中...");
         
         if (ConfigOptimize.AutoSetenable == true) {
             try {
@@ -130,7 +98,6 @@ public class VLagger extends JavaPlugin implements Listener {
             } catch (IOException | InterruptedException e) {
             }
         }
-        
         Bukkit.getPluginManager().registerEvents(new AntiInfItem(), this);
         Bukkit.getPluginManager().registerEvents(new AntiPortalInfItem(), this);
         Bukkit.getPluginManager().registerEvents(new AntiNetherHopperInfItem(), this);
@@ -157,11 +124,9 @@ public class VLagger extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new AutoUpdateCheck(), this);
         Bukkit.getPluginManager().registerEvents(new FarmProtecter(), this);
         Bukkit.getPluginManager().registerEvents(new AntiBoneBug(), this);
-        
         if (VersionLevel.isSpigot()) {
             Bukkit.getPluginManager().registerEvents(new RespawnAction(), this);
         }
-        
         if (ConfigFunction.emptyRestart) {
             if (ConfigFunction.emptyRestartHookSpigot) {
                 if (VersionLevel.isSpigot()) Bukkit.getPluginManager().registerEvents(new EmptyRestart(), this);
@@ -169,22 +134,29 @@ public class VLagger extends JavaPlugin implements Listener {
                 Bukkit.getPluginManager().registerEvents(new EmptyRestart(), this);
             }
         }
-        
         if (VersionLevel.isLowerThan(Version.MINECRAFT_1_9_R1)) {
             Bukkit.getPluginManager().registerEvents(new FixSkullCrash(), this);
         }
-        
         if (VersionLevel.isHigherEquals(Version.MINECRAFT_1_8_R2)) {
             Bukkit.getPluginManager().registerEvents(new ExplosionController.BlockDetector(), this);
         }
         
         ChunkKeeper.ChunkKeeperofTask();
-        AzurePlayerList.bind(this);
         getServer().getScheduler().runTaskTimer(this, new ChunkUnloader(), 0, ConfigOptimize.ChunkUnloaderInterval * 20);
         Bukkit.getScheduler().runTaskTimer(this, new OverLoadMemoryRestart(), 1 * 60 * 20, 1 * 60 * 20);
         Bukkit.getScheduler().runTaskTimer(this, new TimerGarbageCollect(), ConfigOptimize.HeapClearPeriod * 20, ConfigOptimize.HeapClearPeriod * 20);
         Bukkit.getScheduler().runTaskAsynchronously(this, new NetWorker());
         Bukkit.getScheduler().runTaskTimer(this, new AntiFakeDeath(), 7 * 20, 7 * 20);
+        
+        AzurePlayerList.bind(this);
+        
+        AzureAPI.log("------加载完毕------");
+        AzureAPI.log("乐乐感谢您的使用——有建议务必反馈，QQ1207223090");
+        AzureAPI.log("您可以在插件根目录找到本插件的说明文档 说明文档.txt");
+        List<String> devs = getDescription().getAuthors();
+        AzureAPI.log("|||"+ devs.get(0) +"/VLagger PluginCD小组作品.|||");
+        AzureAPI.log("|||" + AzureAPI.contactBetween(devs, 1, ", ") + " 合作开发.|||");
+        AzureAPI.log("§a您正在使用VLagger构建号 %BUILD_NUMBER%");
     }
 
     @Override
