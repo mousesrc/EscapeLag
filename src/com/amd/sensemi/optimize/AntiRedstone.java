@@ -10,7 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockRedstoneEvent;
 
-import com.amd.sensemi.VLagger;
+import com.amd.sensemi.SenseMI;
 import com.amd.sensemi.api.AzureAPI;
 import com.amd.sensemi.config.Optimize;
 import com.amd.sensemi.config.Setting;
@@ -20,7 +20,7 @@ public class AntiRedstone implements Listener {
 	private HashMap<Location,Integer> CheckedTimes = new HashMap<Location, Integer>();
 
 	public AntiRedstone(){
-		Bukkit.getScheduler().runTaskTimer(VLagger.MainThis, new Runnable(){
+		Bukkit.getScheduler().runTaskTimer(SenseMI.instance, new Runnable(){
 			public void run(){
 				CheckedTimes.clear();
 			}

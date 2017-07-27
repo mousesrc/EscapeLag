@@ -60,9 +60,8 @@ import com.amd.sensemi.patch.FixDupeLogin;
 import com.amd.sensemi.patch.FixSkullCrash;
 import com.amd.sensemi.patch.RPGItemPatch;
 
-public class VLagger extends JavaPlugin implements Listener {
-
-    public static VLagger MainThis;
+public class SenseMI extends JavaPlugin implements Listener {
+    public static SenseMI instance;
     public static File optimizeConfiguration;
     public static File AntiBugConfigFile;
     private static File PluginMainConfigFile;
@@ -71,8 +70,8 @@ public class VLagger extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        MainThis = this;
-        Ticker.bind(MainThis);
+        instance = this;
+        Ticker.bind(instance);
         
         optimizeConfiguration = new File(this.getDataFolder(), "ClearLagConfig.yml");
         AntiBugConfigFile = new File(this.getDataFolder(), "AntiBugConfig.yml");
@@ -95,7 +94,7 @@ public class VLagger extends JavaPlugin implements Listener {
         
         if (Optimize.AutoSetenable == true) {
             try {
-                VLagger.AutoSetServer();
+                SenseMI.AutoSetServer();
             } catch (IOException | InterruptedException e) {
             }
         }
@@ -212,7 +211,7 @@ public class VLagger extends JavaPlugin implements Listener {
                     }
                     if (args[1].equalsIgnoreCase("set")) {
                         try {
-                            VLagger.AutoSetServer();
+                            SenseMI.AutoSetServer();
                         } catch (IOException | InterruptedException e) {
                         }
                         sender.sendMessage("§a配端完成！重启服务器即可生效！");

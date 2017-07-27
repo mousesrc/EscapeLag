@@ -12,7 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import com.amd.sensemi.VLagger;
+import com.amd.sensemi.SenseMI;
 import com.amd.sensemi.api.AzureAPI;
 import com.amd.sensemi.api.AzurePlayerList;
 
@@ -25,7 +25,7 @@ public class EmptyRestart implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void preparRestart(PlayerQuitEvent evt){
         if(AzurePlayerList.isEmpty() && emptyRestart && restartTaskId == -1){
-            restartTaskId = Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable(){
+            restartTaskId = Bukkit.getScheduler().runTaskLater(SenseMI.instance, new Runnable(){
                 @Override
                 public void run(){
                     AzureAPI.tryRestartServer();

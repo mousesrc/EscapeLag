@@ -12,7 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.ChunkUnloadEvent;
 
-import com.amd.sensemi.VLagger;
+import com.amd.sensemi.SenseMI;
 import com.amd.sensemi.api.AzurePlayerList;
 import com.amd.sensemi.config.Optimize;
 
@@ -29,14 +29,14 @@ public class ChunkKeeper implements Listener {
     }
 
     public static void ChunkKeeperofTask() {
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(VLagger.MainThis, new Runnable() {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(SenseMI.instance, new Runnable() {
 
             @Override
             public void run() {
                 ChunkKeeper.ChunkTimes.clear();
             }
         }, 60 * 60 * 20, 60 * 60 * 20);
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(VLagger.MainThis, new Runnable() {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(SenseMI.instance, new Runnable() {
 
             @Override
             public void run() {

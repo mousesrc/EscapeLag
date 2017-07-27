@@ -10,8 +10,6 @@ import java.lang.reflect.Modifier;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
-import com.amd.sensemi.VLagger;
-
 import lombok.val;
 
 /**
@@ -29,7 +27,6 @@ public abstract class Configurable {
     protected static @interface Locale {}
     
     public static void restoreNodes(File file, Class<? extends Configurable> clazz) throws IllegalArgumentException, IllegalAccessException, IOException {
-        assert VLagger.MainThis != null;
         val config = AzureAPI.loadOrCreateFile(file);
         
         for (Field field : clazz.getDeclaredFields()) {

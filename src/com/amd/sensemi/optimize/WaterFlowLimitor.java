@@ -10,7 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFromToEvent;
 
-import com.amd.sensemi.VLagger;
+import com.amd.sensemi.SenseMI;
 import com.amd.sensemi.config.Optimize;
 
 public class WaterFlowLimitor
@@ -20,7 +20,7 @@ public class WaterFlowLimitor
 	private final static HashMap<Chunk, Integer> CheckedTimes = new HashMap<Chunk, Integer>();
 	
 	public WaterFlowLimitor(){
-		Bukkit.getScheduler().runTaskTimer(VLagger.MainThis, new Runnable(){
+		Bukkit.getScheduler().runTaskTimer(SenseMI.instance, new Runnable(){
 			public void run(){
 				CheckedTimes.clear();
 			}

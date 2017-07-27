@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import com.amd.sensemi.VLagger;
+import com.amd.sensemi.SenseMI;
 import com.amd.sensemi.config.Optimize;
 
 public class AutoSave implements Listener {
@@ -27,7 +27,7 @@ public class AutoSave implements Listener {
             return;
         }
         final Player p = e.getPlayer();
-        TaskId.put(p, Bukkit.getScheduler().scheduleSyncRepeatingTask(VLagger.MainThis, new Runnable() {
+        TaskId.put(p, Bukkit.getScheduler().scheduleSyncRepeatingTask(SenseMI.instance, new Runnable() {
 
             @Override
             public void run() {

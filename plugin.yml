@@ -1,5 +1,5 @@
 name: VLagger
-main: com.mcml.space.core.VLagger
+main: com.mcml.space.core.SenseMI
 version: 2.8.5-%BUILD_NUMBER%
 softdepend: [AntiAttack, Essentials, RPG Items, RPGItems]
 author: Vlvxingze

@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
 
-import com.amd.sensemi.VLagger;
+import com.amd.sensemi.SenseMI;
 import com.amd.sensemi.api.AzureAPI;
 import com.amd.sensemi.config.Optimize;
 
@@ -22,7 +22,7 @@ public class OverLoadMemoryRestart implements Runnable {
             AzureAPI.bc(Optimize.OverLoadMemoryRestartWarnMessage);
             val bsc = Bukkit.getServer().getScheduler();
 
-            restartTaskId = bsc.runTaskLater(VLagger.MainThis, new Runnable() {
+            restartTaskId = bsc.runTaskLater(SenseMI.instance, new Runnable() {
                 @Override
                 public void run() {
                     AzureAPI.tryRestartServer();
@@ -30,7 +30,7 @@ public class OverLoadMemoryRestart implements Runnable {
             }, AzureAPI.toTicks(TimeUnit.SECONDS, Optimize.OverLoadMemoryRestartDelayTime)).getTaskId();
             
             if (!Optimize.OverLoadMemoryRestartCanCancel) return;
-            bsc.runTaskTimer(VLagger.MainThis, new Runnable() {
+            bsc.runTaskTimer(SenseMI.instance, new Runnable() {
                 @Override
                 public void run() {
                     if (!isMemoryOverload()) {

@@ -5,7 +5,7 @@ import org.bukkit.entity.*;
 import org.bukkit.event.*;
 import org.bukkit.event.player.*;
 
-import com.amd.sensemi.VLagger;
+import com.amd.sensemi.SenseMI;
 import com.amd.sensemi.api.AzureAPI;
 import com.amd.sensemi.config.Function;
 
@@ -15,7 +15,7 @@ public class BlockCommander implements Listener {
     public void CommanderBlocker(PlayerCommandPreprocessEvent event) {
         if (Function.BlockCommanderenable == true) {
             Player p = event.getPlayer();
-            FileConfiguration config = AzureAPI.loadOrCreateFile(VLagger.functionConfiguation);
+            FileConfiguration config = AzureAPI.loadOrCreateFile(SenseMI.functionConfiguation);
             if (p.hasPermission("VLagger.admin") == true) {
                 return;
             }

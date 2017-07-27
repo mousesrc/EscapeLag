@@ -12,7 +12,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
 
-import com.amd.sensemi.VLagger;
+import com.amd.sensemi.SenseMI;
 import com.amd.sensemi.config.Optimize;
 
 public class ItemClear implements Listener {
@@ -20,7 +20,7 @@ public class ItemClear implements Listener {
     public static ArrayList<Chunk> DeathChunk = new ArrayList<Chunk>();
 
     public ItemClear() {
-        Bukkit.getScheduler().runTaskTimerAsynchronously(VLagger.MainThis, new Runnable() {
+        Bukkit.getScheduler().runTaskTimerAsynchronously(SenseMI.instance, new Runnable() {
             // TODO crash comes
             @Override
             public void run() {

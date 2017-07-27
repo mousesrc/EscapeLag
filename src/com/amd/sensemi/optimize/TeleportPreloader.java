@@ -16,7 +16,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
-import com.amd.sensemi.VLagger;
+import com.amd.sensemi.SenseMI;
 import com.amd.sensemi.api.AzureAPI;
 import com.amd.sensemi.api.VersionLevel;
 import com.amd.sensemi.api.AzureAPI.Coord2D;
@@ -81,7 +81,7 @@ public class TeleportPreloader implements Listener {
         val secondStage = preChunks * 2;
         
         if (invulnerable) player.setInvulnerable(true);
-        Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+        Bukkit.getScheduler().runTaskLater(SenseMI.instance, new Runnable() {
             @Override
             public void run() {
                 Coord2D coord;
@@ -91,7 +91,7 @@ public class TeleportPreloader implements Listener {
                 }
             }
         }, 1L);
-        Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+        Bukkit.getScheduler().runTaskLater(SenseMI.instance, new Runnable() {
             @Override
             public void run() {
                 Coord2D coord;
@@ -101,7 +101,7 @@ public class TeleportPreloader implements Listener {
                 }
             }
         }, 3L);
-        Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+        Bukkit.getScheduler().runTaskLater(SenseMI.instance, new Runnable() {
             @Override
             public void run() {
                 Coord2D coord;
@@ -111,7 +111,7 @@ public class TeleportPreloader implements Listener {
                 }
             }
         }, 5L);
-        Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+        Bukkit.getScheduler().runTaskLater(SenseMI.instance, new Runnable() {
             @Override
             public void run() {
                 if (invulnerable) player.setInvulnerable(false);

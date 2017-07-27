@@ -11,7 +11,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
-import com.amd.sensemi.VLagger;
+import com.amd.sensemi.SenseMI;
 
 import lombok.val;
 
@@ -23,7 +23,7 @@ public class RespawnAction implements Listener {
     public void autoRespawn(PlayerDeathEvent evt) {
         if (canAutoRespawn) {
             val player = evt.getEntity();
-            Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+            Bukkit.getScheduler().runTaskLater(SenseMI.instance, new Runnable() {
                 @Override
                 @SuppressWarnings("all")
                 public void run() {
