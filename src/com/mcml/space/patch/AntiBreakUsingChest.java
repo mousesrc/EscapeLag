@@ -1,4 +1,4 @@
-package com.mcml.space.fix;
+package com.mcml.space.patch;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

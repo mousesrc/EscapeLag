@@ -1,4 +1,4 @@
-package com.mcml.space.fix;
+package com.mcml.space.patch;
 
 import org.bukkit.*;
 import org.bukkit.block.*;
