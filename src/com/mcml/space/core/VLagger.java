@@ -31,7 +31,7 @@ import com.mcml.space.optimize.ChunkKeeper;
 import com.mcml.space.optimize.ChunkUnloader;
 import com.mcml.space.optimize.NoSpawnChunks;
 import com.mcml.space.optimize.FireLimitor;
-import com.mcml.space.optimize.RestartAction;
+import com.mcml.space.optimize.OverloadRestart;
 import com.mcml.space.optimize.ItemClear;
 import com.mcml.space.optimize.NoCrowdEntity;
 import com.mcml.space.optimize.EmptyRestart;
@@ -49,6 +49,7 @@ import com.mcml.space.patch.AntiInfRail;
 import com.mcml.space.patch.AntiLongStringCrash;
 import com.mcml.space.patch.AntiNetherHopperInfItem;
 import com.mcml.space.patch.AntiPortalInfItem;
+import com.mcml.space.patch.CheatBookBlocker;
 import com.mcml.space.patch.DupeLoginPatch;
 import com.mcml.space.patch.SkullCrashPatch;
 import com.mcml.space.patch.RPGItemPatch;
@@ -106,7 +107,7 @@ public class VLagger extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new AntiInfItem(), this);
         Bukkit.getPluginManager().registerEvents(new AntiPortalInfItem(), this);
         Bukkit.getPluginManager().registerEvents(new AntiNetherHopperInfItem(), this);
-        Bukkit.getPluginManager().registerEvents(new RPGItemPatch(), this);
+        RPGItemPatch.init(this);
         Bukkit.getPluginManager().registerEvents(new ChunkKeeper(), this);
         Bukkit.getPluginManager().registerEvents(new NoCrowdEntity(), this);
         Bukkit.getPluginManager().registerEvents(new AntiCrashSign(), this);
@@ -117,11 +118,11 @@ public class VLagger extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new NoSpawnChunks(), this);
         Bukkit.getPluginManager().registerEvents(new AntiInfRail(), this);
         Bukkit.getPluginManager().registerEvents(new AutoSave(), this);
-        Bukkit.getPluginManager().registerEvents(new DupeLoginPatch(), this);
+        DupeLoginPatch.init(this);
         SpawnerController.init(this);
         Bukkit.getPluginManager().registerEvents(new AntiDupeDropItem(), this);
         Bukkit.getPluginManager().registerEvents(new AntiDoorInfItem(), this);
-        Bukkit.getPluginManager().registerEvents(new TeleportPreloader(), this);
+        TeleportPreloader.init(this);
         Bukkit.getPluginManager().registerEvents(new AntiBedExplode(), this);
         Bukkit.getPluginManager().registerEvents(new BlockCommander(), this);
         Bukkit.getPluginManager().registerEvents(new WaterFlowLimitor(), this);
@@ -129,39 +130,19 @@ public class VLagger extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new FarmProtecter(), this);
         Bukkit.getPluginManager().registerEvents(new AntiBoneBug(), this);
         Bukkit.getPluginManager().registerEvents(new AntiLongStringCrash(), this);
-        if (VersionLevel.isSpigot()) {
-            Bukkit.getPluginManager().registerEvents(new RespawnAction(), this);
-        }
-        if (ConfigFunction.emptyRestart) {
-            if (ConfigFunction.emptyRestartHookSpigot) {
-                if (VersionLevel.isSpigot())
-                    Bukkit.getPluginManager().registerEvents(new EmptyRestart(), this);
-            } else {
-                Bukkit.getPluginManager().registerEvents(new EmptyRestart(), this);
-            }
-        }
-        if (VersionLevel.isLowerThan(Version.MINECRAFT_1_9_R1)) {
-            Bukkit.getPluginManager().registerEvents(new SkullCrashPatch(), this);
-        }
+        RespawnAction.init(this);
+        EmptyRestart.init(this);
+        CheatBookBlocker.init(this);
+        OverloadRestart.init(this);
+        SkullCrashPatch.init(this);
         
-        if (VersionLevel.isHigherEquals(Version.MINECRAFT_1_12_R1)) {
-            if (Bukkit.getPluginManager().isPluginEnabled("ProtocolLib")) {
-                Bukkit.getPluginManager().registerEvents(new RecipeDupePatch(), this);
-            } else {
-                AzureAPI.log("检测到您正使用 1.12 版本的服务端, 但未安装 ProtocolLib 前置插件");
-                AzureAPI.log("这将导致某些重要的防护功能不可用, 强烈建议您安装 ProtocolLib 并重启服务端");
-                try {
-                    Thread.sleep(TimeUnit.SECONDS.toMillis(10));
-                } catch (InterruptedException ignored) {}
-            }
-        }
+        RecipeDupePatch.init(this);
 
         ChunkKeeper.ChunkKeeperofTask();
         getServer().getScheduler().runTaskTimer(this, new ChunkUnloader(), 0,
                 ConfigOptimize.ChunkUnloaderInterval * 20);
-        Bukkit.getScheduler().runTaskTimer(this, new RestartAction(), 1 * 60 * 20, 1 * 60 * 20);
-        Bukkit.getScheduler().runTaskTimer(this, new TimerGarbageCollect(), ConfigOptimize.TimerGcPeriod * 20,
-                ConfigOptimize.TimerGcPeriod * 20);
+        
+        TimerGarbageCollect.init(this);
         if (ConfigMain.AutoUpdate)
             Bukkit.getScheduler().runTaskAsynchronously(this, new NetWorker());
         Bukkit.getScheduler().runTaskTimer(this, new AntiFakeDeath(), 7 * 20, 7 * 20);
@@ -294,7 +275,7 @@ public class VLagger extends JavaPlugin implements Listener {
                         sender.sendMessage("§6区块清理完毕！");
                     }
                     if (args[1].equalsIgnoreCase("heapshut")) {
-                        getServer().getScheduler().runTask(this, new RestartAction());
+                        getServer().getScheduler().runTask(this, new OverloadRestart());
                         sender.sendMessage("§6成功检测一次内存濒临重启！");
                     }
                     if (args[1].equalsIgnoreCase("chunkunloadlog")) {

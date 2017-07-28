@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -31,6 +32,12 @@ import static com.mcml.space.config.ConfigOptimize.halfPreloader;
  * @author SotrForgotten
  */
 public class TeleportPreloader implements Listener {
+    public static void init(JavaPlugin plugin) {
+        TeleportPreloader instance = new TeleportPreloader();
+        Bukkit.getPluginManager().registerEvents(instance, plugin);
+        AzureAPI.log("传送预加载模块已启动");
+    }
+    
     public static boolean useCache;
     public static Cache<Location, List<Coord<Integer, Integer>>> caches;
     protected static boolean pending;

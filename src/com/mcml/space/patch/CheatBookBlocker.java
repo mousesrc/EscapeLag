@@ -1,13 +1,14 @@
 package com.mcml.space.patch;
 
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerEditBookEvent;
 import org.bukkit.inventory.meta.BookMeta;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import com.mcml.space.util.AzureAPI;
-
 import lombok.val;
 
 import static com.mcml.space.config.ConfigPatch.messageCheatBook;
@@ -17,6 +18,10 @@ import static com.mcml.space.config.ConfigPatch.noCheatBook;
  * @author SotrForgotten
  */
 public class CheatBookBlocker implements Listener {
+    public static void init(JavaPlugin plugin) {
+        Bukkit.getPluginManager().registerEvents(new CheatBookBlocker(), plugin);
+        AzureAPI.log("书与笔修复模块已启用");
+    }
     
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onBookEdit(PlayerEditBookEvent evt) {

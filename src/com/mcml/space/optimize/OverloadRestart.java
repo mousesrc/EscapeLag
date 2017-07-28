@@ -3,17 +3,24 @@ package com.mcml.space.optimize;
 import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import com.mcml.space.config.ConfigOptimize;
 import com.mcml.space.core.VLagger;
 import com.mcml.space.util.AzureAPI;
-
 import lombok.val;
 
 /**
  * @author Vlvxingze, SotrForgotten
  */
-public class RestartAction implements Runnable {
+public class OverloadRestart implements Runnable {
+    public static void init(JavaPlugin plugin) {
+        long ticksMin = AzureAPI.toTicks(TimeUnit.MINUTES, 20);
+        Bukkit.getScheduler().runTaskTimer(plugin, new OverloadRestart(), ticksMin, ticksMin);
+        
+        AzureAPI.log("超负荷重启模块已启动");
+    }
+    
     // TODO 这个类以后还可以添加更多重启检测 不要重命名
     private int restartTaskId = -1;
     

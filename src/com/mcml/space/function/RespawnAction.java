@@ -16,6 +16,7 @@ import lombok.val;
 import static com.mcml.space.config.ConfigFunction.canAutoRespawn;
 import static com.mcml.space.config.ConfigFunction.sendTitleAutoRespawn;
 import static com.mcml.space.config.ConfigFunction.titleAutoRespawn;
+
 import static com.mcml.space.config.ConfigFunction.subtitleAutoRespawn;
 
 /**
@@ -24,7 +25,7 @@ import static com.mcml.space.config.ConfigFunction.subtitleAutoRespawn;
 public class RespawnAction implements Listener {
     public static void init(JavaPlugin plugin) {
         if (!VersionLevel.isSpigot()) {
-            AzureAPI.log("当前的服务端不支持自动重生功能");
+            AzureAPI.warn("非 Spigot 服务端不支持自动重生功能");
             return;
         }
         Bukkit.getPluginManager().registerEvents(new RespawnAction(), plugin);
