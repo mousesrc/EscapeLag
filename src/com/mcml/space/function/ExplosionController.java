@@ -13,6 +13,7 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.mcml.space.util.AzureAPI;
+import com.mcml.space.util.PluginExtends;
 import com.mcml.space.util.VersionLevel;
 import com.mcml.space.util.VersionLevel.Version;
 
@@ -22,7 +23,7 @@ import static com.mcml.space.config.ConfigFunction.explodeControlType;
 /**
  * @author Vlvxingze, SotrForgotten
  */
-public class ExplosionController {
+public class ExplosionController implements PluginExtends {
     public static void init(JavaPlugin plugin) {
         Bukkit.getPluginManager().registerEvents(new ExplosionController.EntityDetector(), plugin);
         

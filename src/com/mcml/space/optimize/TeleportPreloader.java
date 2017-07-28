@@ -19,6 +19,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.Lists;
 import com.mcml.space.core.VLagger;
 import com.mcml.space.util.AzureAPI;
+import com.mcml.space.util.PluginExtends;
 import com.mcml.space.util.AzureAPI.Coord;
 import com.mcml.space.util.VersionLevel;
 import com.mcml.space.util.VersionLevel.Version;
@@ -31,7 +32,7 @@ import static com.mcml.space.config.ConfigOptimize.halfPreloader;
 /**
  * @author SotrForgotten
  */
-public class TeleportPreloader implements Listener {
+public class TeleportPreloader implements Listener, PluginExtends {
     public static void init(JavaPlugin plugin) {
         TeleportPreloader instance = new TeleportPreloader();
         Bukkit.getPluginManager().registerEvents(instance, plugin);

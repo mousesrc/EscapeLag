@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.Perms;
+import com.mcml.space.util.PluginExtends;
 
 import lombok.val;
 
@@ -20,7 +21,7 @@ import static com.mcml.space.config.ConfigFunction.messagePreventSpawnerModify;
 /**
  * @author Vlvxingze, SotrForgotten
  */
-public class SpawnerController implements Listener {
+public class SpawnerController implements Listener, PluginExtends {
     public static void init(JavaPlugin plugin) {
         Bukkit.getPluginManager().registerEvents(new SpawnerController(), plugin);
         AzureAPI.log("刷怪笼控制模块已启动");

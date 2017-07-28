@@ -18,10 +18,11 @@ import com.google.common.collect.Sets;
 import com.mcml.space.config.ConfigPatch;
 import com.mcml.space.core.VLagger;
 import com.mcml.space.util.AzureAPI;
+import com.mcml.space.util.PluginExtends;
 import com.mcml.space.util.VersionLevel;
 import com.mcml.space.util.VersionLevel.Version;
 
-public class RecipeDupePatch implements Listener {
+public class RecipeDupePatch implements Listener, PluginExtends {
     public static void init(JavaPlugin plugin) {
         if (!VersionLevel.isHigherEquals(Version.MINECRAFT_1_12_R1)) return;
         

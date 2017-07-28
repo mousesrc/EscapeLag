@@ -9,6 +9,7 @@ import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.mcml.space.util.AzureAPI;
+import com.mcml.space.util.PluginExtends;
 import com.mcml.space.util.VersionLevel;
 import com.mcml.space.util.VersionLevel.Version;
 
@@ -17,7 +18,7 @@ import static com.mcml.space.config.ConfigPatch.noSkullCrash;
 /**
  * @author jiongjionger
  */
-public class SkullCrashPatch implements Listener {
+public class SkullCrashPatch implements Listener, PluginExtends {
     public static void init(JavaPlugin plugin) {
         if (VersionLevel.isHigherEquals(Version.MINECRAFT_1_9_R1)) return;
         

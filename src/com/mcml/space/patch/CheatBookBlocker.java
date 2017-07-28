@@ -9,6 +9,8 @@ import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.mcml.space.util.AzureAPI;
+import com.mcml.space.util.PluginExtends;
+
 import lombok.val;
 
 import static com.mcml.space.config.ConfigPatch.messageCheatBook;
@@ -17,7 +19,7 @@ import static com.mcml.space.config.ConfigPatch.noCheatBook;
 /**
  * @author SotrForgotten
  */
-public class CheatBookBlocker implements Listener {
+public class CheatBookBlocker implements Listener, PluginExtends {
     public static void init(JavaPlugin plugin) {
         Bukkit.getPluginManager().registerEvents(new CheatBookBlocker(), plugin);
         AzureAPI.log("书与笔修复模块已启用");

@@ -8,12 +8,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.mcml.space.config.ConfigOptimize;
 import com.mcml.space.core.VLagger;
 import com.mcml.space.util.AzureAPI;
+import com.mcml.space.util.PluginExtends;
+
 import lombok.val;
 
 /**
  * @author Vlvxingze, SotrForgotten
  */
-public class OverloadRestart implements Runnable {
+public class OverloadRestart implements Runnable, PluginExtends {
     public static void init(JavaPlugin plugin) {
         long ticksMin = AzureAPI.toTicks(TimeUnit.MINUTES, 20);
         Bukkit.getScheduler().runTaskTimer(plugin, new OverloadRestart(), ticksMin, ticksMin);

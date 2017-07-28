@@ -9,13 +9,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.mcml.space.config.ConfigPatch;
 import com.mcml.space.util.AzureAPI;
+import com.mcml.space.util.PluginExtends;
 
 import static com.mcml.space.config.ConfigPatch.fixRPGItemInfItem;
 
 /**
  * @author Vlvxingze
  */
-public class RPGItemPatch implements Listener {
+public class RPGItemPatch implements Listener, PluginExtends {
     public static void init(JavaPlugin plugin) {
         if (!ConfigPatch.forceRPGItemPatch && !Bukkit.getPluginManager().isPluginEnabled("RPGItems") && !Bukkit.getPluginManager().isPluginEnabled("RPG Items")) return;
         

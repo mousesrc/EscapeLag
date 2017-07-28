@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.mcml.space.config.ConfigOptimize;
 import com.mcml.space.util.AzureAPI;
+import com.mcml.space.util.PluginExtends;
 
 import static com.mcml.space.config.ConfigOptimize.TimerGcMessage;
 import static com.mcml.space.config.ConfigOptimize.timerGC;
@@ -15,7 +16,7 @@ import static com.mcml.space.config.ConfigOptimize.timerGC;
 /**
  * @author Vlvxingze, SotrForgotten
  */
-public class TimerGarbageCollect implements Runnable {
+public class TimerGarbageCollect implements Runnable, PluginExtends {
     public static void init(JavaPlugin plugin) {
         long ticks = AzureAPI.toTicks(TimeUnit.SECONDS, ConfigOptimize.TimerGcPeriod);
         Bukkit.getScheduler().runTaskTimer(plugin, new TimerGarbageCollect(), ticks, ticks);

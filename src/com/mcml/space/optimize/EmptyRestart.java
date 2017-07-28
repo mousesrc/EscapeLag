@@ -17,12 +17,13 @@ import com.mcml.space.config.ConfigFunction;
 import com.mcml.space.core.VLagger;
 import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.AzurePlayerList;
+import com.mcml.space.util.PluginExtends;
 import com.mcml.space.util.VersionLevel;
 
 /**
  * @author Vlvxingze, SotrForgotten
  */
-public class EmptyRestart implements Listener {
+public class EmptyRestart implements Listener, PluginExtends {
     public static void init(JavaPlugin plugin) {
         if (ConfigFunction.emptyRestartHookSpigot && !VersionLevel.isSpigot()) {
             AzureAPI.warn("非 Spigot 服务端不支持无人重启绑定, 需要手动设置自重启脚本");
