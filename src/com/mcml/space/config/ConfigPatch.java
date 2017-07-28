@@ -7,6 +7,9 @@ import com.mcml.space.util.VersionLevel;
 import com.mcml.space.util.VersionLevel.Version;
 
 public abstract class ConfigPatch extends Configurable {
+    @Node(path = "patches.auto-recipe-dupe")
+    public static boolean autoRecipePatch = true;
+    
     @Node(path = "AntiBoneBug.enable") // issue-fixer.bonemeal-inf-item
     public static boolean safetyBonemeal = true;
     

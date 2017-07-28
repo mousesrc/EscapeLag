@@ -11,7 +11,7 @@ import static com.mcml.space.config.ConfigPatch.noSkullCrash;
 /**
  * @author jiongjionger
  */
-public class FixSkullCrash implements Listener {
+public class SkullCrashPatch implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void NoSkullCrash(BlockFromToEvent evt) {

@@ -49,9 +49,10 @@ import com.mcml.space.patch.AntiInfRail;
 import com.mcml.space.patch.AntiLongStringCrash;
 import com.mcml.space.patch.AntiNetherHopperInfItem;
 import com.mcml.space.patch.AntiPortalInfItem;
-import com.mcml.space.patch.FixDupeLogin;
-import com.mcml.space.patch.FixSkullCrash;
+import com.mcml.space.patch.DupeLoginPatch;
+import com.mcml.space.patch.SkullCrashPatch;
 import com.mcml.space.patch.RPGItemPatch;
+import com.mcml.space.patch.RecipeDupePatch;
 import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.AzureAPI.Coord;
 import com.mcml.space.util.Configurable;
@@ -114,7 +115,7 @@ public class VLagger extends JavaPlugin implements Listener {
 		Bukkit.getPluginManager().registerEvents(new NoSpawnChunks(), this);
 		Bukkit.getPluginManager().registerEvents(new AntiInfRail(), this);
 		Bukkit.getPluginManager().registerEvents(new AutoSave(), this);
-		Bukkit.getPluginManager().registerEvents(new FixDupeLogin(), this);
+		Bukkit.getPluginManager().registerEvents(new DupeLoginPatch(), this);
 		Bukkit.getPluginManager().registerEvents(new SpawnerController(), this);
 		Bukkit.getPluginManager().registerEvents(new AntiDupeDropItem(), this);
 		Bukkit.getPluginManager().registerEvents(new AntiDoorInfItem(), this);
@@ -139,11 +140,14 @@ public class VLagger extends JavaPlugin implements Listener {
 			}
 		}
 		if (VersionLevel.isLowerThan(Version.MINECRAFT_1_9_R1)) {
-			Bukkit.getPluginManager().registerEvents(new FixSkullCrash(), this);
+			Bukkit.getPluginManager().registerEvents(new SkullCrashPatch(), this);
 		}
 		if (VersionLevel.isHigherEquals(Version.MINECRAFT_1_8_R2)) {
 			Bukkit.getPluginManager().registerEvents(new ExplosionController.BlockDetector(), this);
 		}
+		if (VersionLevel.isHigherEquals(Version.MINECRAFT_1_12_R1)) {
+            Bukkit.getPluginManager().registerEvents(new RecipeDupePatch(), this);
+        }
 
 		ChunkKeeper.ChunkKeeperofTask();
 		getServer().getScheduler().runTaskTimer(this, new ChunkUnloader(), 0,

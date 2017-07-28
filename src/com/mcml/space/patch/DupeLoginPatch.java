@@ -10,7 +10,7 @@ import com.mcml.space.util.AzurePlayerList;
 /**
  * @author Vlvxingze, SotrForgotten
  */
-public class FixDupeLogin implements Listener {
+public class DupeLoginPatch implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onLogin(AsyncPlayerPreLoginEvent evt) {

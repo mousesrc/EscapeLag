@@ -61,6 +61,11 @@
 	</build>
 
 	<repositories>
+		<!-- ProtocolLib -->
+		<repository>
+			<id>dmulloy2-repo</id>
+			<url>http://repo.dmulloy2.net/content/groups/public/</url>
+		</repository>
 		<repository>
 			<id>in-project</id>
 			<url>file://${project.basedir}/lib</url>
@@ -69,6 +74,7 @@
 			<id>spigot-repo</id>
 			<url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
 		</repository>
+		<!-- Paper -->
 		<repository>
 			<id>aikar</id>
 			<url>http://ci.emc.gs/nexus/content/groups/aikar/</url>
@@ -88,6 +94,12 @@
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-impl</artifactId>
 			<version>1.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.comphenix.protocol</groupId>
+			<artifactId>ProtocolLib</artifactId>
+			<version>4.3.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
