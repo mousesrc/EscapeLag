@@ -51,23 +51,23 @@ public class AntiSpam implements Listener, QuitReactor {
         }
     }
     
-    @EventHandler
-    public void AntiDirty(AsyncPlayerChatEvent event) {
-        if (ConfigFunction.AntiSpamenable) {
-            Player p = event.getPlayer();
-            String message = event.getMessage().toLowerCase();
-            if (AzureAPI.hasPerm(p, "VLagger.bypass.Spam")) {
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void checkDirty(AsyncPlayerChatEvent evt) {
+        if (ConfigFunction.AntiSpamenable && ConfigFunction.enableAntiDirty) {
+            val player = evt.getPlayer();
+            String message = evt.getMessage().toLowerCase();
+            if (AzureAPI.hasPerm(player, "VLagger.bypass.Spam")) {
                 return;
             }
-
+            
             for (String each : ConfigFunction.AntiSpamDirtyList) {
                 boolean deny = true;
                 for (char c : each.toLowerCase().toCharArray()) {
                     if (!StringUtils.contains(message, c)) deny = false;
                 }
                 if (deny) {
-                    event.setCancelled(true);
-                    AzureAPI.log(p, ConfigFunction.AntiSpamDirtyWarnMessage);
+                    evt.setCancelled(true);
+                    AzureAPI.log(player, ConfigFunction.AntiSpamDirtyWarnMessage);
                 }
             }
         }

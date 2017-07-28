@@ -19,11 +19,14 @@ public abstract class ConfigFunction extends Configurable {
 	public static boolean AntiSpamenable = true;
 
 	@Node(path = "AntiSpam.Period.Period")
-	public static long AntiSpamPeriodPeriod = 2;
+	public static double AntiSpamPeriodPeriod = 1.5;
 
 	@Locale
 	@Node(path = "AntiSpam.Period.WarnMessage")
 	public static String AntiSpamPeriodWarnMessage = "§c请慢点说话，别激动嘛！ _(:з」∠)_";
+	
+	@Node(path = "AntiSpam.Dirty.enable")
+    public static boolean enableAntiDirty = true;
 
 	@Node(path = "AntiSpam.Dirty.List")
 	public static List<String> AntiSpamDirtyList = AzureAPI.newChainStringList().to("智障").to("傻逼").to("儿子");

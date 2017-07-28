@@ -20,7 +20,7 @@ import com.mcml.space.config.ConfigFunction;
 import com.mcml.space.config.ConfigMain;
 import com.mcml.space.function.AntiSpam;
 import com.mcml.space.function.RespawnAction;
-import com.mcml.space.function.AutoUpdateCheck;
+import com.mcml.space.function.UpgradeNotifier;
 import com.mcml.space.function.BlockCommander;
 import com.mcml.space.function.FarmProtecter;
 import com.mcml.space.function.SpawnerController;
@@ -100,6 +100,8 @@ public class VLagger extends JavaPlugin implements Listener {
 
         Ticker.bind(MainThis);
         Perms.bind("VLagger.Admin");
+        
+        AzurePlayerList.bind(new UpgradeNotifier());
 
         Bukkit.getPluginManager().registerEvents(new AntiInfItem(), this);
         Bukkit.getPluginManager().registerEvents(new AntiPortalInfItem(), this);
@@ -116,7 +118,7 @@ public class VLagger extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new AntiInfRail(), this);
         Bukkit.getPluginManager().registerEvents(new AutoSave(), this);
         Bukkit.getPluginManager().registerEvents(new DupeLoginPatch(), this);
-        Bukkit.getPluginManager().registerEvents(new SpawnerController(), this);
+        SpawnerController.init(this);
         Bukkit.getPluginManager().registerEvents(new AntiDupeDropItem(), this);
         Bukkit.getPluginManager().registerEvents(new AntiDoorInfItem(), this);
         Bukkit.getPluginManager().registerEvents(new TeleportPreloader(), this);
@@ -124,7 +126,6 @@ public class VLagger extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new BlockCommander(), this);
         Bukkit.getPluginManager().registerEvents(new WaterFlowLimitor(), this);
         Bukkit.getPluginManager().registerEvents(new FireLimitor(), this);
-        Bukkit.getPluginManager().registerEvents(new AutoUpdateCheck(), this);
         Bukkit.getPluginManager().registerEvents(new FarmProtecter(), this);
         Bukkit.getPluginManager().registerEvents(new AntiBoneBug(), this);
         Bukkit.getPluginManager().registerEvents(new AntiLongStringCrash(), this);
