@@ -2,6 +2,7 @@ package com.mcml.space.optimize;
 
 import java.util.HashMap;
 
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -38,18 +39,14 @@ public class AntiRedstone implements Listener {
 			CheckedTimes.put(loc, 0);
 		}
 		CheckedTimes.put(loc, CheckedTimes.get(loc) + 1);
+		
 		if(CheckedTimes.get(loc) > ConfigOptimize.AntiRedstoneTimes){
 			if(AzureAPI.containsIgnoreCase(ConfigOptimize.AntiRedstoneRemoveBlockList, block.getType().name())){
+	             block.setType(Material.AIR);
+			    
 				String message = ConfigOptimize.AntiRedstoneMessage;
-				message = message.replaceAll("%location%", loc.toString());
+				message = StringUtils.replace(message, "%location%", loc.toString());
 				AzureAPI.bc(message);
-				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable(){
-					
-					@Override
-                    public void run(){
-						block.setType(Material.AIR);
-					}
-				}, 1);
 			}
 		}
 	}

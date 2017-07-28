@@ -22,10 +22,16 @@ import com.google.common.collect.Lists;
 public class AzurePlayerList implements Listener {
     private static Set<String> names;
     private static List<Player> players;
-
+    
+    private static List<JoinReactor> join;
+    private static List<QuitReactor> quit;
+    
     private AzurePlayerList() {
         names = Collections.synchronizedSet(AzureAPI.newCaseInsensitiveSet()); // access in AsyncPreLoginEvent
         players = Lists.newArrayListWithExpectedSize(Bukkit.getMaxPlayers());
+        
+        join = Lists.newArrayList();
+        quit = Lists.newArrayList();
         
         for (World world : Bukkit.getWorlds()) {
             for (Player each : world.getPlayers()) {
@@ -40,12 +46,24 @@ public class AzurePlayerList implements Listener {
         
         Bukkit.getPluginManager().registerEvents(new AzurePlayerList(), plugin);
     }
+    
+    public static void bind(JoinReactor reactor) {
+        join.add(reactor);
+    }
+    
+    public static void bind(QuitReactor reactor) {
+        quit.add(reactor);
+    }
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void inc(PlayerJoinEvent evt){
         Player player = evt.getPlayer();
         names.add(player.getName());
         players.add(player);
+        
+        if (!join.isEmpty()) {
+            for (JoinReactor re : join) re.react(evt);
+        }
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -53,6 +71,10 @@ public class AzurePlayerList implements Listener {
         Player player = evt.getPlayer();
         names.remove(player.getName());
         players.remove(player);
+        
+        if (!quit.isEmpty()) {
+            for (QuitReactor re : quit) re.react(evt);
+        }
     }
 
     public static List<Player> players() {

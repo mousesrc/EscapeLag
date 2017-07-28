@@ -186,7 +186,11 @@ public abstract class AzureAPI<K, V> {
     }
     
     public static <E> Map<String, E> newCaseInsensitiveMap() {
-        return new CaseInsensitiveMap<E>();
+        return newCaseInsensitiveMap(false);
+    }
+    
+    public static <E> Map<String, E> newCaseInsensitiveMap(boolean concurrent) {
+        return new CaseInsensitiveMap<E>(concurrent);
     }
 
     public static Set<String> newCaseInsensitiveSet() {
