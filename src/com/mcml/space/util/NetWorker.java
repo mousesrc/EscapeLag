@@ -20,7 +20,7 @@ public class NetWorker implements Runnable {
             try {
                 // 整体获取
                 File NetworkerFile = new File(VLagger.MainThis.getDataFolder(), "URLLog");
-                DowloadFile("http://bgm.mcml.space/VLagger/networker.yml", NetworkerFile);
+                DowloadFile("http://bgm.mcml.space/VLagger/Networker.yml", NetworkerFile);
                 YamlConfiguration URLLog = YamlConfiguration.loadConfiguration(NetworkerFile);
                 // 检查插件并下载新版本
                 VLagger.MainThis.getLogger().info("正在检查新版本插件，请稍等...");
