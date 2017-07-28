@@ -14,6 +14,12 @@ public abstract class ConfigPatch extends Configurable {
     @Node(path = "AntiBoneBug.WarnMessage") 
     public static String messageBonemeal = "§c严禁卡树苗催熟BUG！";
     
+    @Node(path = "AntiLongStringCrash.enable")
+	public static boolean AntiLongStringCrashenable = true;
+    
+    @Node(path = "AntiLongStringCrash.WarnMessage")
+	public static String AntiLongStringCrashWarnMessage = "§c警告！严禁利用长字符串来导致服务器崩溃！";
+    
     @Locale
     @Node(path = "AntiFakeDeath.KickMessage")
     public static String messageFakedeath = "§c严禁卡假死BUG！";

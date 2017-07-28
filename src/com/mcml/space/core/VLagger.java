@@ -46,6 +46,7 @@ import com.mcml.space.patch.AntiDupeDropItem;
 import com.mcml.space.patch.AntiFakeDeath;
 import com.mcml.space.patch.AntiInfItem;
 import com.mcml.space.patch.AntiInfRail;
+import com.mcml.space.patch.AntiLongStringCrash;
 import com.mcml.space.patch.AntiNetherHopperInfItem;
 import com.mcml.space.patch.AntiPortalInfItem;
 import com.mcml.space.patch.FixDupeLogin;
@@ -124,6 +125,7 @@ public class VLagger extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new AutoUpdateCheck(), this);
         Bukkit.getPluginManager().registerEvents(new FarmProtecter(), this);
         Bukkit.getPluginManager().registerEvents(new AntiBoneBug(), this);
+        Bukkit.getPluginManager().registerEvents(new AntiLongStringCrash(), this);
         if (VersionLevel.isSpigot()) {
             Bukkit.getPluginManager().registerEvents(new RespawnAction(), this);
         }
