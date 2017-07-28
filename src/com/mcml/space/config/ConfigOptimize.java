@@ -60,7 +60,7 @@ public abstract class ConfigOptimize extends Configurable {
     public static boolean NoCrowdedEntityenable = true;
     
     @Node(path = "NoCrowdedEntity.TypeList")
-    public static List<String> NoCrowdedEntityTypeList = AzureAPI.newChainStringList(false).to("ZOMBIE")
+    public static List<String> NoCrowdedEntityTypeList = AzureAPI.newChainStringList().to("ZOMBIE")
                                                                                        .to("SKELETON")
                                                                                        .to("SPIDER")
                                                                                        .to("CREEPER")
@@ -79,7 +79,7 @@ public abstract class ConfigOptimize extends Configurable {
     public static int OverLoadMemoryRestartPercent = 90;
     
     @Node(path = "AntiRedstone.RemoveBlockList")
-    public static List<String> AntiRedstoneRemoveBlockList = AzureAPI.newChainStringList(false).to("REDSTONE_WIRE")
+    public static List<String> AntiRedstoneRemoveBlockList = AzureAPI.newChainStringList().to("REDSTONE_WIRE")
                                                                                            .to("DIODE_BLOCK_ON")
                                                                                            .to("DIODE_BLOCK_OFF")
                                                                                            .to("REDSTONE_TORCH_ON")

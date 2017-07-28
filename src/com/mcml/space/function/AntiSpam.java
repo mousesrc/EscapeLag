@@ -42,7 +42,7 @@ public class AntiSpam implements Listener {
     public void AntiDirty(AsyncPlayerChatEvent event) {
         if (ConfigFunction.AntiSpamenable) {
             Player p = event.getPlayer();
-            String message = event.getMessage();
+            String message = event.getMessage().toLowerCase();
             if (p.hasPermission("VLagger.bypass.Spam")) {
                 return;
             }
