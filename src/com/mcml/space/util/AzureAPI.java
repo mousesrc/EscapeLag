@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
@@ -301,5 +302,22 @@ public class AzureAPI<K, V> {
     
     public static void playSound(Player player, Sound sound) {
         player.playSound(player.getLocation(), sound, 1F, 1F);
+    }
+    
+    @SuppressWarnings("all")
+    public static Object colorzine(Object o) {
+        if (o instanceof String) {
+            return StringUtils.replaceChars((String) o, '&', '§');
+        }
+        if (o instanceof List) {
+            List list = (List) o;
+            for (Object obj : list) {
+                if (obj instanceof String) {
+                    list.set(list.indexOf(obj), StringUtils.replaceChars((String) obj, '&', '§'));
+                }
+            }
+            return list;
+        }
+        return o;
     }
 }

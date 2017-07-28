@@ -7,8 +7,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.List;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import com.mcml.space.util.AzureAPI.Coord;
@@ -44,30 +42,13 @@ public abstract class Configurable {
                 val value = config.get(path);
                 if (value == null) {
                     config.set(path, def);
-                    field.set(null, colorzine(def)); // for colorzine
+                    field.set(null, AzureAPI.colorzine(def)); // for colorzine
                 } else {
-                    field.set(null, colorzine(value));
+                    field.set(null, AzureAPI.colorzine(value));
                 }
             }
         }
         
         config.save(coord.getKey());
-    }
-    
-    @SuppressWarnings("all")
-    public static Object colorzine(Object o) {
-        if (o instanceof String) {
-            return StringUtils.replaceChars((String) o, '&', '§');
-        }
-        if (o instanceof List) {
-            List list = (List) o;
-            for (Object obj : list) {
-                if (obj instanceof String) {
-                    list.set(list.indexOf(obj), StringUtils.replaceChars((String) obj, '&', '§'));
-                }
-            }
-            return list;
-        }
-        return o;
     }
 }

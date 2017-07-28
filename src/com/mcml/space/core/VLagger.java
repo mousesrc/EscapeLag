@@ -2,7 +2,6 @@ package com.mcml.space.core;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -74,7 +73,7 @@ public class VLagger extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         MainThis = this;
-        AzureAPI.setPrefix(ConfigMain.PluginPrefix + ChatColor.RESET + " > ");
+        AzureAPI.setPrefix(ChatColor.translateAlternateColorCodes('&', ConfigMain.PluginPrefix) + ChatColor.RESET + " > ");
         
         trySetupConfig();
         
@@ -82,7 +81,7 @@ public class VLagger extends JavaPlugin implements Listener {
         AzureAPI.log("~(@^_^@)~ 玩的开心！~");
         
         AzureAPI.log("开始收集服务器信息中...");
-        AzureAPI.log("Version " + getDescription().getVersion() + " is ready for installation");
+        AzureAPI.log("Version " + getDescription().getVersion() + " is ready for installation \n");
         AzureAPI.log("Server: " + Bukkit.getServer().getVersion());
         AzureAPI.log("Bukkit: " + Bukkit.getServer().getBukkitVersion());
         AzureAPI.log("Level: " + VersionLevel.get() + "\n");
