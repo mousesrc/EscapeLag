@@ -7,14 +7,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.world.WorldInitEvent;
 
 import com.mcml.space.core.VLagger;
-import com.mcml.space.util.AzureAPI;
 
 public class WorldSpawnLimiter implements Listener {
 
     @EventHandler
     public void WorldSeterLimitor(WorldInitEvent event) {
         World world = event.getWorld();
-        FileConfiguration config = AzureAPI.loadOrCreateFile(VLagger.optimizeConfiguration);
+        FileConfiguration config = VLagger.configOptimize.getValue();
         if (config.getBoolean("WorldSpawnLimitor." + world.getName() + ".enable")) {
             world.setMonsterSpawnLimit(config.getInt("WorldSpawnLimitor." + world.getName() + ".PerChunkMonsters"));
             world.setAnimalSpawnLimit(config.getInt("WorldSpawnLimitor." + world.getName() + ".PerChunkAnimals"));

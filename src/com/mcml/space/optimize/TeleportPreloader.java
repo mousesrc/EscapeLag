@@ -18,7 +18,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.Lists;
 import com.mcml.space.core.VLagger;
 import com.mcml.space.util.AzureAPI;
-import com.mcml.space.util.AzureAPI.Coord2D;
+import com.mcml.space.util.AzureAPI.Coord;
 import com.mcml.space.util.VersionLevel;
 import com.mcml.space.util.VersionLevel.Version;
 
@@ -32,7 +32,7 @@ import static com.mcml.space.config.ConfigOptimize.halfPreloader;
  */
 public class TeleportPreloader implements Listener {
     public static boolean useCache;
-    public static Cache<Location, List<Coord2D>> caches;
+    public static Cache<Location, List<Coord<Integer, Integer>>> caches;
     protected static boolean pending;
     protected static final boolean invulnerable = VersionLevel.isHigherEquals(Version.MINECRAFT_1_9_R1); // since 1.9
     
@@ -66,10 +66,10 @@ public class TeleportPreloader implements Listener {
         val world = player.getWorld();
 
         boolean custom = AzureAPI.customViewDistance(player);
-        List<Coord2D> chunks = custom ? collectPreloadChunks(to, player) : (useCache ? caches.get(to, new Callable<List<Coord2D>>() {
+        List<Coord<Integer, Integer>> chunks = custom ? collectPreloadChunks(to, player) : (useCache ? caches.get(to, new Callable<List<Coord<Integer, Integer>>>() {
             @Override
-            public List<Coord2D> call() {
-                List<Coord2D> c = collectPreloadChunks(to, player);
+            public List<Coord<Integer, Integer>> call() {
+                List<Coord<Integer, Integer>> c = collectPreloadChunks(to, player);
                 caches.put(to, c);
                 return c;
             }
@@ -84,30 +84,30 @@ public class TeleportPreloader implements Listener {
         Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
             @Override
             public void run() {
-                Coord2D coord;
+                Coord<Integer, Integer> coord;
                 for (int i = 0; i < preChunks; i++) {
                     coord = fChunks.get(i);
-                    world.getChunkAt(coord.getX(), coord.getZ());
+                    world.getChunkAt(coord.getKey(), coord.getValue());
                 }
             }
         }, 1L);
         Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
             @Override
             public void run() {
-                Coord2D coord;
+                Coord<Integer, Integer> coord;
                 for (int i = preChunks; i < secondStage; i++) {
                     coord = fChunks.get(i);
-                    world.getChunkAt(coord.getX(), coord.getZ());
+                    world.getChunkAt(coord.getKey(), coord.getValue());
                 }
             }
         }, 3L);
         Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
             @Override
             public void run() {
-                Coord2D coord;
+                Coord<Integer, Integer> coord;
                 for (int i = secondStage; i < total; i++) {
                     coord = fChunks.get(i);
-                    world.getChunkAt(coord.getX(), coord.getZ());
+                    world.getChunkAt(coord.getKey(), coord.getValue());
                 }
             }
         }, 5L);
@@ -136,7 +136,7 @@ public class TeleportPreloader implements Listener {
         return from.getBlockX() == to.getBlockX() && from.getBlockZ() == to.getBlockZ();
     }
     
-    public static List<Coord2D> collectPreloadChunks(Location loc, Player player) {
+    public static List<Coord<Integer, Integer>> collectPreloadChunks(Location loc, Player player) {
         val view = AzureAPI.viewDistanceBlock(player) / (halfPreloader ? 2 : 1);
         int bX, bZ;
         bX = loc.getBlockX();
@@ -147,11 +147,11 @@ public class TeleportPreloader implements Listener {
         maxX = bX + view;
         maxZ = bZ + view;
         
-        List<Coord2D> chunks = Lists.newArrayListWithExpectedSize(AzureAPI.viewDistanceChunk(player));
+        List<Coord<Integer, Integer>> chunks = Lists.newArrayListWithExpectedSize(AzureAPI.viewDistanceChunk(player));
         int cx, cz;
         for (cx = minX; cx <= maxX; cx+=16) {
             for (cz = minZ; cz <= maxZ; cz+=16) {
-                chunks.add(AzureAPI.wrapCoord2D(cx, cz));
+                chunks.add(AzureAPI.wrapCoord(cx, cz));
             }
         }
         

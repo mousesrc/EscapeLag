@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -52,6 +53,7 @@ import com.mcml.space.patch.FixDupeLogin;
 import com.mcml.space.patch.FixSkullCrash;
 import com.mcml.space.patch.RPGItemPatch;
 import com.mcml.space.util.AzureAPI;
+import com.mcml.space.util.AzureAPI.Coord;
 import com.mcml.space.util.Configurable;
 import com.mcml.space.util.NetWorker;
 import com.mcml.space.util.Perms;
@@ -60,29 +62,22 @@ import com.mcml.space.util.AzurePlayerList;
 import com.mcml.space.util.VersionLevel;
 import com.mcml.space.util.VersionLevel.Version;
 
+import lombok.val;
+
 public class VLagger extends JavaPlugin implements Listener {
-
     public static VLagger MainThis;
-    public static File optimizeConfiguration;
-    public static File AntiBugConfigFile;
-    private static File PluginMainConfigFile;
-    public static File functionConfiguation;
-    public static File PluginFile;
-
+    public static Coord<File, FileConfiguration> configOptimize;
+    public static Coord<File, FileConfiguration> configPatch;
+    public static Coord<File, FileConfiguration> configMain;
+    public static Coord<File, FileConfiguration> configFunction;
+    
     @Override
     public void onEnable() {
         MainThis = this;
-        Ticker.bind(MainThis);
-        Perms.bind("vlagger.admin");
-        
-        optimizeConfiguration = new File(this.getDataFolder(), "ClearLagConfig.yml");
-        AntiBugConfigFile = new File(this.getDataFolder(), "AntiBugConfig.yml");
-        PluginMainConfigFile = new File(this.getDataFolder(), "PluginMainConfig.yml");
-        functionConfiguation = new File(this.getDataFolder(), "DoEventConfig.yml");
-        PluginFile = this.getFile();
-        LoadConfig();
-        
         AzureAPI.setPrefix(ConfigMain.PluginPrefix + ChatColor.RESET + " > ");
+        
+        trySetupConfig();
+        
         AzureAPI.log("VLagger —— 新一代的优化/稳定插件");
         AzureAPI.log("~(@^_^@)~ 玩的开心！~");
         
@@ -100,6 +95,10 @@ public class VLagger extends JavaPlugin implements Listener {
             } catch (IOException | InterruptedException e) {
             }
         }
+        
+        Ticker.bind(MainThis);
+        Perms.bind("vlagger.admin");
+        
         Bukkit.getPluginManager().registerEvents(new AntiInfItem(), this);
         Bukkit.getPluginManager().registerEvents(new AntiPortalInfItem(), this);
         Bukkit.getPluginManager().registerEvents(new AntiNetherHopperInfItem(), this);
@@ -171,10 +170,10 @@ public class VLagger extends JavaPlugin implements Listener {
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("updateon")) {
-                    FileConfiguration MainConfig = AzureAPI.loadOrCreateFile(PluginMainConfigFile);
+                    FileConfiguration MainConfig = configMain.getValue();
                     MainConfig.set("AutoUpdate", true);
                     try {
-                        MainConfig.save(PluginMainConfigFile);
+                        MainConfig.save(configMain.getKey());
                     } catch (IOException ex) {
                     }
                     ConfigMain.AutoUpdate = true;
@@ -314,7 +313,7 @@ public class VLagger extends JavaPlugin implements Listener {
                     }
                 }
                 if (args[0].equalsIgnoreCase("reload")) {
-                    LoadConfig();
+                    trySetupConfig();
                     sender.sendMessage("§a§l[VLagger]配置已经成功重载！");
                     return true;
                 }
@@ -326,194 +325,73 @@ public class VLagger extends JavaPlugin implements Listener {
         return false;
     }
     
-    private void LoadConfig(){
-    	this.saveResource("说明文档.txt", true);
-    	
-    	try {
-            Configurable.restoreNodes(PluginMainConfigFile, ConfigMain.class);
-        } catch (IllegalArgumentException | IllegalAccessException | IOException e) {
-            e.printStackTrace();
-        }
-    	
-    	try {
-            Configurable.restoreNodes(optimizeConfiguration, ConfigOptimize.class);
-        } catch (IllegalArgumentException | IllegalAccessException | IOException e) {
-            e.printStackTrace();
-        }
-        
+    private void trySetupConfig() {
         try {
-            Configurable.restoreNodes(AntiBugConfigFile, ConfigPatch.class);
-        } catch (IllegalArgumentException | IllegalAccessException | IOException e) {
-            e.printStackTrace();
-        }
-        
-        try {
-            Configurable.restoreNodes(functionConfiguation, ConfigFunction.class);
-        } catch (IllegalArgumentException | IllegalAccessException | IOException e) {
+            setupConfig();
+        } catch (IllegalArgumentException | IllegalAccessException e) {
+            AzureAPI.fatal("初始化配置文件时出错");
             e.printStackTrace();
         }
     }
-
-    @SuppressWarnings("unused")
-	private void OldLoadConfig() {
+    
+    private void setupConfig() throws IllegalArgumentException, IllegalAccessException{
     	this.saveResource("说明文档.txt", true);
-        FileConfiguration MainConfig = AzureAPI.loadOrCreateFile(PluginMainConfigFile);
-        if (MainConfig.getInt("Version") < 272) {
-            MainConfig.set("Version", 272);
-            MainConfig.set("PluginPrefix", "§a§l[Vlagger]");
-            MainConfig.set("AutoUpdate", false);
-        }
-        try {
-            MainConfig.save(PluginMainConfigFile);
-        } catch (IOException ex) {
-        }
-
-        FileConfiguration ClearLagConfig = AzureAPI.loadOrCreateFile(optimizeConfiguration);
-        if (ClearLagConfig.getInt("Version") < 272) {
-            ClearLagConfig.set("Version", 272);
-            ClearLagConfig.set("AutoSet.enable", true);
-            ClearLagConfig.set("AutoSave.enable", true);
-            ClearLagConfig.set("AutoSave.Interval", 15);
-            ClearLagConfig.set("ClearItem.enable", true);
-            ClearLagConfig.set("ClearItem.NoCleatDeath", true);
-            ClearLagConfig.set("ClearItem.NoClearTeleport", true);
-            List<String> MeterialList = new ArrayList<String>();
-            MeterialList.add("DIAMOND");
-            MeterialList.add("DIAMOND_SWORD");
-            ClearLagConfig.set("ClearItem.NoClearItemType", MeterialList);
-            ClearLagConfig.set("NooneRestart.enable", true);
-            ClearLagConfig.set("ChunkKeeper.enable", true);
-            ClearLagConfig.set("ChunkUnloader.enable", true);
-            ClearLagConfig.set("NoCrowdedEntity.enable", true);
-            ClearLagConfig.set("NoCrowdedEntity.PerChunkLimit", 30);
-            List<String> entt = new ArrayList<String>();
-            entt.add("ZOMBIE");
-            entt.add("SKELETON");
-            entt.add("SPIDER");
-            entt.add("CREEPER");
-            entt.add("SHEEP");
-            entt.add("PIG");
-            entt.add("CHICKEN");
-            ClearLagConfig.set("NoCrowdedEntity.TypeList", entt);
-            ClearLagConfig.set("TilesClear.enable", true);
-            ClearLagConfig.set("TilesClear.Interval", 360);
-            ClearLagConfig.set("NoExplode.enable", true);
-            ClearLagConfig.set("NoExplode.Type", "NoBlockBreak");
-            ClearLagConfig.set("AntiRedstone.enable", true);
-            ClearLagConfig.set("AntiRedstone.Interval", 500);
-            ClearLagConfig.set("AntiRedstone.Message", "§c检测到高频红石在 %location% ，插件已经将其清除，不许玩了！ (╰_╯)#");
-            ClearLagConfig.set("TilesClear.Message", "§e服务器清理Tiles完毕 ~(@^_^@)~");
-            ClearLagConfig.set("ChunkUnloader.Interval", 30);
-            ClearLagConfig.set("HeapClear.enable", false);
-            ClearLagConfig.set("HeapClear.Period", 600);
-            ClearLagConfig.set("HeapClear.Message", "§e服务器清理内存中... ԅ(¯ㅂ¯ԅ)");
-            ClearLagConfig.set("TeleportPreLoader.enable", true);
-            ClearLagConfig.set("WaterFlowLimitor.enable", true);
-            ClearLagConfig.set("WaterFlowLimitor.Period", 200L);
-            ClearLagConfig.set("FireLimitor.enable", true);
-            ClearLagConfig.set("FireLimitor.Period", 3000L);
-            ClearLagConfig.set("WorldSpawnLimitor.worldname.enable", true);
-            ClearLagConfig.set("WorldSpawnLimitor.worldname.PerChunkMonsters", 3);
-            ClearLagConfig.set("WorldSpawnLimitor.worldname.PerChunkAnimals", 3);
-            ClearLagConfig.set("WorldSpawnLimitor.worldname.PerChunkAmbient", 10);
-        }
-        if(ClearLagConfig.getInt("Version") < 278){
-            ClearLagConfig.set("Version", 278);
-            List<String> mas = new ArrayList<String>();
-            mas.add("REDSTONE_WIRE");
-            mas.add("DIODE_BLOCK_ON");
-            mas.add("DIODE_BLOCK_OFF");
-            mas.add("REDSTONE_TORCH_ON");
-            mas.add("REDSTONE_TORCH_OFF");
-            mas.add("REDSTONE_BLOCK");
-            ClearLagConfig.set("AntiRedstone.RemoveBlockList", mas);
-        }
-        try {
-            ClearLagConfig.save(optimizeConfiguration);
-        } catch (IOException ex) {
-        }
         
-
-        FileConfiguration NoBugConfig = AzureAPI.loadOrCreateFile(AntiBugConfigFile);
-        if (NoBugConfig.getInt("Version") < 272) {
-            NoBugConfig.set("Version", 272);
-            NoBugConfig.set("AntiInfItem.enable", true);
-            NoBugConfig.set("AntiPortalInfItem.enable", true);
-            NoBugConfig.set("AntiNetherHopperInfItem.enable", true);
-            NoBugConfig.set("AntiRPGITEM.enable", true);
-            NoBugConfig.set("AntiCrashSign.enable", true);
-            NoBugConfig.set("AntiSkullCrash.enable", true);
-            NoBugConfig.set("NoDoubleOnline.enable", true);
-            NoBugConfig.set("NoDoubleOnline.KickMessage", "抱歉，服务器中您已经在线了。ԅ(¯ㅂ¯ԅ)");
-            NoBugConfig.set("AntiDoorInfItem.enable", true);
-            NoBugConfig.set("AntiCheatBook.enable", true);
-            NoBugConfig.set("AntiCheatBook.WarnMessage", "§c严禁利用超级书Bug！");
-            NoBugConfig.set("AntiBedExplode.enable", true);
-            NoBugConfig.set("AntiBreakUseingChest.enable", true);
-            NoBugConfig.set("AntiInfRail.enable", true);
+        val pluginMainConfigFile = new File(this.getDataFolder(), "PluginMainConfig.yml");
+        configMain = AzureAPI.wrapCoord(pluginMainConfigFile, AzureAPI.loadOrCreateFile(pluginMainConfigFile));
+    	
+        val clearLagConfig = new File(this.getDataFolder(), "ClearLagConfig.yml");
+        configOptimize = AzureAPI.wrapCoord(clearLagConfig, AzureAPI.loadOrCreateFile(clearLagConfig));
+        
+        val antiBugConfig = new File(this.getDataFolder(), "AntiBugConfig.yml");
+        configPatch = AzureAPI.wrapCoord(antiBugConfig, AzureAPI.loadOrCreateFile(antiBugConfig));
+        
+        val doEventConfig = new File(this.getDataFolder(), "DoEventConfig.yml");
+        configFunction = AzureAPI.wrapCoord(doEventConfig, AzureAPI.loadOrCreateFile(doEventConfig));
+    	
+    	try {
+            Configurable.restoreNodes(configMain, ConfigMain.class);
+        } catch (IOException io) {
+            notifyFileException(pluginMainConfigFile);
+            retry();
         }
-        if(NoBugConfig.getInt("Version") < 290){
-        	NoBugConfig.set("Version", 290);
-        	NoBugConfig.set("AntiDupeDropItem.enable", true);
-        }
-        try {
-            NoBugConfig.save(AntiBugConfigFile);
-        } catch (IOException ex) {
-        }
-        FileConfiguration EventConfig = AzureAPI.loadOrCreateFile(functionConfiguation);
-        if (EventConfig.getInt("Version") < 272) {
-            EventConfig.set("Version", 272);
-            EventConfig.set("AntiSpam.enable", true);
-            EventConfig.set("AntiSpam.Period.Period", 2F);
-            EventConfig.set("AntiSpam.Period.WarnMessage", "§c请慢点说话，别激动嘛！ _(:з」∠)_");
-            List<String> dirty = new ArrayList<String>();
-            dirty.add("操你妈");
-            dirty.add("妈逼");
-            dirty.add("SB");
-            dirty.add("弱智");
-            dirty.add("智障");
-            dirty.add("杂种");
-            dirty.add("狗娘");
-            EventConfig.set("AntiSpam.Dirty.List", dirty);
-            EventConfig.set("AntiSpam.Dirty.WarnMessage", "§c什么事情激动得你都想骂人啦？");
-            EventConfig.set("NoEggChangeSpawner.TipMessage", "§c抱歉，禁止使用刷怪蛋修改刷怪笼");
-            EventConfig.set("NoEggChangeSpawner.enable", "§c抱歉，禁止使用刷怪蛋修改刷怪笼");
-            EventConfig.set("BlockCommander.enable", false);
-            EventConfig.set("BlockCommander.List.NoSpawnWorld./spawn", true);
-            EventConfig.set("BlockCommander.List.NoSpawnWorld./spawn.Message", "想在这个世界回城？没门！");
-            EventConfig.set("BlockCommander.List.worldname./back", true);
-            EventConfig.set("BlockCommander.List.worldname./back.Message", "不好使，不可以用back!");
-            EventConfig.set("BlockCommander.List.worldname./tpa", true);
-            EventConfig.set("BlockCommander.List.worldname./tpa.Message", "WIFI没信号，不能传送。");
-            EventConfig.set("AutoRespawn.enable", true);
-            EventConfig.set("AutoRespawn.RespawnTitle.enable", true);
-            EventConfig.set("AutoRespawn.RespawnTitle.MainMessage", "§e你死了！");
-            EventConfig.set("AutoRespawn.RespawnTitle.MiniMessage", "§c已为您自动复活！");
-        }
-        try {
-            EventConfig.save(functionConfiguation);
-        } catch (IOException ex) {
+    	
+    	try {
+            Configurable.restoreNodes(configOptimize, ConfigOptimize.class);
+    	} catch (IOException io) {
+    	    notifyFileException(clearLagConfig);
+            retry();
         }
         
         try {
-            Configurable.restoreNodes(optimizeConfiguration, ConfigOptimize.class);
-        } catch (IllegalArgumentException | IllegalAccessException | IOException e) {
-            e.printStackTrace();
+            Configurable.restoreNodes(configPatch, ConfigPatch.class);
+        } catch (IOException io) {
+            notifyFileException(antiBugConfig);
+            retry();
         }
         
         try {
-            Configurable.restoreNodes(AntiBugConfigFile, ConfigPatch.class);
-        } catch (IllegalArgumentException | IllegalAccessException | IOException e) {
-            e.printStackTrace();
-        }
-        
-        try {
-            Configurable.restoreNodes(functionConfiguation, ConfigFunction.class);
-        } catch (IllegalArgumentException | IllegalAccessException | IOException e) {
-            e.printStackTrace();
+            Configurable.restoreNodes(configFunction, ConfigFunction.class);
+        } catch (IOException io) {
+            notifyFileException(doEventConfig);
+            retry();
         }
     }
-
+    
+    private void retry() throws IllegalArgumentException, IllegalAccessException {
+        AzureAPI.warn("系统会在15秒后重试");
+        try {
+            Thread.sleep(TimeUnit.SECONDS.toMillis(15));
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+        setupConfig();
+    }
+    
+    private static void notifyFileException(File file) {
+        AzureAPI.warn("配置文件" + file.getName() + "无法正常读取或存储, 请检查文件情况");
+    }
+    
     private static void AutoSetServer() throws IOException, InterruptedException {
         long heapmb = Runtime.getRuntime().maxMemory() / 1024 / 1024;
         File BukkitFile = new File("bukkit.yml");
@@ -623,5 +501,9 @@ public class VLagger extends JavaPlugin implements Listener {
     public void onDisable() {
         getLogger().info("VLagger —— 已经停止使用");
         getLogger().info("感谢您的使用——乐乐");
+    }
+    
+    public static File getPluginsFolder() {
+        return VLagger.MainThis.getFile();
     }
 }

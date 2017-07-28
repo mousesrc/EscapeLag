@@ -28,14 +28,16 @@ import com.mcml.space.util.VersionLevel.Version;
 
 /**
  * @author SotrForgotten,Vlvxingze
+ * @param <K>
+ * @param <V>
  */
-public class AzureAPI {
+public class AzureAPI<K, V> {
     private static String loggerPrefix = "";
     private static final int bukkitVDChunk = (Bukkit.getViewDistance() * 2) ^ 2 + 1;
     private static final int bukkitVDBlock = Bukkit.getViewDistance() * 16;
 
     private static final class LazyAPI {
-        private static final AzureAPI api = new AzureAPI();
+        private static final AzureAPI<?, ?> api = new AzureAPI<Object, Object>();
     }
 
     private AzureAPI() {
@@ -43,7 +45,7 @@ public class AzureAPI {
         assert LazyAPI.api == null;
     }
 
-    public static final AzureAPI getAPI() {
+    public static final AzureAPI<?, ?> getAPI() {
         return LazyAPI.api;
     }
 
@@ -149,25 +151,25 @@ public class AzureAPI {
         }
     }
 
-    public static Coord2D wrapCoord2D(int x, int z) {
-        return new Coord2D(x, z);
+    public static <K, V> Coord<K, V> wrapCoord(K key, V value) {
+        return new Coord<K, V>(key, value);
     }
 
-    public static class Coord2D {
-        final int x;
-        final int z;
-
-        public Coord2D(int x2d, int z2d) {
-            x = x2d;
-            z = z2d;
+    public static class Coord<K, V> {
+        final K k;
+        final V v;
+        
+        public Coord(K key, V value) {
+            k = key;
+            v = value;
         }
-
-        public int getX() {
-            return x;
+        
+        public K getKey() {
+            return k;
         }
-
-        public int getZ() {
-            return z;
+        
+        public V getValue() {
+            return v;
         }
     }
 
