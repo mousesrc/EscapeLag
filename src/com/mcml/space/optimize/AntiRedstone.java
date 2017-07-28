@@ -32,7 +32,7 @@ public class AntiRedstone implements Listener {
 		if(event.getOldCurrent() > event.getNewCurrent()){
 			return;
 		}
-		Block block = event.getBlock();
+		final Block block = event.getBlock();
 		Location loc = block.getLocation();
 		if(CheckedTimes.get(loc) == null){
 			CheckedTimes.put(loc, 0);
@@ -44,6 +44,7 @@ public class AntiRedstone implements Listener {
 				message = message.replaceAll("%location%", loc.toString());
 				AzureAPI.bc(message);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable(){
+					
 					public void run(){
 						block.setType(Material.AIR);
 					}
