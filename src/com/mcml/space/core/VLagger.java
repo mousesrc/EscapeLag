@@ -111,7 +111,7 @@ public class VLagger extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new NoCrowdEntity(), this);
         Bukkit.getPluginManager().registerEvents(new AntiCrashSign(), this);
         Bukkit.getPluginManager().registerEvents(new AntiSpam(), this);
-        Bukkit.getPluginManager().registerEvents(new ExplosionController.EntityDetector(), this);
+        ExplosionController.init(this);
         Bukkit.getPluginManager().registerEvents(new AntiRedstone(), this);
         Bukkit.getPluginManager().registerEvents(new ItemClear(), this);
         Bukkit.getPluginManager().registerEvents(new NoSpawnChunks(), this);
@@ -143,9 +143,7 @@ public class VLagger extends JavaPlugin implements Listener {
         if (VersionLevel.isLowerThan(Version.MINECRAFT_1_9_R1)) {
             Bukkit.getPluginManager().registerEvents(new SkullCrashPatch(), this);
         }
-        if (VersionLevel.isHigherEquals(Version.MINECRAFT_1_8_R2)) {
-            Bukkit.getPluginManager().registerEvents(new ExplosionController.BlockDetector(), this);
-        }
+        
         if (VersionLevel.isHigherEquals(Version.MINECRAFT_1_12_R1)) {
             if (Bukkit.getPluginManager().isPluginEnabled("ProtocolLib")) {
                 Bukkit.getPluginManager().registerEvents(new RecipeDupePatch(), this);

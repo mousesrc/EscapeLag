@@ -21,11 +21,9 @@ import static com.mcml.space.config.ConfigFunction.messagePreventSpawnerModify;
  * @author Vlvxingze, SotrForgotten
  */
 public class SpawnerController implements Listener {
-    public static SpawnerController init(JavaPlugin plugin) {
-        SpawnerController instance = new SpawnerController();
-        Bukkit.getPluginManager().registerEvents(instance, plugin);
+    public static void init(JavaPlugin plugin) {
+        Bukkit.getPluginManager().registerEvents(new SpawnerController(), plugin);
         AzureAPI.log("刷怪笼控制模块已启动");
-        return instance;
     }
     
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

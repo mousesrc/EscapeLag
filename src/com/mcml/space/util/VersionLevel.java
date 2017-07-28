@@ -119,9 +119,10 @@ public class VersionLevel {
     
     private static void checkType(String bukkitVersion) {
         bukkitVersion = bukkitVersion.toLowerCase();
-        forge = bukkitVersion.contains("cauldron") || bukkitVersion.contains("mcpc");
+        boolean thermos = bukkitVersion.contains("thermos");
+        forge = bukkitVersion.contains("cauldron") || bukkitVersion.contains("mcpc") || thermos;
         paper = bukkitVersion.contains("paper") || bukkitVersion.contains("taco") || bukkitVersion.contains("torch");
-        spigot = (paper ? true : bukkitVersion.contains("spigot") || bukkitVersion.contains("hose") || bukkitVersion.contains("glowstone"));
+        spigot = (paper ? true : bukkitVersion.contains("spigot") || bukkitVersion.contains("hose") || bukkitVersion.contains("glowstone")) || thermos;
     }
     
     public static boolean isLowerThan(Version other) {

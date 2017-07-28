@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import com.mcml.space.config.ConfigFunction;
 
-public class FarmProtecter implements Listener{
+public class FarmProtecter implements Listener {
     // TODO be graceful
     @EventHandler
     public void EntityFarmChecker(EntityInteractEvent event){
