@@ -225,43 +225,13 @@ public class AzureAPI<K, V> {
     }
     
     @SuppressWarnings("serial")
-    public static ChainArrayList<String> newChainStringList(boolean caseInsensitive) { // TODO any
+    public static ChainArrayList<String> newChainStringList(boolean caseInsensitive) {
         return caseInsensitive ? new ChainArrayList<String>() { 
-            @Override
-            public boolean contains(Object o) {
-                return super.contains(toLowerCase(o));
-            }
-            
-            @Override
-            public int indexOf(Object o) {
-                return super.indexOf(toLowerCase(o));
-            }
-            
-            @Override
-            public int lastIndexOf(Object o) {
-                return super.lastIndexOf(toLowerCase(o));
-            }
-            
-            @Override
-            public String set(int index, String element) {
-                return super.set(index, toLowerCase(element));
-            }
-            
             @Override
             public boolean add(String e) {
                 return super.add(toLowerCase(e));
             }
-            
-            @Override
-            public void add(int index, String element) {
-                super.add(index, toLowerCase(element));
-            }
-            
-            @Override
-            public boolean remove(Object o) {
-                return super.remove(toLowerCase(o));
-            }
-            // TODO complete
+            // Note: manually
         } : new ChainArrayList<String>();
     }
     

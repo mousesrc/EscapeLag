@@ -60,13 +60,13 @@ public abstract class ConfigOptimize extends Configurable {
     public static boolean NoCrowdedEntityenable = true;
     
     @Node(path = "NoCrowdedEntity.TypeList")
-    public static List<String> NoCrowdedEntityTypeList = AzureAPI.newChainStringList().to("ZOMBIE")
-                                                                                       .to("SKELETON")
-                                                                                       .to("SPIDER")
-                                                                                       .to("CREEPER")
-                                                                                       .to("SHEEP")
-                                                                                       .to("PIG")
-                                                                                       .to("CHICKEN");
+    public static List<String> NoCrowdedEntityTypeList = AzureAPI.newChainStringList().to("zombie")
+                                                                                       .to("skeleton")
+                                                                                       .to("spider")
+                                                                                       .to("creeper")
+                                                                                       .to("sheep")
+                                                                                       .to("pig")
+                                                                                       .to("chicken");
     
     @Node(path = "NoCrowdedEntity.PerChunkLimit")
     public static int NoCrowdedEntityPerChunkLimit = 30;
@@ -79,12 +79,12 @@ public abstract class ConfigOptimize extends Configurable {
     public static int OverLoadMemoryRestartPercent = 90;
     
     @Node(path = "AntiRedstone.RemoveBlockList")
-    public static List<String> AntiRedstoneRemoveBlockList = AzureAPI.newChainStringList().to("REDSTONE_WIRE")
-                                                                                           .to("DIODE_BLOCK_ON")
-                                                                                           .to("DIODE_BLOCK_OFF")
-                                                                                           .to("REDSTONE_TORCH_ON")
-                                                                                           .to("REDSTONE_TORCH_OFF")
-                                                                                           .to("REDSTONE_BLOCK");
+    public static List<String> AntiRedstoneRemoveBlockList = AzureAPI.newChainStringList().to("redstone_wire")
+                                                                                           .to("diode_block_on")
+                                                                                           .to("diode_block_off")
+                                                                                           .to("redstone_torch_on")
+                                                                                           .to("redstone_torch_off")
+                                                                                           .to("redstone_block");
     
     @Node(path = "AutoSave.Interval")
     public static long AutoSaveInterval = 15;

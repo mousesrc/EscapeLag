@@ -96,7 +96,7 @@ public class VLagger extends JavaPlugin implements Listener {
         }
         
         Ticker.bind(MainThis);
-        Perms.bind("vlagger.admin");
+        Perms.bind("VLagger.Admin");
         
         Bukkit.getPluginManager().registerEvents(new AntiInfItem(), this);
         Bukkit.getPluginManager().registerEvents(new AntiPortalInfItem(), this);

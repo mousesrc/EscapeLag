@@ -22,7 +22,7 @@ public class NoCrowdEntity implements Listener {
             for (Entity e : entities) {
                 val type = e.getType();
                 int count = 0;
-                if (ConfigOptimize.NoCrowdedEntityTypeList.contains(type.getName())) {
+                if (ConfigOptimize.NoCrowdedEntityTypeList.contains(type.getName().toLowerCase())) {
                     count++;
                     if (count > ConfigOptimize.NoCrowdedEntityPerChunkLimit && e.getType() != EntityType.PLAYER) {
                         e.remove();

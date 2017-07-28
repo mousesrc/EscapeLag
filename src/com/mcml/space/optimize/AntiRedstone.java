@@ -39,7 +39,7 @@ public class AntiRedstone implements Listener {
 		}
 		CheckedTimes.put(loc, CheckedTimes.get(loc) + 1);
 		if(CheckedTimes.get(loc) > ConfigOptimize.AntiRedstoneTimes){
-			if(ConfigOptimize.AntiRedstoneRemoveBlockList.contains(block.getType().name())){
+			if(ConfigOptimize.AntiRedstoneRemoveBlockList.contains(block.getType().name().toLowerCase())){
 				block.setType(Material.AIR);
 				String message = ConfigOptimize.AntiRedstoneMessage;
 				message = message.replaceAll("%location%", loc.toString());

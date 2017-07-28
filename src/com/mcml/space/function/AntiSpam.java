@@ -25,7 +25,7 @@ public class AntiSpam implements Listener {
     public void SpamChecker(AsyncPlayerChatEvent event) {
         if (ConfigFunction.AntiSpamenable) {
             Player p = event.getPlayer();
-            if (p.hasPermission("VLagger.bypass.Spam")) { // TODO add permission utils
+            if (AzureAPI.hasPerm(p, "VLagger.bypass.Spam")) {
                 return;
             }
             String pn = p.getName();
@@ -43,17 +43,20 @@ public class AntiSpam implements Listener {
         if (ConfigFunction.AntiSpamenable) {
             Player p = event.getPlayer();
             String message = event.getMessage().toLowerCase();
-            if (p.hasPermission("VLagger.bypass.Spam")) {
+            if (AzureAPI.hasPerm(p, "VLagger.bypass.Spam")) {
                 return;
             }
             
             for (String each : ConfigFunction.AntiSpamDirtyList) {
-                if (StringUtils.containsAny(message, each)) {
+                boolean deny = true;
+                for (char c : each.toCharArray()) {
+                    if (!StringUtils.contains(message, c)) deny = false;
+                }
+                if (deny) {
                     event.setCancelled(true);
                     AzureAPI.log(p, ConfigFunction.AntiSpamDirtyWarnMessage);
                 }
             }
-            
         }
     }
 }
