@@ -13,7 +13,8 @@ import lombok.val;
 /**
  * @author Vlvxingze, SotrForgotten
  */
-public class OverLoadMemoryRestart implements Runnable {
+public class RestartAction implements Runnable {
+    // TODO 这个类以后还可以添加更多重启检测 不要重命名
     private int restartTaskId = -1;
     
     @Override

@@ -31,7 +31,7 @@ import com.mcml.space.optimize.ChunkKeeper;
 import com.mcml.space.optimize.ChunkUnloader;
 import com.mcml.space.optimize.NoSpawnChunks;
 import com.mcml.space.optimize.FireLimitor;
-import com.mcml.space.optimize.OverLoadMemoryRestart;
+import com.mcml.space.optimize.RestartAction;
 import com.mcml.space.optimize.ItemClear;
 import com.mcml.space.optimize.NoCrowdEntity;
 import com.mcml.space.optimize.EmptyRestart;
@@ -148,7 +148,7 @@ public class VLagger extends JavaPlugin implements Listener {
 		ChunkKeeper.ChunkKeeperofTask();
 		getServer().getScheduler().runTaskTimer(this, new ChunkUnloader(), 0,
 				ConfigOptimize.ChunkUnloaderInterval * 20);
-		Bukkit.getScheduler().runTaskTimer(this, new OverLoadMemoryRestart(), 1 * 60 * 20, 1 * 60 * 20);
+		Bukkit.getScheduler().runTaskTimer(this, new RestartAction(), 1 * 60 * 20, 1 * 60 * 20);
 		Bukkit.getScheduler().runTaskTimer(this, new TimerGarbageCollect(), ConfigOptimize.TimerGcPeriod * 20,
 				ConfigOptimize.TimerGcPeriod * 20);
 		if (ConfigMain.AutoUpdate)
@@ -283,7 +283,7 @@ public class VLagger extends JavaPlugin implements Listener {
 						sender.sendMessage("§6区块清理完毕！");
 					}
 					if (args[1].equalsIgnoreCase("heapshut")) {
-						getServer().getScheduler().runTask(this, new OverLoadMemoryRestart());
+						getServer().getScheduler().runTask(this, new RestartAction());
 						sender.sendMessage("§6成功检测一次内存濒临重启！");
 					}
 					if (args[1].equalsIgnoreCase("chunkunloadlog")) {

@@ -17,7 +17,7 @@ public class NoSpawnChunks implements Listener {
     public void onWorldLoad(WorldInitEvent evt) {
         if (noSpawnChunks) {
             val world = evt.getWorld();
-            if (nscExcludeWorlds.isEmpty() || !nscExcludeWorlds.contains(world.getName())) {
+            if (nscExcludeWorlds.isEmpty() || !AzureAPI.containsIgnoreCase(nscExcludeWorlds, world.getName())) {
                 world.setKeepSpawnInMemory(false);
                 AzureAPI.log("已为世界 " + world.getName() + " 设定不保留出生区块.");
             }

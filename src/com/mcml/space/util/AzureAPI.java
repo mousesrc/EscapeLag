@@ -1,8 +1,6 @@
 package com.mcml.space.util;
 
 import static com.mcml.space.util.VersionLevel.isPaper;
-import static com.mcml.space.util.CaseInsensitiveMap.toLowerCase;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -221,18 +219,7 @@ public class AzureAPI<K, V> {
     }
     
     public static ChainArrayList<String> newChainStringList() {
-        return newChainStringList(true);
-    }
-    
-    @SuppressWarnings("serial")
-    public static ChainArrayList<String> newChainStringList(boolean caseInsensitive) {
-        return caseInsensitive ? new ChainArrayList<String>() { 
-            @Override
-            public boolean add(String e) {
-                return super.add(toLowerCase(e));
-            }
-            // Note: manually
-        } : new ChainArrayList<String>();
+        return new ChainArrayList<String>();
     }
     
     @SuppressWarnings("serial")
@@ -289,5 +276,14 @@ public class AzureAPI<K, V> {
             return list;
         }
         return o;
+    }
+    
+    public static boolean containsIgnoreCase(List<String> list, String string) {
+        String each;
+        for (int i = 0, size = list.size(); i < size; i++) {
+            each = list.get(i);
+            if (each.equalsIgnoreCase(string)) return true;
+        }
+        return false;
     }
 }

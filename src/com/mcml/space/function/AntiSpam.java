@@ -49,7 +49,7 @@ public class AntiSpam implements Listener {
             
             for (String each : ConfigFunction.AntiSpamDirtyList) {
                 boolean deny = true;
-                for (char c : each.toCharArray()) {
+                for (char c : each.toLowerCase().toCharArray()) {
                     if (!StringUtils.contains(message, c)) deny = false;
                 }
                 if (deny) {

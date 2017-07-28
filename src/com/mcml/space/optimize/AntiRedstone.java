@@ -39,13 +39,14 @@ public class AntiRedstone implements Listener {
 		}
 		CheckedTimes.put(loc, CheckedTimes.get(loc) + 1);
 		if(CheckedTimes.get(loc) > ConfigOptimize.AntiRedstoneTimes){
-			if(ConfigOptimize.AntiRedstoneRemoveBlockList.contains(block.getType().name())){
+			if(AzureAPI.containsIgnoreCase(ConfigOptimize.AntiRedstoneRemoveBlockList, block.getType().name())){
 				String message = ConfigOptimize.AntiRedstoneMessage;
 				message = message.replaceAll("%location%", loc.toString());
 				AzureAPI.bc(message);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable(){
 					
-					public void run(){
+					@Override
+                    public void run(){
 						block.setType(Material.AIR);
 					}
 				}, 1);
