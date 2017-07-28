@@ -8,6 +8,7 @@ import org.bukkit.event.player.*;
 import com.mcml.space.config.ConfigFunction;
 import com.mcml.space.core.VLagger;
 import com.mcml.space.util.AzureAPI;
+import com.mcml.space.util.Perms;
 
 public class BlockCommander implements Listener {
 
@@ -16,9 +17,8 @@ public class BlockCommander implements Listener {
         if (ConfigFunction.BlockCommanderenable == true) {
             Player p = event.getPlayer();
             FileConfiguration config = AzureAPI.loadOrCreateFile(VLagger.functionConfiguation);
-            if (p.hasPermission("VLagger.admin") == true) {
-                return;
-            }
+            if (Perms.has(p)) return;
+            
             if (config.getBoolean("BlockCommander.List." + p.getWorld().getName() + "." + event.getMessage())) {
                 event.setCancelled(true);
                 AzureAPI.log(p, config.getString("BlockCommander.List." + p.getWorld().getName() + "." + event.getMessage() + ".Message"));

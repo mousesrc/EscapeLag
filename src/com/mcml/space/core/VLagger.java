@@ -54,6 +54,7 @@ import com.mcml.space.patch.RPGItemPatch;
 import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.Configurable;
 import com.mcml.space.util.NetWorker;
+import com.mcml.space.util.Perms;
 import com.mcml.space.util.Ticker;
 import com.mcml.space.util.AzurePlayerList;
 import com.mcml.space.util.VersionLevel;
@@ -72,6 +73,7 @@ public class VLagger extends JavaPlugin implements Listener {
     public void onEnable() {
         MainThis = this;
         Ticker.bind(MainThis);
+        Perms.bind("vlagger.admin");
         
         optimizeConfiguration = new File(this.getDataFolder(), "ClearLagConfig.yml");
         AntiBugConfigFile = new File(this.getDataFolder(), "AntiBugConfig.yml");
@@ -163,7 +165,7 @@ public class VLagger extends JavaPlugin implements Listener {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (label.equalsIgnoreCase("vlg")) {
             sender.sendMessage("§b------§a§lVLagger - §e版本 " + getDescription().getVersion() + "§b------");
-            if (sender.hasPermission("VLagger.admin")) {
+            if (Perms.has(sender)) {
                 if (args.length == 0) {
                     sender.sendMessage("§c请输入/vlg help 来获取帮助");
                     return true;

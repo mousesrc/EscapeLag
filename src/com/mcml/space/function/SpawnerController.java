@@ -8,6 +8,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import com.mcml.space.util.AzureAPI;
+import com.mcml.space.util.Perms;
 
 import lombok.val;
 
@@ -24,9 +25,7 @@ public class SpawnerController implements Listener {
         if (!preventSpawnerModify || evt.getItem() == null || evt.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         
         val player = evt.getPlayer();
-        if (AzureAPI.hasPerm(evt.getPlayer(), "VLagger.admin")) {
-            return;
-        }
+        if (Perms.has(player)) return;
         
         if (evt.getClickedBlock().getType() == Material.MOB_SPAWNER) {
             val type = evt.getItem().getType();
@@ -36,5 +35,4 @@ public class SpawnerController implements Listener {
             }
         }
     }
-    
 }
