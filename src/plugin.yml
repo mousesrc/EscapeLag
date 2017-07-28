@@ -1,6 +1,6 @@
 name: VLagger
 main: com.mcml.space.core.VLagger
-version: 2.8.5-%BUILD_NUMBER%
+version: 2.8.6-%BUILD_NUMBER%
 softdepend: [ProtocolLib, AntiAttack, Essentials, RPG Items, RPGItems]
 author: Vlvxingze
 authors: [IzzelAliz, Sotr]
