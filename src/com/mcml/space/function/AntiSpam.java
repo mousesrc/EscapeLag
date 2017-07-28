@@ -1,20 +1,25 @@
 package com.mcml.space.function;
 
-import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
+import com.google.common.collect.Maps;
 import com.mcml.space.config.ConfigFunction;
 import com.mcml.space.util.AzureAPI;
 
 public class AntiSpam implements Listener {
+    private final Map<String, Long> CheckList;
+    
+    public AntiSpam() {
+        CheckList = Maps.newConcurrentMap();
+    }
 
-    private final static HashMap<String, Long> CheckList = new HashMap<String, Long>(); // TODO thread-safe, notice memory usage
-
-    private static boolean CheckFast(String bs) {
+    private boolean CheckFast(String bs) {
         if (CheckList.containsKey(bs)) {
             return (CheckList.get(bs).longValue() + ConfigFunction.AntiSpamPeriodPeriod * 1000 > System.currentTimeMillis());
         }
@@ -22,15 +27,15 @@ public class AntiSpam implements Listener {
     }
 
     @EventHandler
-    public void SpamChecker(AsyncPlayerChatEvent event) {
+    public void SpamChecker(AsyncPlayerChatEvent evt) {
         if (ConfigFunction.AntiSpamenable) {
-            Player p = event.getPlayer();
+            Player p = evt.getPlayer();
             if (AzureAPI.hasPerm(p, "VLagger.bypass.Spam")) {
                 return;
             }
             String pn = p.getName();
             if (CheckFast(pn)) {
-                event.setCancelled(true);
+                evt.setCancelled(true);
                 AzureAPI.log(p, ConfigFunction.AntiSpamPeriodWarnMessage);
             }else{
                 CheckList.put(pn, System.currentTimeMillis());

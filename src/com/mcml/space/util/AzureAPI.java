@@ -26,27 +26,12 @@ import com.google.common.collect.Sets;
 import com.mcml.space.util.VersionLevel.Version;
 
 /**
- * @author SotrForgotten,Vlvxingze
- * @param <K>
- * @param <V>
+ * @author SotrForgotten, Vlvxingze
  */
-public class AzureAPI<K, V> {
+public abstract class AzureAPI<K, V> {
     private static String loggerPrefix = "";
     private static final int bukkitVDChunk = (Bukkit.getViewDistance() * 2) ^ 2 + 1;
     private static final int bukkitVDBlock = Bukkit.getViewDistance() * 16;
-
-    private static final class LazyAPI {
-        private static final AzureAPI<?, ?> api = new AzureAPI<Object, Object>();
-    }
-
-    private AzureAPI() {
-        assert Bukkit.getServer() != null;
-        assert LazyAPI.api == null;
-    }
-
-    public static final AzureAPI<?, ?> getAPI() {
-        return LazyAPI.api;
-    }
 
     public static int viewDistance(final Player player) {
         return isPaper() ? player.getViewDistance() : Bukkit.getViewDistance();
@@ -171,7 +156,35 @@ public class AzureAPI<K, V> {
             return v;
         }
     }
-
+    
+    public static <K, V, E> Coord3<K, V, E> wrapCoord3(K key, V value, E extra) {
+        return new Coord3<K, V, E>(key, value, extra);
+    }
+    
+    public static class Coord3<K, V, E> {
+        final K k;
+        final V v;
+        final E e;
+        
+        public Coord3(K key, V value, E extra) {
+            k = key;
+            v = value;
+            e = extra;
+        }
+        
+        public K getKey() {
+            return k;
+        }
+        
+        public V getValue() {
+            return v;
+        }
+        
+        public E getExtra() {
+            return e;
+        }
+    }
+    
     public static <E> Map<String, E> newCaseInsensitiveMap() {
         return new CaseInsensitiveMap<E>();
     }
@@ -234,6 +247,12 @@ public class AzureAPI<K, V> {
         return sender.isOp() || sender.hasPermission(perm);
     }
     
+    public static boolean hasPerm(String username, String perm) {
+        Player player = Bukkit.getPlayer(username);
+        if (player == null) return false;
+        return player.isOp() || player.hasPermission(perm);
+    }
+    
     public static boolean hasPerm(CommandSender sender, Permission perm) {
         return sender.isOp() || sender.hasPermission(perm);
     }
@@ -258,7 +277,15 @@ public class AzureAPI<K, V> {
     }
     
     public static void playSound(Player player, Sound sound) {
-        player.playSound(player.getLocation(), sound, 1F, 1F);
+        playSound(player, sound, false);
+    }
+    
+    public static void playSound(Player player, Sound sound, boolean broadcast) {
+        if (broadcast) {
+            player.getWorld().playSound(player.getLocation(), sound, 1F, 1F);
+        } else {
+            player.playSound(player.getLocation(), sound, 1F, 1F);
+        }
     }
     
     @SuppressWarnings("all")
