@@ -26,7 +26,7 @@ public abstract class ConfigFunction extends Configurable {
 	public static String AntiSpamPeriodWarnMessage = "§c请慢点说话，别激动嘛！ _(:з」∠)_";
 
 	@Node(path = "AntiSpam.Dirty.List")
-	public static List<String> AntiSpamDirtyList = AzureAPI.newChainStringList().to("智障").to("傻逼").to("儿子");
+	public static List<String> AntiSpamDirtyList = AzureAPI.newChainStringList(false).to("智障").to("傻逼").to("儿子");
 
 	@Node(path = "NoEggChangeSpawner.enable")
 	public static boolean preventSpawnerModify = true;
