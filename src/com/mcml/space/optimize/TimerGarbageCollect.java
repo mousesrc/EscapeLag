@@ -6,7 +6,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.mcml.space.util.AzureAPI;
 
-import static com.mcml.space.config.ConfigOptimize.messageGC;
+import static com.mcml.space.config.ConfigOptimize.TimerGcMessage;
 import static com.mcml.space.config.ConfigOptimize.timerGC;
 
 /**
@@ -22,8 +22,8 @@ public class TimerGarbageCollect implements Runnable {
         long released = collectGarbage();
         long duration = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - mark);
 
-        if(!StringUtils.isBlank(messageGC)) {
-            String m = StringUtils.replace(messageGC, "%gc_released_memory%", String.valueOf(released));
+        if(!StringUtils.isBlank(TimerGcMessage)) {
+            String m = StringUtils.replace(TimerGcMessage, "%gc_released_memory%", String.valueOf(released));
             m = StringUtils.replace(m, "%gc_cost_time%", String.valueOf(duration) + "ms");
             AzureAPI.log(m);
         }

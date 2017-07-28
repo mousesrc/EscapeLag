@@ -146,7 +146,7 @@ public class VLagger extends JavaPlugin implements Listener {
         ChunkKeeper.ChunkKeeperofTask();
         getServer().getScheduler().runTaskTimer(this, new ChunkUnloader(), 0, ConfigOptimize.ChunkUnloaderInterval * 20);
         Bukkit.getScheduler().runTaskTimer(this, new OverLoadMemoryRestart(), 1 * 60 * 20, 1 * 60 * 20);
-        Bukkit.getScheduler().runTaskTimer(this, new TimerGarbageCollect(), ConfigOptimize.HeapClearPeriod * 20, ConfigOptimize.HeapClearPeriod * 20);
+        Bukkit.getScheduler().runTaskTimer(this, new TimerGarbageCollect(), ConfigOptimize.TimerGcPeriod * 20, ConfigOptimize.TimerGcPeriod * 20);
         Bukkit.getScheduler().runTaskAsynchronously(this, new NetWorker());
         Bukkit.getScheduler().runTaskTimer(this, new AntiFakeDeath(), 7 * 20, 7 * 20);
         

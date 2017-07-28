@@ -35,17 +35,17 @@ public abstract class ConfigOptimize extends Configurable {
     public static boolean timerGC = false;
     
     @Node(path = "TeleportPreLoader.enable")
-    public static boolean usePreloader = true;
+    public static boolean usePreloader = false;
     
     @Node(path = "TeleportPreLoader.half-mode")
-    public static boolean halfPreloader = true;
+    public static boolean halfPreloader = false;
     
     @Locale
-    @Node(path = "HeapClear.Message")
-    public static String messageGC = "§e服务器清理内存中... ԅ(¯ㅂ¯ԅ)";
+    @Node(path = "TimerGc.Message")
+    public static String TimerGcMessage = "§e服务器清理内存中... ԅ(¯ㅂ¯ԅ)";
     
-    @Node(path = "HeapClear.Period")
-    public static long HeapClearPeriod = 600;
+    @Node(path = "TimerGc.Period")
+    public static long TimerGcPeriod = 600;
     
     @Node(path = "ClearItem.NoClearItemType")
     public static List<String> ClearItemNoClearItemType = Lists.newArrayList();
@@ -112,7 +112,7 @@ public abstract class ConfigOptimize extends Configurable {
     public static boolean ChunkKeeperenable = true;
     
     @Node(path = "ChunkUnloader.enable")
-    public static boolean chunkUnloader = false;
+    public static boolean chunkUnloader = true;
     
     @Node(path = "chunks.no-spawn-chunks.enable")
     public static boolean noSpawnChunks = true;
