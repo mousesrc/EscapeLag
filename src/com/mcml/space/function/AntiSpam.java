@@ -3,6 +3,7 @@ package com.mcml.space.function;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -12,6 +13,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.google.common.collect.Maps;
 import com.mcml.space.config.ConfigFunction;
+import com.mcml.space.core.VLagger;
 import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.AzurePlayerList;
 import com.mcml.space.util.QuitReactor;
@@ -24,12 +26,19 @@ public class AntiSpam implements Listener, QuitReactor {
     public AntiSpam() {
         timeRecord = Maps.newHashMap();
         AzurePlayerList.bind(this);
+        
+        Bukkit.getScheduler().runTaskTimer(VLagger.MainThis, new Runnable() {
+            @Override
+            public void run() {
+                timeRecord.clear();
+            }
+        }, (long) ConfigFunction.AntiSpamPeriodPeriod * 10000, (long) ConfigFunction.AntiSpamPeriodPeriod * 10000);
     }
     
     private boolean isSpamming(Player player, long now) {
         Long lastChat = timeRecord.get(player);
         if (lastChat == null) return false;
-
+        
         return System.currentTimeMillis() - lastChat.longValue() <= ConfigFunction.AntiSpamPeriodPeriod * 1000;
     }
 

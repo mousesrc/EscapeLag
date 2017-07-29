@@ -10,7 +10,7 @@ public abstract class ConfigMain extends Configurable {
     public static boolean AutoUpdate = false;
     
     @Node(path = "internal-version")
-    public static String internalVersion = String.valueOf("%BUILD_NUMBER%");
+    public static String internalVersion = String.valueOf("build-%BUILD_NUMBER%"); // Add prefix to ensure string type
     
     @Node(path = "language")
     public static String lang = "zh_cn";

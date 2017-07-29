@@ -20,6 +20,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -32,6 +33,11 @@ public abstract class AzureAPI<K, V> {
     private static String loggerPrefix = "";
     private static final int bukkitVDChunk = (Bukkit.getViewDistance() * 2) ^ 2 + 1;
     private static final int bukkitVDBlock = Bukkit.getViewDistance() * 16;
+    private static JavaPlugin plugin;
+    
+    public static void bind(JavaPlugin bind) {
+        plugin = bind;
+    }
 
     public static int viewDistance(final Player player) {
         return isPaper() ? player.getViewDistance() : Bukkit.getViewDistance();
@@ -67,7 +73,11 @@ public abstract class AzureAPI<K, V> {
     
     public static void fatal(final String prefix, final String context) {
         Bukkit.getLogger().severe(prefix + context);
-        Bukkit.shutdown();
+        if (plugin == null) {
+            Bukkit.shutdown();
+        } else {
+            Bukkit.getPluginManager().disablePlugin(plugin);
+        }
     }
     
     public static boolean isBlank(final String s) {

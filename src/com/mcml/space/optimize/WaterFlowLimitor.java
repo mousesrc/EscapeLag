@@ -13,15 +13,15 @@ import org.bukkit.event.block.BlockFromToEvent;
 import com.mcml.space.config.ConfigOptimize;
 import com.mcml.space.core.VLagger;
 
-public class WaterFlowLimitor
-        implements Listener {
+public class WaterFlowLimitor implements Listener {
 	
 	private final static HashMap<Chunk, Long> ChunkLastTime = new HashMap<Chunk, Long>();
 	private final static HashMap<Chunk, Integer> CheckedTimes = new HashMap<Chunk, Integer>();
 	
 	public WaterFlowLimitor(){
 		Bukkit.getScheduler().runTaskTimer(VLagger.MainThis, new Runnable(){
-			public void run(){
+			@Override
+            public void run(){
 				CheckedTimes.clear();
 			}
 		}, 7 * 20, 7 * 20);
@@ -50,7 +50,7 @@ public class WaterFlowLimitor
 	
 	private static boolean CheckFast(Chunk chunk) {
         if (ChunkLastTime.containsKey(chunk)) {
-            return (((Long) ChunkLastTime.get(chunk)).longValue() + 50L > System.currentTimeMillis());
+            return (ChunkLastTime.get(chunk).longValue() + 50L > System.currentTimeMillis());
         }
         return false;
     }

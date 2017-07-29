@@ -15,13 +15,14 @@ public class AntiLongStringCrash implements Listener{
 	
 	@SuppressWarnings("deprecation")
 	@EventHandler
-	public void InteractCheck(PlayerInteractEvent event){
+	public void InteractCheck(PlayerInteractEvent evt){
 		if(ConfigPatch.AntiLongStringCrashenable == true){
-			ItemStack item = event.getItem();
-			Player player = event.getPlayer();
+			ItemStack item = evt.getItem();
+			Player player = evt.getPlayer();
 			if(item != null){
 				if(item.hasItemMeta() && item.getItemMeta().getDisplayName() != null){
-					if(item.getItemMeta().getDisplayName().length() > 20){
+					if(item.getItemMeta().getDisplayName().length() > 96){
+					    evt.setCancelled(true);
 						player.setItemInHand(null);
 						AzureAPI.log(player, ConfigPatch.AntiLongStringCrashWarnMessage);
 					}
@@ -30,19 +31,19 @@ public class AntiLongStringCrash implements Listener{
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler
-	public void ClickCheckItem(InventoryClickEvent event){
+	public void ClickCheckItem(InventoryClickEvent evt){
 		if(ConfigPatch.AntiLongStringCrashenable == true){
-			if(event.getWhoClicked().getType() != EntityType.PLAYER){
+			if(evt.getWhoClicked().getType() != EntityType.PLAYER){
 				return;
 			}
-			Player player = (Player) event.getWhoClicked();
-			ItemStack item = event.getCursor();
+			Player player = (Player) evt.getWhoClicked();
+			ItemStack item = evt.getCursor();
 			if(item != null){
 				if(item.hasItemMeta() && item.getItemMeta().getDisplayName() != null){
-					if(item.getItemMeta().getDisplayName().length() > 20){
-						player.setItemInHand(null);
+					if(item.getItemMeta().getDisplayName().length() > 96){
+					    evt.setCancelled(true);
+						evt.setCurrentItem(null);
 						AzureAPI.log(player, ConfigPatch.AntiLongStringCrashWarnMessage);
 					}
 				}

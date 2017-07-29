@@ -56,6 +56,7 @@ import com.mcml.space.patch.RPGItemPatch;
 import com.mcml.space.patch.RecipeDupePatch;
 import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.AzureAPI.Coord;
+import com.mcml.space.util.VersionLevel.Version;
 import com.mcml.space.util.Configurable;
 import com.mcml.space.util.NetWorker;
 import com.mcml.space.util.Perms;
@@ -75,8 +76,8 @@ public class VLagger extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         MainThis = this;
-        AzureAPI.setPrefix(
-                ChatColor.translateAlternateColorCodes('&', ConfigMain.PluginPrefix) + ChatColor.RESET + " > ");
+        AzureAPI.bind(this);
+        AzureAPI.setPrefix(ChatColor.translateAlternateColorCodes('&', ConfigMain.PluginPrefix) + ChatColor.RESET + " > ");
 
         trySetupConfig();
 
@@ -98,10 +99,11 @@ public class VLagger extends JavaPlugin implements Listener {
             }
         }
 
+        AzurePlayerList.bind(this);
+        AzurePlayerList.bind(new UpgradeNotifier());
+
         Ticker.bind(MainThis);
         Perms.bind("VLagger.Admin");
-        
-        AzurePlayerList.bind(new UpgradeNotifier());
 
         Bukkit.getPluginManager().registerEvents(new AntiInfItem(), this);
         Bukkit.getPluginManager().registerEvents(new AntiPortalInfItem(), this);
@@ -135,7 +137,15 @@ public class VLagger extends JavaPlugin implements Listener {
         OverloadRestart.init(this);
         SkullCrashPatch.init(this);
         
-        RecipeDupePatch.init(this);
+        if (VersionLevel.isHigherEquals(Version.MINECRAFT_1_12_R1)) {
+            if (Bukkit.getPluginManager().isPluginEnabled("ProtocolLib")) {
+                Bukkit.getPluginManager().registerEvents(new RecipeDupePatch(), this);
+                AzureAPI.log("自动合成修复模块已启用");
+            } else {
+                AzureAPI.warn("检测到您正使用 1.12 版本的服务端, 但未安装 ProtocolLib 前置插件");
+                AzureAPI.warn("这将导致某些重要的防护功能不可用, 强烈建议您安装 ProtocolLib 并重启服务端");
+            }
+        }
 
         ChunkKeeper.ChunkKeeperofTask();
         getServer().getScheduler().runTaskTimer(this, new ChunkUnloader(), 0,
@@ -145,8 +155,6 @@ public class VLagger extends JavaPlugin implements Listener {
         if (ConfigMain.AutoUpdate)
             Bukkit.getScheduler().runTaskAsynchronously(this, new NetWorker());
         Bukkit.getScheduler().runTaskTimer(this, new AntiFakeDeath(), 7 * 20, 7 * 20);
-
-        AzurePlayerList.bind(this);
 
         AzureAPI.log("------加载完毕------");
         AzureAPI.log("乐乐感谢您的使用——有建议务必反馈，QQ1207223090");
