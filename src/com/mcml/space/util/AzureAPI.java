@@ -24,6 +24,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.mcml.space.core.VLagger;
 import com.mcml.space.util.VersionLevel.Version;
 
 /**
@@ -33,10 +34,7 @@ public abstract class AzureAPI<K, V> {
     private static String loggerPrefix = "";
     private static final int bukkitVDChunk = (Bukkit.getViewDistance() * 2) ^ 2 + 1;
     private static final int bukkitVDBlock = Bukkit.getViewDistance() * 16;
-    private static JavaPlugin plugin;
-    
     public static void bind(JavaPlugin bind) {
-        plugin = bind;
     }
 
     public static int viewDistance(final Player player) {
@@ -72,12 +70,12 @@ public abstract class AzureAPI<K, V> {
     }
     
     public static void fatal(final String prefix, final String context) {
-        Bukkit.getLogger().severe(prefix + context);
-        if (plugin == null) {
-            Bukkit.shutdown();
-        } else {
-            Bukkit.getPluginManager().disablePlugin(plugin);
-        }
+        Bukkit.getScheduler().runTaskTimer(VLagger.MainThis, new Runnable(){
+        	public void run(){
+        		Bukkit.getLogger().severe("服务器出现了一个问题，请尝试修复或联系QQ1207223090，否则可能会出现未预知的错误。");
+        		Bukkit.getLogger().severe(prefix + context); //这部分我真的问过几个服主了，他们都说这样是最好的
+        	}
+        }, 0 * 20, 7 * 20);
     }
     
     public static boolean isBlank(final String s) {
