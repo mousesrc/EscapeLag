@@ -1,6 +1,7 @@
 package com.mcml.space.function;
 
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
@@ -32,7 +33,7 @@ public class AntiSpam implements Listener, QuitReactor {
             public void run() {
                 timeRecord.clear();
             }
-        }, (long) ConfigFunction.AntiSpamPeriodPeriod * 10000, (long) ConfigFunction.AntiSpamPeriodPeriod * 10000);
+        }, AzureAPI.toTicks(TimeUnit.SECONDS, 30), AzureAPI.toTicks(TimeUnit.SECONDS, 30));
     }
     
     private boolean isSpamming(Player player, long now) {

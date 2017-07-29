@@ -12,14 +12,14 @@ import com.mcml.space.util.AzureAPI;
 import lombok.val;
 
 public class NoCrowdEntity implements Listener {
-    
+
     @EventHandler
     @SuppressWarnings("all")
     public void CheckCrowd(ChunkLoadEvent evt) {
         if (ConfigOptimize.NoCrowdedEntityenable) {
             val chunk = evt.getChunk();
             val entities = chunk.getEntities();
-            
+
             for (Entity e : entities) {
                 val type = e.getType();
                 int count = 0;
@@ -30,7 +30,7 @@ public class NoCrowdEntity implements Listener {
                     }
                 }
             }
-            
+
         }
     }
 }

@@ -136,7 +136,7 @@ public class VLagger extends JavaPlugin implements Listener {
         CheatBookBlocker.init(this);
         OverloadRestart.init(this);
         SkullCrashPatch.init(this);
-        
+
         if (VersionLevel.isHigherEquals(Version.MINECRAFT_1_12_R1)) {
             if (Bukkit.getPluginManager().isPluginEnabled("ProtocolLib")) {
                 Bukkit.getPluginManager().registerEvents(new RecipeDupePatch(), this);
@@ -150,7 +150,7 @@ public class VLagger extends JavaPlugin implements Listener {
         ChunkKeeper.ChunkKeeperofTask();
         getServer().getScheduler().runTaskTimer(this, new ChunkUnloader(), 0,
                 ConfigOptimize.ChunkUnloaderInterval * 20);
-        
+
         TimerGarbageCollect.init(this);
         if (ConfigMain.AutoUpdate)
             Bukkit.getScheduler().runTaskAsynchronously(this, new NetWorker());
