@@ -65,17 +65,17 @@ public abstract class AzureAPI<K, V> {
         loggerPrefix = "";
     }
     
-    public static void fatal(final String context) {
-        fatal(loggerPrefix, context);
+    public static void fatal(final String context, final JavaPlugin plugin) {
+        fatal(loggerPrefix, context, plugin);
     }
     
-    public static void fatal(final String prefix, final String context) {
-        Bukkit.getScheduler().runTaskTimer(VLagger.MainThis, new Runnable(){
-        	public void run(){
-        		Bukkit.getLogger().severe("服务器出现了一个问题，请尝试修复或联系QQ1207223090，否则可能会出现未预知的错误。");
-        		Bukkit.getLogger().severe(prefix + context); //这部分我真的问过几个服主了，他们都说这样是最好的
+    public static void fatal(final String prefix, final String context, final JavaPlugin plugin) {
+        Bukkit.getScheduler().runTaskTimer(plugin, new Runnable(){
+        	@Override
+            public void run(){
+        		Bukkit.getLogger().severe(prefix + context);
         	}
-        }, 0 * 20, 7 * 20);
+        }, 0L, TimeUnit.SECONDS.toMillis(30));
     }
     
     public static boolean isBlank(final String s) {
@@ -88,7 +88,7 @@ public abstract class AzureAPI<K, V> {
     
     public static void warn(final String prefix, final String context) {
         if (isBlank(context)) return;
-        Bukkit.getLogger().warning(prefix + context);
+        Bukkit.getLogger().log(Level.WARNING, prefix + context);
     }
     
     public static void log(final String context) {

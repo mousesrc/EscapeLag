@@ -23,7 +23,7 @@ public class SkullCrashPatch implements Listener, PluginExtends {
         if (VersionLevel.isHigherEquals(Version.MINECRAFT_1_9_R1)) return;
         
         Bukkit.getPluginManager().registerEvents(new SkullCrashPatch(), plugin);
-        AzureAPI.log("头颅崩溃修复模块已启用");
+        AzureAPI.log("头颅修复模块已启用");
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)

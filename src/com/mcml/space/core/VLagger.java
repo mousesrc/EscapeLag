@@ -39,7 +39,7 @@ import com.mcml.space.optimize.TeleportPreloader;
 import com.mcml.space.optimize.TimerGarbageCollect;
 import com.mcml.space.optimize.WaterFlowLimitor;
 import com.mcml.space.patch.AntiBedExplode;
-import com.mcml.space.patch.AntiBoneBug;
+import com.mcml.space.patch.BonemealDupePatch;
 import com.mcml.space.patch.AntiCrashSign;
 import com.mcml.space.patch.AntiDoorInfItem;
 import com.mcml.space.patch.AntiDupeDropItem;
@@ -129,7 +129,7 @@ public class VLagger extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new WaterFlowLimitor(), this);
         Bukkit.getPluginManager().registerEvents(new FireLimitor(), this);
         Bukkit.getPluginManager().registerEvents(new FarmProtecter(), this);
-        Bukkit.getPluginManager().registerEvents(new AntiBoneBug(), this);
+        BonemealDupePatch.init(this);
         Bukkit.getPluginManager().registerEvents(new AntiLongStringCrash(), this);
         RespawnAction.init(this);
         EmptyRestart.init(this);
@@ -334,7 +334,7 @@ public class VLagger extends JavaPlugin implements Listener {
         try {
             setupConfig();
         } catch (IllegalArgumentException | IllegalAccessException e) {
-            AzureAPI.fatal("初始化配置文件时出错");
+            AzureAPI.fatal("初始化配置文件时出错", this);
             e.printStackTrace();
         }
     }

@@ -10,7 +10,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.PluginExtends;
-
 import lombok.val;
 
 import static com.mcml.space.config.ConfigPatch.messageCheatBook;
