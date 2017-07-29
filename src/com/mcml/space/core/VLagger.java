@@ -129,7 +129,7 @@ public class VLagger extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new WaterFlowLimitor(), this);
         Bukkit.getPluginManager().registerEvents(new FireLimitor(), this);
         Bukkit.getPluginManager().registerEvents(new FarmProtecter(), this);
-        BonemealDupePatch.init(this);
+        Bukkit.getPluginManager().registerEvents(new AntiBoneBug(), this);
         Bukkit.getPluginManager().registerEvents(new AntiLongStringCrash(), this);
         RespawnAction.init(this);
         EmptyRestart.init(this);
