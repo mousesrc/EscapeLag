@@ -2,7 +2,6 @@ package com.mcml.space.config;
 
 import java.util.List;
 
-import com.google.common.collect.Lists;
 import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.Configurable;
 
@@ -35,10 +34,7 @@ public abstract class ConfigOptimize extends Configurable {
     public static boolean timerGC = false;
     
     @Node(path = "TeleportPreLoader.enable")
-    public static boolean usePreloader = false;
-    
-    @Node(path = "TeleportPreLoader.half-mode")
-    public static boolean halfPreloader = true;
+    public static boolean TeleportPreLoaderenable = true;
     
     @Locale
     @Node(path = "TimerGc.Message")
@@ -48,7 +44,7 @@ public abstract class ConfigOptimize extends Configurable {
     public static long TimerGcPeriod = 600;
     
     @Node(path = "ClearItem.NoClearItemType")
-    public static List<String> ClearItemNoClearItemType = Lists.newArrayList();
+    public static List<String> ClearItemNoClearItemType = AzureAPI.newChainStringList().to("DIAMOND");
 
     @Node(path = "ClearItem.NoCleatDeath")
     public static boolean ClearItemNoCleatDeath = true;

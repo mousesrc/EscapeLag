@@ -1,6 +1,7 @@
 package com.mcml.space.util;
 
 import static com.mcml.space.util.VersionLevel.isPaper;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,7 +25,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.mcml.space.core.VLagger;
 import com.mcml.space.util.VersionLevel.Version;
 
 /**

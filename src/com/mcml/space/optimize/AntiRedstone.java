@@ -31,29 +31,31 @@ public class AntiRedstone implements Listener {
 
     @EventHandler
     public void CheckRedstone(BlockRedstoneEvent event){
-        if(event.getOldCurrent() > event.getNewCurrent()){
-            return;
-        }
-        final Block block = event.getBlock();
-        Location loc = block.getLocation();
-        if(CheckedTimes.get(loc) == null){
-            CheckedTimes.put(loc, 0);
-        }
-        CheckedTimes.put(loc, CheckedTimes.get(loc) + 1);
-
-        if(CheckedTimes.get(loc) > ConfigOptimize.AntiRedstoneTimes){
-            if(AzureAPI.containsIgnoreCase(ConfigOptimize.AntiRedstoneRemoveBlockList, block.getType().name())){
-                Bukkit.getScheduler().runTask(VLagger.MainThis, new Runnable() {
-                    @Override
-                    public void run() {
-                        block.setType(Material.AIR, true);
-                    }
-                });
-
-                String message = ConfigOptimize.AntiRedstoneMessage;
-                message = StringUtils.replace(message, "%location%", loc.toString());
-                AzureAPI.bc(message);
+    	if(ConfigOptimize.AntiRedstoneenable){
+    		if(event.getOldCurrent() > event.getNewCurrent()){
+                return;
             }
-        }
+            final Block block = event.getBlock();
+            Location loc = block.getLocation();
+            if(CheckedTimes.get(loc) == null){
+                CheckedTimes.put(loc, 0);
+            }
+            CheckedTimes.put(loc, CheckedTimes.get(loc) + 1);
+
+            if(CheckedTimes.get(loc) > ConfigOptimize.AntiRedstoneTimes){
+                if(AzureAPI.containsIgnoreCase(ConfigOptimize.AntiRedstoneRemoveBlockList, block.getType().name())){
+                    Bukkit.getScheduler().runTask(VLagger.MainThis, new Runnable() {
+                        @Override
+                        public void run() {
+                            block.setType(Material.AIR, true);
+                        }
+                    });
+
+                    String message = ConfigOptimize.AntiRedstoneMessage;
+                    message = StringUtils.replace(message, "%location%", loc.toString());
+                    AzureAPI.bc(message);
+                }
+            }
+    	}
     }
 }

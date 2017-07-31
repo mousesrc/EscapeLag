@@ -26,15 +26,17 @@ import com.mcml.space.util.VersionLevel.Version;
 
 import lombok.val;
 
-import static com.mcml.space.config.ConfigOptimize.usePreloader;
-import static com.mcml.space.config.ConfigOptimize.halfPreloader;
+import static com.mcml.space.config.ConfigOptimize.TeleportPreLoaderenable;
 
 /**
  * @author SotrForgotten
  */
-public class TeleportPreloader implements Listener, PluginExtends {
+public class TeleportPreloaderSotr implements Listener, PluginExtends {
+	//由于未知原因，这部分成为了负优化。因此我将其重写了。
+	//这个留在这里，如果可能，拿回来
+	
     public static void init(JavaPlugin plugin) {
-        TeleportPreloader instance = new TeleportPreloader();
+        TeleportPreloaderSotr instance = new TeleportPreloaderSotr();
         Bukkit.getPluginManager().registerEvents(instance, plugin);
         AzureAPI.log("传送预加载模块已启动");
     }
@@ -44,7 +46,7 @@ public class TeleportPreloader implements Listener, PluginExtends {
     protected static boolean pending;
     protected static final boolean invulnerable = VersionLevel.isHigherEquals(Version.MINECRAFT_1_9_R1); // since 1.9
     
-    public TeleportPreloader() {
+    public TeleportPreloaderSotr() {
         if (VersionLevel.isHigherThan(Version.MINECRAFT_1_7_R4)) {
             useCache = true; // versions before this appear to be broken
             
@@ -57,7 +59,7 @@ public class TeleportPreloader implements Listener, PluginExtends {
     
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onTeleport(PlayerTeleportEvent evt) throws ExecutionException {
-        if (evt.isAsynchronous() || pending || !usePreloader) return;
+        if (evt.isAsynchronous() || pending || !TeleportPreLoaderenable) return;
 
         val from = evt.getFrom();
         val to = evt.getTo();
@@ -145,7 +147,7 @@ public class TeleportPreloader implements Listener, PluginExtends {
     }
     
     public static List<Coord<Integer, Integer>> collectPreloadChunks(Location loc, Player player) {
-        val view = AzureAPI.viewDistanceBlock(player) / (halfPreloader ? 2 : 1);
+        val view = AzureAPI.viewDistanceBlock(player) / (2);
         int bX, bZ;
         bX = loc.getBlockX();
         bZ = loc.getBlockZ();
