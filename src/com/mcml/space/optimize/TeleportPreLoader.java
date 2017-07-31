@@ -16,6 +16,7 @@ import com.mcml.space.util.Utils;
 public class TeleportPreLoader implements Listener {
 
 	private boolean isPreLoading;
+	private int nowint;
 
 	@EventHandler
 	public void TeleportLoader(final PlayerTeleportEvent event) {
@@ -26,13 +27,21 @@ public class TeleportPreLoader implements Listener {
 				final Player player = event.getPlayer();
 				final List<Chunk> chunks = Utils.getShouldUseChunk(event.getTo());
 				final int cs = chunks.size();
-				final int first = 0 + cs / 5;
-				final int second = first + cs / 5;
-				final int third = second + cs / 5;
-				final int fourth = third + cs / 5;
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
 					public void run() {
-						for (int i = 0; i < first; i++) {
+						nowint = nowint + cs/10;
+						for (int i = nowint - cs/10; i < nowint; i++) {
+							Chunk chunk = chunks.get(i);
+							if (chunk.isLoaded() == false) {
+								chunk.load();
+							}
+						}
+					}
+				}, 1);
+				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+					public void run() {
+						nowint = nowint + cs/10;
+						for (int i = nowint - cs/10; i < nowint; i++) {
 							Chunk chunk = chunks.get(i);
 							if (chunk.isLoaded() == false) {
 								chunk.load();
@@ -42,7 +51,19 @@ public class TeleportPreLoader implements Listener {
 				}, 2);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
 					public void run() {
-						for (int i = first; i < second; i++) {
+						nowint = nowint + cs/10;
+						for (int i = nowint - cs/10; i < nowint; i++) {
+							Chunk chunk = chunks.get(i);
+							if (chunk.isLoaded() == false) {
+								chunk.load();
+							}
+						}
+					}
+				}, 3);
+				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+					public void run() {
+						nowint = nowint + cs/10;
+						for (int i = nowint - cs/10; i < nowint; i++) {
 							Chunk chunk = chunks.get(i);
 							if (chunk.isLoaded() == false) {
 								chunk.load();
@@ -52,7 +73,19 @@ public class TeleportPreLoader implements Listener {
 				}, 4);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
 					public void run() {
-						for (int i = second; i < third; i++) {
+						nowint = nowint + cs/10;
+						for (int i = nowint - cs/10; i < nowint; i++) {
+							Chunk chunk = chunks.get(i);
+							if (chunk.isLoaded() == false) {
+								chunk.load();
+							}
+						}
+					}
+				}, 5);
+				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+					public void run() {
+						nowint = nowint + cs/10;
+						for (int i = nowint - cs/10; i < nowint; i++) {
 							Chunk chunk = chunks.get(i);
 							if (chunk.isLoaded() == false) {
 								chunk.load();
@@ -62,7 +95,19 @@ public class TeleportPreLoader implements Listener {
 				}, 6);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
 					public void run() {
-						for (int i = third; i < fourth; i++) {
+						nowint = nowint + cs/10;
+						for (int i = nowint - cs/10; i < nowint; i++) {
+							Chunk chunk = chunks.get(i);
+							if (chunk.isLoaded() == false) {
+								chunk.load();
+							}
+						}
+					}
+				}, 7);
+				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+					public void run() {
+						nowint = nowint + cs/10;
+						for (int i = nowint - cs/10; i < nowint; i++) {
 							Chunk chunk = chunks.get(i);
 							if (chunk.isLoaded() == false) {
 								chunk.load();
@@ -72,8 +117,20 @@ public class TeleportPreLoader implements Listener {
 				}, 8);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
 					public void run() {
+						nowint = nowint + cs/10;
+						for (int i = nowint - cs/10; i < nowint; i++) {
+							Chunk chunk = chunks.get(i);
+							if (chunk.isLoaded() == false) {
+								chunk.load();
+							}
+						}
+					}
+				}, 9);
+				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+					public void run() {
 						player.teleport(event.getTo());
 						isPreLoading = false;
+						nowint = 0;
 					}
 				}, 10);
 			}
