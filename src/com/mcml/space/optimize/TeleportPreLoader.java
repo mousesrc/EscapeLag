@@ -18,7 +18,7 @@ public class TeleportPreLoader implements Listener{
 	private boolean isPreLoading;
 	
 	@EventHandler
-	public void TeleportLoader(PlayerTeleportEvent event){
+	public void TeleportLoader(final PlayerTeleportEvent event){
 		if(ConfigOptimize.TeleportPreLoaderenable == true){
 			if(isPreLoading == false){
 			    isPreLoading = true;
