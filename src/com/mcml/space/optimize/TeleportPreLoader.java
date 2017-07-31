@@ -19,7 +19,6 @@ public class TeleportPreLoader implements Listener {
 
 	@EventHandler
 	public void TeleportLoader(final PlayerTeleportEvent event) {
-		Bukkit.broadcastMessage("传送监听器被触发！" + isPreLoading);
 		if (ConfigOptimize.TeleportPreLoaderenable == true) {
 			if (isPreLoading == false) {
 				isPreLoading = true;
