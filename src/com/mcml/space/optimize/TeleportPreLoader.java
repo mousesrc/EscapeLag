@@ -21,14 +21,14 @@ public class TeleportPreLoader implements Listener{
 	public void TeleportLoader(PlayerTeleportEvent event){
 		if(ConfigOptimize.TeleportPreLoaderenable == true){
 			if(isPreLoading == false){
-				isPreLoading = true;
-				Player player = event.getPlayer();
-				List<Chunk> chunks = Utils.getShouldUseChunk(event.getTo());
-				int cs = chunks.size();
-				int first = 0 + cs/5;
-				int second = first + cs/5;
-				int third = second + cs/5;
-				int fourth = third + cs/5;
+			    isPreLoading = true;
+				final Player player = event.getPlayer();
+				final List<Chunk> chunks = Utils.getShouldUseChunk(event.getTo());
+				final int cs = chunks.size();
+				final int first = 0 + cs/5;
+				final int second = first + cs/5;
+				final int third = second + cs/5;
+				final int fourth = third + cs/5;
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable(){
 					public void run(){
 						for(int i = 0;i<first;i++){
