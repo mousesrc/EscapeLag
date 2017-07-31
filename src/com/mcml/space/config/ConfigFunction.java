@@ -49,7 +49,7 @@ public abstract class ConfigFunction extends Configurable {
 	public static String AntiSpamDirtyWarnMessage = "§c什么事情激动得你都想骂人啦？";
 
 	@Node(path = "AutoRespawn.enable")
-	public static boolean canAutoRespawn = false;
+	public static boolean canAutoRespawn = true;
 
 	@Node(path = "AutoRespawn.RespawnTitle.enable")
 	public static boolean sendTitleAutoRespawn = false;

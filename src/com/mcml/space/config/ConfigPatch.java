@@ -10,7 +10,7 @@ public abstract class ConfigPatch extends Configurable {
     @Node(path = "patches.auto-recipe-dupe")
     public static boolean autoRecipePatch = true;
 
-    @Node(path = "AntiBoneBug.enable") // issue-fixer.bonemeal-inf-item
+    @Node(path = "AntiBoneBug.enable")
     public static boolean safetyBonemeal = true;
 
     @Locale

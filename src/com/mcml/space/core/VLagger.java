@@ -121,7 +121,7 @@ public class VLagger extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new AutoSave(), this);
         DupeLoginPatch.init(this);
         SpawnerController.init(this);
-        Bukkit.getPluginManager().registerEvents(new AntiDupeDropItem(), this);
+        AntiDupeDropItem.init();
         Bukkit.getPluginManager().registerEvents(new AntiDoorInfItem(), this);
         Bukkit.getPluginManager().registerEvents(new AntiBedExplode(), this);
         Bukkit.getPluginManager().registerEvents(new BlockCommander(), this);

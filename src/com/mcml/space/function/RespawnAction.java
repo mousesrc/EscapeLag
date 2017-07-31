@@ -11,6 +11,7 @@ import com.mcml.space.core.VLagger;
 import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.PluginExtends;
 import com.mcml.space.util.VersionLevel;
+import com.mcml.space.util.VersionLevel.Version;
 
 import lombok.val;
 
@@ -41,11 +42,16 @@ public class RespawnAction implements Listener, PluginExtends {
                 @Override
                 @SuppressWarnings("all")
                 public void run() {
-                    player.spigot().respawn();
-                    
-                    if (sendTitleAutoRespawn) {
-                        player.sendTitle(titleAutoRespawn, subtitleAutoRespawn);
-                    }
+                	if(VersionLevel.isSpigot()){
+                		player.spigot().respawn();
+                        if (sendTitleAutoRespawn) {
+                        	if(VersionLevel.isHigherEquals(Version.MINECRAFT_1_8_R2)){
+                        		player.sendTitle(titleAutoRespawn, subtitleAutoRespawn);
+                        	}else{
+                        		AzureAPI.log("错误！你不应该开启自动复活的title显示，无法显示！因为你的服务器版本低于1.8.4!");
+                        	}
+                        }
+                	}
                 }
             }, 1);
         }
