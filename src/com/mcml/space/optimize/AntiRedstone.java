@@ -1,7 +1,6 @@
 package com.mcml.space.optimize;
 
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
@@ -26,7 +25,7 @@ public class AntiRedstone implements Listener {
             public void run(){
                 CheckedTimes.clear();
             }
-        }, AzureAPI.toTicks(TimeUnit.SECONDS, 30), AzureAPI.toTicks(TimeUnit.SECONDS, 30));
+        }, 7 * 20, 7 * 20);
     }
 
     @EventHandler

@@ -3,7 +3,6 @@ package com.mcml.space.core;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -356,41 +355,27 @@ public class VLagger extends JavaPlugin implements Listener {
             Configurable.restoreNodes(configMain, ConfigMain.class);
         } catch (IOException io) {
             notifyFileException(pluginMainConfigFile);
-            retry();
         }
 
         try {
             Configurable.restoreNodes(configOptimize, ConfigOptimize.class);
         } catch (IOException io) {
             notifyFileException(clearLagConfig);
-            retry();
         }
 
         try {
             Configurable.restoreNodes(configPatch, ConfigPatch.class);
         } catch (IOException io) {
             notifyFileException(antiBugConfig);
-            retry();
         }
 
         try {
             Configurable.restoreNodes(configFunction, ConfigFunction.class);
         } catch (IOException io) {
             notifyFileException(doEventConfig);
-            retry();
         }
         
         AzureAPI.setPrefix(ChatColor.translateAlternateColorCodes('&', ConfigMain.PluginPrefix) + ChatColor.RESET + " > ");
-    }
-
-    private void retry() throws IllegalArgumentException, IllegalAccessException {
-        AzureAPI.warn("系统会在15秒后重试");
-        try {
-            Thread.sleep(TimeUnit.SECONDS.toMillis(15));
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
-        setupConfig();
     }
 
     private static void notifyFileException(File file) {

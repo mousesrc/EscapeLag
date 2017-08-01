@@ -17,8 +17,7 @@ import lombok.val;
  */
 public class OverloadRestart implements Runnable, PluginExtends {
     public static void init(JavaPlugin plugin) {
-        long ticksMin = AzureAPI.toTicks(TimeUnit.MINUTES, 20);
-        Bukkit.getScheduler().runTaskTimer(plugin, new OverloadRestart(), ticksMin, ticksMin);
+        Bukkit.getScheduler().runTaskTimer(plugin, new OverloadRestart(), 7 * 20, 7 * 20);
         
         AzureAPI.log("超负荷重启模块已启动");
     }
