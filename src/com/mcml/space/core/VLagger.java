@@ -77,8 +77,6 @@ public class VLagger extends JavaPlugin implements Listener {
     public void onEnable() {
         MainThis = this;
         AzureAPI.bind(this);
-        AzureAPI.setPrefix(ChatColor.translateAlternateColorCodes('&', ConfigMain.PluginPrefix) + ChatColor.RESET + " > ");
-
         trySetupConfig();
 
         AzureAPI.log("VLagger —— 新一代的优化/稳定插件");
@@ -381,6 +379,8 @@ public class VLagger extends JavaPlugin implements Listener {
             notifyFileException(doEventConfig);
             retry();
         }
+        
+        AzureAPI.setPrefix(ChatColor.translateAlternateColorCodes('&', ConfigMain.PluginPrefix) + ChatColor.RESET + " > ");
     }
 
     private void retry() throws IllegalArgumentException, IllegalAccessException {

@@ -21,7 +21,7 @@ public class AntiLongStringCrash implements Listener{
             Player player = evt.getPlayer();
             if(item != null){
                 if(item.hasItemMeta() && item.getItemMeta().getDisplayName() != null){
-                    if(item.getItemMeta().getDisplayName().length() > 96){
+                    if(item.getItemMeta().getDisplayName().length() >= 127){
                         evt.setCancelled(true);
                         player.setItemInHand(null);
                         AzureAPI.log(player, ConfigPatch.AntiLongStringCrashWarnMessage);
@@ -41,7 +41,7 @@ public class AntiLongStringCrash implements Listener{
             ItemStack item = evt.getCursor();
             if(item != null){
                 if(item.hasItemMeta() && item.getItemMeta().getDisplayName() != null){
-                    if(item.getItemMeta().getDisplayName().length() > 96){
+                    if(item.getItemMeta().getDisplayName().length() >= 127){
                         evt.setCancelled(true);
                         evt.setCurrentItem(null);
                         AzureAPI.log(player, ConfigPatch.AntiLongStringCrashWarnMessage);
