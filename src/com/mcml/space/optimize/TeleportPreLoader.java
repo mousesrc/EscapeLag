@@ -22,7 +22,6 @@ public class TeleportPreLoader implements Listener {
 	public void TeleportLoader(final PlayerTeleportEvent event) {
 		if (ConfigOptimize.TeleportPreLoaderenable == true) {
 			if (isPreLoading == false) {
-				isPreLoading = true;
 				event.setCancelled(true);
 				final Player player = event.getPlayer();
 				final List<Chunk> chunks = Utils.getShouldUseChunk(event.getTo());
@@ -128,6 +127,7 @@ public class TeleportPreLoader implements Listener {
 				}, 9);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
 					public void run() {
+						isPreLoading = true;
 						player.teleport(event.getTo());
 						isPreLoading = false;
 						nowint = 0;
