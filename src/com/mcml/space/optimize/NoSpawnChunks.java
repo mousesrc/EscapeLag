@@ -9,18 +9,15 @@ import com.mcml.space.util.AzureAPI;
 import lombok.val;
 
 import static com.mcml.space.config.ConfigOptimize.noSpawnChunks;
-import static com.mcml.space.config.ConfigOptimize.nscExcludeWorlds;
 
 public class NoSpawnChunks implements Listener {
-    
-    @EventHandler
-    public void onWorldLoad(WorldInitEvent evt) {
-        if (noSpawnChunks) {
-            val world = evt.getWorld();
-            if (nscExcludeWorlds.isEmpty() || !AzureAPI.containsIgnoreCase(nscExcludeWorlds, world.getName())) {
-                world.setKeepSpawnInMemory(false);
-                AzureAPI.log("已为世界 " + world.getName() + " 设定不保留出生区块.");
-            }
-        }
-    }
+
+	@EventHandler
+	public void onWorldLoad(WorldInitEvent evt) {
+		if (noSpawnChunks) {
+			val world = evt.getWorld();
+			world.setKeepSpawnInMemory(false);
+			AzureAPI.log("已为世界 " + world.getName() + " 设定不保留出生区块.");
+		}
+	}
 }

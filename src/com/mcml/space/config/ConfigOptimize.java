@@ -2,7 +2,6 @@ package com.mcml.space.config;
 
 import java.util.List;
 
-import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.Configurable;
 
 public abstract class ConfigOptimize extends Configurable {
@@ -44,7 +43,7 @@ public abstract class ConfigOptimize extends Configurable {
     public static long TimerGcPeriod = 600;
     
     @Node(path = "ClearItem.NoClearItemType")
-    public static List<String> ClearItemNoClearItemType = AzureAPI.newChainStringList().to("DIAMOND");
+    public static List<String> ClearItemNoClearItemType = Default.ClearItemNoClearItemType();
 
     @Node(path = "ClearItem.NoCleatDeath")
     public static boolean ClearItemNoCleatDeath = true;
@@ -56,13 +55,7 @@ public abstract class ConfigOptimize extends Configurable {
     public static boolean NoCrowdedEntityenable = true;
     
     @Node(path = "NoCrowdedEntity.TypeList")
-    public static List<String> NoCrowdedEntityTypeList = AzureAPI.newChainStringList().to("ZOMBIE")
-                                                                                       .to("SKELETON")
-                                                                                       .to("SPIDER")
-                                                                                       .to("CREEPER")
-                                                                                       .to("SHEEP")
-                                                                                       .to("PIG")
-                                                                                       .to("CHICKEN");
+    public static List<String> NoCrowdedEntityTypeList = Default.NoCrowdedEntityTypeList();
     
     @Node(path = "NoCrowdedEntity.PerChunkLimit")
     public static int NoCrowdedEntityPerChunkLimit = 30;
@@ -75,12 +68,7 @@ public abstract class ConfigOptimize extends Configurable {
     public static int OverLoadMemoryRestartPercent = 90;
     
     @Node(path = "AntiRedstone.RemoveBlockList")
-    public static List<String> AntiRedstoneRemoveBlockList = AzureAPI.newChainStringList().to("REDSTONE_WIRE")
-                                                                                           .to("DIODE_BLOCK_ON")
-                                                                                           .to("DIODE_BLOCK_OFF")
-                                                                                           .to("REDSTONE_TORCH_ON")
-                                                                                           .to("REDSTONE_TORCH_OFF")
-                                                                                           .to("REDSTONE_BLOCK");
+    public static List<String> AntiRedstoneRemoveBlockList = Default.AntiRedstoneRemoveBlockList();
     
     @Node(path = "AutoSave.Interval")
     public static long AutoSaveInterval = 15;
@@ -110,9 +98,6 @@ public abstract class ConfigOptimize extends Configurable {
     @Node(path = "ChunkUnloader.enable")
     public static boolean chunkUnloader = true;
     
-    @Node(path = "chunks.no-spawn-chunks.enable")
+    @Node(path = "NoSpawnChunks.enable")
     public static boolean noSpawnChunks = true;
-    
-    @Node(path = "chunks.no-spawn-chunks.exclude-worlds")
-    public static List<String> nscExcludeWorlds = AzureAPI.newChainStringList().to("world");
 }

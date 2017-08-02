@@ -243,9 +243,6 @@ public abstract class AzureAPI<K, V> {
         return r;
     }
     
-    public static ChainArrayList<String> newChainStringList() {
-        return new ChainArrayList<String>();
-    }
     
     @SuppressWarnings("serial")
     public static class ChainArrayList<E> extends ArrayList<E> {
@@ -315,14 +312,5 @@ public abstract class AzureAPI<K, V> {
             return list;
         }
         return o;
-    }
-    
-    public static boolean containsIgnoreCase(List<String> list, String string) {
-        String each;
-        for (int i = 0, size = list.size(); i < size; i++) {
-            each = list.get(i);
-            if (each.equalsIgnoreCase(string)) return true;
-        }
-        return false;
     }
 }

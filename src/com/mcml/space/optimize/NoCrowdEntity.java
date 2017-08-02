@@ -7,7 +7,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.world.ChunkLoadEvent;
 
 import com.mcml.space.config.ConfigOptimize;
-import com.mcml.space.util.AzureAPI;
 
 import lombok.val;
 
@@ -23,7 +22,7 @@ public class NoCrowdEntity implements Listener {
             for (Entity e : entities) {
                 val type = e.getType();
                 int count = 0;
-                if (AzureAPI.containsIgnoreCase(ConfigOptimize.NoCrowdedEntityTypeList, type.name())) {
+                if (ConfigOptimize.NoCrowdedEntityTypeList.contains(type.getName())) {
                     count++;
                     if (count > ConfigOptimize.NoCrowdedEntityPerChunkLimit && e.getType() != EntityType.PLAYER) {
                         e.remove();

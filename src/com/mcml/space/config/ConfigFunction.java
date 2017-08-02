@@ -2,7 +2,6 @@ package com.mcml.space.config;
 
 import java.util.List;
 
-import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.Configurable;
 
 public abstract class ConfigFunction extends Configurable {
@@ -29,7 +28,7 @@ public abstract class ConfigFunction extends Configurable {
     public static boolean enableAntiDirty = true;
 
 	@Node(path = "AntiSpam.Dirty.List")
-	public static List<String> AntiSpamDirtyList = AzureAPI.newChainStringList().to("智障").to("傻逼").to("儿子");
+	public static List<String> AntiSpamDirtyList = Default.AntiSpamDirtyList();
 
 	@Node(path = "NoEggChangeSpawner.enable")
 	public static boolean preventSpawnerModify = true;
