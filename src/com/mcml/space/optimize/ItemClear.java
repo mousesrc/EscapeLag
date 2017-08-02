@@ -1,7 +1,8 @@
 package com.mcml.space.optimize;
 
 import java.util.ArrayList;
-import org.bukkit.Bukkit;
+import java.util.List;
+
 import org.bukkit.Chunk;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -13,24 +14,17 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
 
 import com.mcml.space.config.ConfigOptimize;
-import com.mcml.space.core.VLagger;
+import com.mcml.space.util.Utils;
 
 public class ItemClear implements Listener {
 
     public static ArrayList<Chunk> DeathChunk = new ArrayList<Chunk>();
-
-    public ItemClear() {
-        Bukkit.getScheduler().runTaskTimerAsynchronously(VLagger.MainThis, new Runnable() {
-            // TODO crash comes
-            @Override
-            public void run() {
-                DeathChunk.clear();
-            }
-        }, 60 * 20, 60 * 20);
-    }
     // TODO configurable type, clear mobs - tons
     @EventHandler
     public void ChunkUnloadClear(ChunkUnloadEvent event) {
+    	if(ConfigOptimize.ClearItemenable != true){
+            return;
+        }
         Chunk chunk = event.getChunk();
         if (DeathChunk.contains(chunk) == false) { // TODO slow
             Entity[] entities = chunk.getEntities();
@@ -42,6 +36,8 @@ public class ItemClear implements Listener {
                     }
                 }
             }
+        }else{
+        	DeathChunk.remove(chunk);
         }
     }
 
@@ -52,7 +48,8 @@ public class ItemClear implements Listener {
         }
         Player player = event.getEntity();
         Chunk chunk = player.getLocation().getChunk();
-        DeathChunk.add(chunk);
+        List<Chunk> chunks = Utils.getnearby9chunks(chunk);
+        DeathChunk.addAll(chunks);
     }
 
     @EventHandler
@@ -62,6 +59,7 @@ public class ItemClear implements Listener {
         }
         Player player = event.getPlayer();
         Chunk chunk = player.getLocation().getChunk();
-        DeathChunk.add(chunk);
+        List<Chunk> chunks = Utils.getnearby9chunks(chunk);
+        DeathChunk.addAll(chunks);
     }
 }

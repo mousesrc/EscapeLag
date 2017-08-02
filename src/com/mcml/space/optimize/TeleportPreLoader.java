@@ -23,11 +23,14 @@ public class TeleportPreLoader implements Listener {
 	@EventHandler
 	public void TeleportLoader(final PlayerTeleportEvent event) {
 		if (ConfigOptimize.TeleportPreLoaderenable == true) {
+			final Player player = event.getPlayer();
+			if(player.getVehicle() != null){
+				return;
+			}
 			nowteleportid++;
 			if (isPreLoading == false) {
 				event.setCancelled(true);
 				final int thistpid = nowteleportid;
-				final Player player = event.getPlayer();
 				final List<Chunk> chunks = Utils.getShouldUseChunk(event.getTo());
 				final int cs = chunks.size();
 				if (nowint.get(thistpid) == null) {

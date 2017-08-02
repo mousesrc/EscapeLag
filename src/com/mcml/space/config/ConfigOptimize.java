@@ -6,7 +6,7 @@ import com.mcml.space.util.Configurable;
 
 public abstract class ConfigOptimize extends Configurable {
     @Node(path = "OverLoadMemoryRestart.enable")
-    public static boolean OverLoadMemoryRestartenable = true;
+    public static boolean OverLoadMemoryRestartenable = false; //用户反馈关闭默认比较好
     
     @Node(path = "ChunkUnloader.Interval")
     public static long ChunkUnloaderInterval = 30;

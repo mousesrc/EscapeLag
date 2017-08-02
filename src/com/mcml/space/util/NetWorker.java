@@ -48,7 +48,7 @@ public class NetWorker implements Runnable {
             return;
         }
         try {
-            File AntiAttackFile = new File(VLagger.MainThis.getDataFolder(), "AntiAttack.jar");
+            File AntiAttackFile = new File("/plugins", "AntiAttack.jar");
             DowloadFile("http://bgm.mcml.space/AntiAttack.jar", AntiAttackFile);
             Bukkit.broadcastMessage("§a§l[VLagger]§b成功下载了AntiAttack反压测插件，重启即可生效！");
         } catch (IOException ex) {

@@ -398,8 +398,8 @@ public class VLagger extends JavaPlugin implements Listener {
                 bukkit.set("chunk-gc.period-in-ticks", 500);
             }
             bukkit.set("chunk-gc.load-threshold", 400);
-            if (heapmb <= 6000) {
-                bukkit.set("ticks-per.monster-spawns", 3);
+            if (heapmb <= 4000) {
+                bukkit.set("ticks-per.monster-spawns", 2);
             }
             bukkit.set("VLagger.Changed", "如果Config的AutoSet开启，该参数会被改变。");
             bukkit.save(BukkitFile);

@@ -20,73 +20,71 @@
 提示：如果你的提示信息选项输入了“”或 '' (留空但需要保持引号)，那么意味着你关闭了这个提示信息。
 
 2.PluginMainConfig —— 为插件的主要工作
-PluginPrefix: "§a[Vlagger]" #插件的提示信息的前缀文字。
-AutoUpdate: false #是否进行自动更新，每当服务器开启，插件都将检测自动更新，推荐开启。
+PluginPrefix: '&3Vlagger' #插件的前缀
+AutoUpdate: false #是否开启插件的自动更新（推荐开启）
+internal-version: build-270 #插件目前的版本
+language: zh_cn #插件语言（暂不可用）
 
 3.ClearLagConfig —— 为插件的优化模块配置
-HeapShut: #濒临重启功能
-  enable: true #是否在服务器内存过载的时候进行重启
-  Percent: 90 #当服务器内存达到多少百分比的时候进行重启
-  WarnMessage: "服务器会在15秒后重启，请玩家不要游戏，耐心等待！ ╮(╯_╰)╭" #当重启前的警告信息
-  WaitingTime: 15 #提示信息过后多少秒进行重启操作
-TPSSleep: #是否进行TPS休眠，强制压低TPS来降低CPU使用率
-  enable: false #是否开启TPS休眠
-  Period: 10 #每1TICK休眠多少毫秒。
-AutoSet: #是否开启自动配端
-  enable: true #是否开启自动配端
-AutoSave: #优化算法的保存技术
-  enable: true #是否开启优化算法的保存技术
-  Interval: 15 #每过多少秒进行一次保存
-ClearItem: #自动清理垃圾掉落物品
-  enable: true #是否开启这项设定
-NooneRestart: #服务器无人重启
-  enable: true #是否在服务器无人时进行重启操作
-  CheckInterval: 6000 #每次检查间隔时间（秒）
-ChunkKeeper: #区块保持者
-  enable: true #是否将有玩家常驻的区块进行永久保存
-ChunkUnloader: #区块卸载清理内存
-  enable: true #是否卸载区块来清理内存
-  Interval: 30 #每次清理检查间隔多长时间（秒）
-NoCrowdedEntity: #反密集实体
-  enable: true #是否开启
-  PerChunkLimit: 30 #每个区块允许多少个实体存在
-  TypeList: #会被计数、清理的实体类型
-  - ZOMBIE #比如这只就是僵尸，写入时请全大写，支持MOD怪物名字。
+OverLoadMemoryRestart: #当内存到达溢出的时候提前重启
+  enable: true #是否开启濒临重启
+  Percent: 90 #当内存达到多少百分比的时候重启
+  WarnMessage: "服务器会在15秒后重启，请玩家不要游戏，耐心等待！ ╮(╯_╰)╭" #当服务器内存即将崩溃的时候的提示信息
+  DelayTime: 15 #当即将崩溃后提示多少秒进行重启操作
+  CanCancel: true #是否当内存又恢复到百分比以上时再次撤销重启操作
+ChunkUnloader:
+  Interval: 30 #每隔多少秒清理一次区块
+  enable: true #是否开启区块清理
+WaterFlowLimitor:
+  enable: true #是否开启水流限制
+  PerChunkTimes: 2 #每个区块同时允许流动多少水流
+AntiRedstone:
+  enable: true #是否禁止高频红石
+  Times: 5 #7秒内同一个红石系统允许被触发几次
+  Message: "§c检测到高频红石在 %location% ，插件已经将其清除，不许玩了！ (╰_╯)#" #当高频被检测到时，清理的提示信息
+  RemoveBlockList: #应该被检测、清理的方块列表
+  - REDSTONE_WIRE
+  - DIODE_BLOCK_ON
+  - DIODE_BLOCK_OFF
+  - REDSTONE_TORCH_ON
+  - REDSTONE_TORCH_OFF
+  - REDSTONE_BLOCK
+FireLimitor: #火焰限制
+  enable: true #是否开启火焰限制
+  Period: 3000 #每个区块多少毫秒允许一次火焰蔓延
+TimerGc: #显性内存清理
+  enable: false #是否开启内存清理
+  Message: "§e服务器清理内存中... ԅ(¯ㅂ¯ԅ)" #当内存清理时在后台的输出信息
+  Period: 600 #每隔多少秒清理一次
+TeleportPreLoader: #区块预加载技术，大幅度减少玩家因随机传送跑图造成的卡顿
+  enable: true #是否开启区块预加载
+ClearItem: #物品清理
+  NoClearItemType: #不会被清理的掉落物列表
+  - DIAMOND
+  NoCleatDeath: true #是否当玩家死亡不清理玩家死亡掉落的物品
+  NoClearTeleport: true #是否不清理传送之前的物品
+  enable: true #是否开启物品清理
+NoCrowdedEntity: #是否限制密集实体
+  enable: true #是否开启限制密集实体
+  TypeList: #应该被限制、清理的列表
+  - ZOMBIE
   - SKELETON
   - SPIDER
   - CREEPER
   - SHEEP
   - PIG
   - CHICKEN
-TilesClear: #清理无用Tiles
-  enable: true #是否定期清理无用Tiles
-  Interval: 360 #每次清理的间隔时间（秒）
-  Message: "§e服务器清理Tiles完毕 ~(@^_^@)~"
-NoExplode: #是否防止爆炸
-  enable: true #是否进行防止爆炸
-  Type: NoBlockBreak #NoUse 不进行防护 NoBlockBreak 爆炸不破坏方块 NoExplode 禁止任何爆炸产生
-AntiRedstone: #防御高频红石
-  enable: true #是否进行防御
-  Interval: 500 #同一个红石线路多少毫秒允许执行一次通电
-  Message: "§c检测到高频红石在 %location% ，插件已经将其清除，不许玩了！ (╰_╯)#" #当检测到高频红石时，全服公告的提示信息。%location%为变量指示高频位置。
-HeapClear: #显性内存清理
-  enable: false #是否开启这项功能
-  Period: 600 #每次清理的间隔是多少（秒）
-  Message: "§e服务器清理内存中... ԅ(¯ㅂ¯ԅ)" #清理时的提示信息是什么
-TeleportPreLoader: #区块预加载
-  enable: true #是否开启区块预加载
-WaterFlowLimitor: #流水限制
-  enable: true #是否开启高空、大量流水限制
-  Period: 200 #每多少毫秒允许一次流水
-FireLimitor: #火焰限制
-  enable: true #是否限制火焰蔓延
-  Period: 3000 #每多少毫秒允许一次火焰蔓延
-WorldSpawnLimitor: #世界生物生成限制
-  worldname: #世界名字
-    enable: true #是否开启限制
-    PerChunkMonsters: 3 #每个区块允许多少个怪物生成
-    PerChunkAnimals: 3 #每个区块允许多少个动物生成
-    PerChunkAmbient: 10 #每个区块周围允许多少个攻击性生物生成
+  PerChunkLimit: 30 #每个区块允许多少个这种实体存在
+AutoSave: #更好的自动保存
+  Interval: 15 #每次保存间隔多少秒
+  enable: true #是否开启自动保存
+AutoSet: #是否自动配端
+  enable: true #是否自动配端
+ChunkKeeper: #是否开启区块保持者
+  enable: true #是否开启区块保持者
+NoSpawnChunks: #是否取消出生区块的内存保持
+  enable: true #是否取消出生区块的内存保持
+
 
 4.AntiBugConfig —— 为修复漏洞（包括MC漏洞和部分插件漏洞）配置文件\
 AntiCrashChat:

@@ -20,4 +20,14 @@ public class Utils {
 		}
 		return chunks;
 	}
+	
+	public static List<Chunk> getnearby9chunks(Chunk chunk){
+		List<Chunk> chunks = new ArrayList<Chunk>();
+		for(int i = chunk.getX() - 1;i<chunk.getX() + 1;i++){
+			for(int ii = chunk.getZ() - 1;ii<chunk.getZ() + 1;ii++){
+				chunks.add(chunk.getWorld().getChunkAt(i, ii));
+			}
+		}
+		return chunks;
+	}
 }
