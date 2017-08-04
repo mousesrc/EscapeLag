@@ -25,10 +25,13 @@ public class TeleportPreLoader implements Listener {
 	public void TeleportLoader(final PlayerTeleportEvent event) {
 		if (ConfigOptimize.TeleportPreLoaderenable == true) {
 			final Player player = event.getPlayer();
-			if(player.getVehicle() != null){
+			if (event.getFrom().equals(event.getTo())){
+				event.setCancelled(true);
+			}
+			if (player.getVehicle() != null) {
 				return;
 			}
-			if(event.getCause() == TeleportCause.END_GATEWAY){
+			if (event.getCause() == TeleportCause.END_GATEWAY) {
 				return;
 			}
 			nowteleportid++;
@@ -42,7 +45,7 @@ public class TeleportPreLoader implements Listener {
 				}
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
 					public void run() {
-						nowint.put(thistpid, nowint.get(thistpid) + cs/10);
+						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
 						for (int i = nowint.get(thistpid) - cs / 10; i < nowint.get(thistpid); i++) {
 							Chunk chunk = chunks.get(i);
 							if (chunk.isLoaded() == false) {
@@ -53,7 +56,7 @@ public class TeleportPreLoader implements Listener {
 				}, 1);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
 					public void run() {
-						nowint.put(thistpid, nowint.get(thistpid) + cs/10);
+						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
 						for (int i = nowint.get(thistpid) - cs / 10; i < nowint.get(thistpid); i++) {
 							Chunk chunk = chunks.get(i);
 							if (chunk.isLoaded() == false) {
@@ -64,7 +67,7 @@ public class TeleportPreLoader implements Listener {
 				}, 2);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
 					public void run() {
-						nowint.put(thistpid, nowint.get(thistpid) + cs/10);
+						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
 						for (int i = nowint.get(thistpid) - cs / 10; i < nowint.get(thistpid); i++) {
 							Chunk chunk = chunks.get(i);
 							if (chunk.isLoaded() == false) {
@@ -75,7 +78,7 @@ public class TeleportPreLoader implements Listener {
 				}, 3);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
 					public void run() {
-						nowint.put(thistpid, nowint.get(thistpid) + cs/10);
+						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
 						for (int i = nowint.get(thistpid) - cs / 10; i < nowint.get(thistpid); i++) {
 							Chunk chunk = chunks.get(i);
 							if (chunk.isLoaded() == false) {
@@ -86,7 +89,7 @@ public class TeleportPreLoader implements Listener {
 				}, 4);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
 					public void run() {
-						nowint.put(thistpid, nowint.get(thistpid) + cs/10);
+						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
 						for (int i = nowint.get(thistpid) - cs / 10; i < nowint.get(thistpid); i++) {
 							Chunk chunk = chunks.get(i);
 							if (chunk.isLoaded() == false) {
@@ -97,7 +100,7 @@ public class TeleportPreLoader implements Listener {
 				}, 5);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
 					public void run() {
-						nowint.put(thistpid, nowint.get(thistpid) + cs/10);
+						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
 						for (int i = nowint.get(thistpid) - cs / 10; i < nowint.get(thistpid); i++) {
 							Chunk chunk = chunks.get(i);
 							if (chunk.isLoaded() == false) {
@@ -108,7 +111,7 @@ public class TeleportPreLoader implements Listener {
 				}, 6);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
 					public void run() {
-						nowint.put(thistpid, nowint.get(thistpid) + cs/10);
+						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
 						for (int i = nowint.get(thistpid) - cs / 10; i < nowint.get(thistpid); i++) {
 							Chunk chunk = chunks.get(i);
 							if (chunk.isLoaded() == false) {
@@ -119,7 +122,7 @@ public class TeleportPreLoader implements Listener {
 				}, 7);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
 					public void run() {
-						nowint.put(thistpid, nowint.get(thistpid) + cs/10);
+						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
 						for (int i = nowint.get(thistpid) - cs / 10; i < nowint.get(thistpid); i++) {
 							Chunk chunk = chunks.get(i);
 							if (chunk.isLoaded() == false) {
@@ -130,7 +133,7 @@ public class TeleportPreLoader implements Listener {
 				}, 8);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
 					public void run() {
-						nowint.put(thistpid, nowint.get(thistpid) + cs/10);
+						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
 						for (int i = nowint.get(thistpid) - cs / 10; i < nowint.get(thistpid); i++) {
 							Chunk chunk = chunks.get(i);
 							if (chunk.isLoaded() == false) {

@@ -28,24 +28,19 @@ public class ItemClear implements Listener {
 		}
 		Chunk chunk = event.getChunk();
 		int dcs = DeathChunk.size();
-		boolean noclear = false;
-		List<Chunk> thenremove = new ArrayList<Chunk>();
 		for (int i = 0; i < dcs; i++) {
 			Chunk donotchunk = DeathChunk.get(i);
 			if (Utils.isSameChunk(chunk, donotchunk)) {
-				noclear = true;
-				thenremove.add(chunk);
+				DeathChunk.remove(donotchunk);
+				return;
 			}
 		}
-		thenremove.removeAll(thenremove);
-		if (noclear == false) {
-			Entity[] entities = chunk.getEntities();
-			for (int i = 0; i < entities.length; i++) {
-				Entity ent = entities[i];
-				if (ent.getType() == EntityType.DROPPED_ITEM) {
-					if (ConfigOptimize.ClearItemNoClearItemType.contains(((Item) ent).getType().name()) == false) {
-						ent.remove();
-					}
+		Entity[] entities = chunk.getEntities();
+		for (int i = 0; i < entities.length; i++) {
+			Entity ent = entities[i];
+			if (ent.getType() == EntityType.DROPPED_ITEM) {
+				if (ConfigOptimize.ClearItemNoClearItemType.contains(((Item) ent).getType().name()) == false) {
+					ent.remove();
 				}
 			}
 		}

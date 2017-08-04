@@ -59,6 +59,7 @@ import com.mcml.space.util.VersionLevel.Version;
 import com.mcml.space.util.Configurable;
 import com.mcml.space.util.NetWorker;
 import com.mcml.space.util.Perms;
+import com.mcml.space.util.TPSAndThread;
 import com.mcml.space.util.Ticker;
 import com.mcml.space.util.AzurePlayerList;
 import com.mcml.space.util.VersionLevel;
@@ -152,6 +153,7 @@ public class VLagger extends JavaPlugin implements Listener {
         if (ConfigMain.AutoUpdate)
             Bukkit.getScheduler().runTaskAsynchronously(this, new NetWorker());
         Bukkit.getScheduler().runTaskTimer(this, new AntiFakeDeath(), 7 * 20, 7 * 20);
+        Bukkit.getScheduler().runTaskTimerAsynchronously(this, new TPSAndThread(), 1, 1);
 
         AzureAPI.log("------加载完毕------");
         AzureAPI.log("乐乐感谢您的使用——有建议务必反馈，QQ1207223090");
@@ -186,7 +188,7 @@ public class VLagger extends JavaPlugin implements Listener {
                     sender.sendMessage("§e/vlg chunkkeeper 查看关于区块保持者的帮助");
                     sender.sendMessage("§e/vlg heap 查阅关于内存清理和分配的内容");
                     sender.sendMessage("§e/vlg autosave 查阅关于自动储存的内容");
-                    sender.sendMessage("§e/vlg tpssleep 查阅关于主线程停顿");
+                    sender.sendMessage("§e/vlg tps 查阅关于TPS和主线程");
                     sender.sendMessage("§e/vlg autoset 查阅关于自动配端");
                     sender.sendMessage("§e/vlg antiattack 查阅关于反压测模块");
                 }
@@ -299,7 +301,7 @@ public class VLagger extends JavaPlugin implements Listener {
                         sender.sendMessage("§e已经尝试储存区块，该操作不安全!");
                     }
                 }
-                if (args[0].equalsIgnoreCase("tpssleep")) {
+                if (args[0].equalsIgnoreCase("tps")) {
                     if (args.length == 1) {
                         sender.sendMessage("§a后置参数:");
                         sender.sendMessage("§esleep <ms> 停顿主线程毫秒");
@@ -312,6 +314,9 @@ public class VLagger extends JavaPlugin implements Listener {
                         } catch (Exception ex) {
                             sender.sendMessage("§c警告，出现错误!" + ex.toString());
                         }
+                    }
+                    if (args[1].equalsIgnoreCase("sleep")) {
+                        sender.sendMessage("§e目前服务器的TPS是 " + TPSAndThread.getTPS());
                     }
                 }
                 if (args[0].equalsIgnoreCase("reload")) {
