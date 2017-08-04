@@ -26,7 +26,7 @@ public class TeleportPreLoader implements Listener {
 	public void TeleportLoader(final PlayerTeleportEvent event) {
 		if (ConfigOptimize.TeleportPreLoaderenable == true) {
 			final Player player = event.getPlayer();
-			if (event.getFrom().equals(event.getTo())){
+			if (TeleportPreloaderSotr.canPreload(event.getFrom(), event.getTo(), player) == false){
 				event.setCancelled(true);
 			}
 			if (player.getVehicle() != null) {
@@ -39,12 +39,14 @@ public class TeleportPreLoader implements Listener {
 			if (isPreLoading == false) {
 				event.setCancelled(true);
 				final int thistpid = nowteleportid;
-				final List<Coord<Integer, Integer>> chunks = Utils.getShouldUseChunks(event.getTo());
+				final List<Coord<Integer, Integer>> chunks = Utils.getShouldUseChunks(event.getTo(), player);
 				final int cs = chunks.size();
 				if (nowint.get(thistpid) == null) {
 					nowint.put(thistpid, 0);
 				}
 				final World world = event.getTo().getWorld();
+				
+				if (TeleportPreloaderSotr.invulnerable) player.setInvulnerable(true);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
 					@Override
                     public void run() {
@@ -138,6 +140,7 @@ public class TeleportPreLoader implements Listener {
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
 					@Override
                     public void run() {
+					    if (TeleportPreloaderSotr.invulnerable) player.setInvulnerable(false);
 						isPreLoading = true;
 						player.teleport(event.getTo());
 						isPreLoading = false;
