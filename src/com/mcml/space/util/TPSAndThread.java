@@ -20,14 +20,14 @@ public class TPSAndThread implements Runnable{
 				ServerTime = System.currentTimeMillis();
 				ServerTick++;
 			}
-		}, 1, 1);
+		}, 0L, 1L);
 		Timer AsyncTickTimer = new Timer();
 		AsyncTickTimer.scheduleAtFixedRate(new TimerTask(){
 			public void run(){
 				LastTPS = ServerTick;
 				ServerTick = 0;
 			}
-		}, 50L, 50L);
+		}, 0L, 1000L);
 	}
 	
 	public static int getTPS(){
