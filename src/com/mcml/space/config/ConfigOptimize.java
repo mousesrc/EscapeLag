@@ -5,8 +5,14 @@ import java.util.List;
 import com.mcml.space.util.Configurable;
 
 public abstract class ConfigOptimize extends Configurable {
+	@Node(path = "NooneRestart.enable")
+	public static boolean emptyRestart = true;
+
+	@Node(path = "NooneRestart.TimeLong")
+	public static long emptyRestartDelay = 1200;
+	
     @Node(path = "OverLoadMemoryRestart.enable")
-    public static boolean OverLoadMemoryRestartenable = false; //用户反馈关闭默认比较好
+    public static boolean OverLoadMemoryRestartenable = true; //用户反馈关闭默认比较好
     
     @Node(path = "ChunkUnloader.Interval")
     public static long ChunkUnloaderInterval = 30;

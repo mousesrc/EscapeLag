@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import com.mcml.space.config.ConfigOptimize;
 import com.mcml.space.core.VLagger;
@@ -25,6 +26,9 @@ public class TeleportPreLoader implements Listener {
 		if (ConfigOptimize.TeleportPreLoaderenable == true) {
 			final Player player = event.getPlayer();
 			if(player.getVehicle() != null){
+				return;
+			}
+			if(event.getCause() == TeleportCause.END_GATEWAY){
 				return;
 			}
 			nowteleportid++;
