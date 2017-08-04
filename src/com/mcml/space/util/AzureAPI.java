@@ -38,16 +38,16 @@ public abstract class AzureAPI<K, V> {
     }
 
     public static int viewDistance(final Player player) {
-        return isPaper() ? player.getViewDistance() : Bukkit.getViewDistance();
+        return isPaper() && player != null ? player.getViewDistance() : Bukkit.getViewDistance();
     }
 
     public static int viewDistanceBlock(final Player player) {
-        if (customViewDistance(player)) return player.getViewDistance() * 16;
+        if (player != null && customViewDistance(player)) return player.getViewDistance() * 16;
         return bukkitVDBlock;
     }
 
     public static int viewDistanceChunk(final Player player) {
-        if (customViewDistance(player)) return (player.getViewDistance() * 2) ^ 2 + 1;
+        if (player != null && customViewDistance(player)) return (player.getViewDistance() * 2) ^ 2 + 1;
         return bukkitVDChunk;
     }
 
@@ -165,7 +165,7 @@ public abstract class AzureAPI<K, V> {
         }
     }
     
-    public static <K, V, E> Coord3<K, V, E> wrapCoord3(K key, V value, E extra) {
+    public static <K, V, E> Coord3<K, V, E> wrapCoord(K key, V value, E extra) {
         return new Coord3<K, V, E>(key, value, extra);
     }
     

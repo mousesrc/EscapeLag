@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import com.mcml.space.config.ConfigOptimize;
 import com.mcml.space.core.VLagger;
+import com.mcml.space.util.AzureAPI.Coord;
 import com.mcml.space.util.Utils;
 
 public class TeleportPreLoader implements Listener {
@@ -38,112 +39,105 @@ public class TeleportPreLoader implements Listener {
 			if (isPreLoading == false) {
 				event.setCancelled(true);
 				final int thistpid = nowteleportid;
-				final List<Chunk> chunks = Utils.getShouldUseChunk(event.getTo());
+				final List<Coord<Integer, Integer>> chunks = Utils.getShouldUseChunks(event.getTo());
 				final int cs = chunks.size();
 				if (nowint.get(thistpid) == null) {
 					nowint.put(thistpid, 0);
 				}
+				final World world = event.getTo().getWorld();
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
-					public void run() {
+					@Override
+                    public void run() {
 						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
 						for (int i = nowint.get(thistpid) - cs / 10; i < nowint.get(thistpid); i++) {
-							Chunk chunk = chunks.get(i);
-							if (chunk.isLoaded() == false) {
-								chunk.load();
-							}
+							Coord<Integer, Integer> coord = chunks.get(i);
+							world.loadChunk(coord.getKey(), coord.getValue());
 						}
 					}
 				}, 1);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
-					public void run() {
+					@Override
+                    public void run() {
 						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
 						for (int i = nowint.get(thistpid) - cs / 10; i < nowint.get(thistpid); i++) {
-							Chunk chunk = chunks.get(i);
-							if (chunk.isLoaded() == false) {
-								chunk.load();
-							}
+						    Coord<Integer, Integer> coord = chunks.get(i);
+                            world.loadChunk(coord.getKey(), coord.getValue());
 						}
 					}
 				}, 2);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
-					public void run() {
+					@Override
+                    public void run() {
 						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
 						for (int i = nowint.get(thistpid) - cs / 10; i < nowint.get(thistpid); i++) {
-							Chunk chunk = chunks.get(i);
-							if (chunk.isLoaded() == false) {
-								chunk.load();
-							}
+						    Coord<Integer, Integer> coord = chunks.get(i);
+                            world.loadChunk(coord.getKey(), coord.getValue());
 						}
 					}
 				}, 3);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
-					public void run() {
+					@Override
+                    public void run() {
 						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
 						for (int i = nowint.get(thistpid) - cs / 10; i < nowint.get(thistpid); i++) {
-							Chunk chunk = chunks.get(i);
-							if (chunk.isLoaded() == false) {
-								chunk.load();
-							}
+						    Coord<Integer, Integer> coord = chunks.get(i);
+                            world.loadChunk(coord.getKey(), coord.getValue());
 						}
 					}
 				}, 4);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
-					public void run() {
+					@Override
+                    public void run() {
 						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
 						for (int i = nowint.get(thistpid) - cs / 10; i < nowint.get(thistpid); i++) {
-							Chunk chunk = chunks.get(i);
-							if (chunk.isLoaded() == false) {
-								chunk.load();
-							}
+						    Coord<Integer, Integer> coord = chunks.get(i);
+                            world.loadChunk(coord.getKey(), coord.getValue());
 						}
 					}
 				}, 5);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
-					public void run() {
+					@Override
+                    public void run() {
 						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
 						for (int i = nowint.get(thistpid) - cs / 10; i < nowint.get(thistpid); i++) {
-							Chunk chunk = chunks.get(i);
-							if (chunk.isLoaded() == false) {
-								chunk.load();
-							}
+						    Coord<Integer, Integer> coord = chunks.get(i);
+                            world.loadChunk(coord.getKey(), coord.getValue());
 						}
 					}
 				}, 6);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
-					public void run() {
+					@Override
+                    public void run() {
 						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
 						for (int i = nowint.get(thistpid) - cs / 10; i < nowint.get(thistpid); i++) {
-							Chunk chunk = chunks.get(i);
-							if (chunk.isLoaded() == false) {
-								chunk.load();
-							}
+						    Coord<Integer, Integer> coord = chunks.get(i);
+                            world.loadChunk(coord.getKey(), coord.getValue());
 						}
 					}
 				}, 7);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
-					public void run() {
+					@Override
+                    public void run() {
 						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
 						for (int i = nowint.get(thistpid) - cs / 10; i < nowint.get(thistpid); i++) {
-							Chunk chunk = chunks.get(i);
-							if (chunk.isLoaded() == false) {
-								chunk.load();
-							}
+						    Coord<Integer, Integer> coord = chunks.get(i);
+                            world.loadChunk(coord.getKey(), coord.getValue());
 						}
 					}
 				}, 8);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
-					public void run() {
+					@Override
+                    public void run() {
 						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
 						for (int i = nowint.get(thistpid) - cs / 10; i < nowint.get(thistpid); i++) {
-							Chunk chunk = chunks.get(i);
-							if (chunk.isLoaded() == false) {
-								chunk.load();
-							}
+						    Coord<Integer, Integer> coord = chunks.get(i);
+                            world.loadChunk(coord.getKey(), coord.getValue());
 						}
 					}
 				}, 9);
 				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
-					public void run() {
+					@Override
+                    public void run() {
 						isPreLoading = true;
 						player.teleport(event.getTo());
 						isPreLoading = false;
