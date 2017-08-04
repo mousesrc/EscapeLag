@@ -5,6 +5,21 @@ import java.util.List;
 import com.mcml.space.util.Configurable;
 
 public abstract class ConfigOptimize extends Configurable {
+	@Node(path = "EntityClear.enable")
+    public static boolean EntityClearenable = true;
+	
+	@Node(path = "EntityClear.CheckInterval")
+    public static int EntityClearCheckInterval = 600;
+	
+	@Node(path = "EntityClear.LimitCount")
+    public static int EntityClearLimitCount = 1200;
+	
+	@Node(path = "EntityClear.ClearEntityType")
+    public static List<String> EntityClearClearEntityType = Default.EntityClearClearEntityType();
+	
+	@Node(path = "EntityClear.ClearMessage")
+    public static String EntityClearClearMessage = "§a成功清除了过多的实体~~(@^_^@)~";
+	
 	@Node(path = "NooneRestart.enable")
 	public static boolean emptyRestart = true;
 

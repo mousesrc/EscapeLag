@@ -21,7 +21,6 @@ public class ItemClear implements Listener {
 
 	public static ArrayList<Chunk> DeathChunk = new ArrayList<Chunk>();
 
-	// TODO configurable type, clear mobs - tons
 	@EventHandler
 	public void ChunkloadClear(ChunkUnloadEvent event) {
 		if (ConfigOptimize.ClearItemenable != true) {

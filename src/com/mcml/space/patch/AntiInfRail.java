@@ -26,6 +26,9 @@ public class AntiInfRail implements Listener {
             if (event.getChangedType() == Material.ACTIVATOR_RAIL) {
                 checkedtimes = checkedtimes + 1;
             }
+            if (event.getChangedType() == Material.SLIME_BLOCK) {
+                checkedtimes = checkedtimes + 1;
+            }
             if (checkedtimes >= 2) {
                 event.setCancelled(true);
             }

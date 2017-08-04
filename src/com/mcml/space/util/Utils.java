@@ -38,7 +38,7 @@ public class Utils {
 		int c2x = chunk2.getX();
 		int c1z = chunk1.getZ();
 		int c2z = chunk2.getZ();
-		if(c1w.equals(c2w)&c1x == c2x&c1z == c2z){
+		if(c1w.equals(c2w) && c1x == c2x && c1z == c2z){
 			return true;
 		}else{
 			return false;

@@ -23,6 +23,18 @@ public class Default { //Sotr你那个判定大小写我真的很难受
 		return NoCrowdedEntityTypeList;
 	}
 	
+	public static List<String> EntityClearClearEntityType(){
+		List<String> NoCrowdedEntityTypeList = new ArrayList<String>();
+		NoCrowdedEntityTypeList.add("ZOMBIE");
+		NoCrowdedEntityTypeList.add("SKELETON");
+		NoCrowdedEntityTypeList.add("SPIDER");
+		NoCrowdedEntityTypeList.add("CREEPER");
+		NoCrowdedEntityTypeList.add("SHEEP");
+		NoCrowdedEntityTypeList.add("PIG");
+		NoCrowdedEntityTypeList.add("CHICKEN");
+		return NoCrowdedEntityTypeList;
+	}
+	
 	public static List<String> AntiRedstoneRemoveBlockList(){
 		List<String> AntiRedstoneRemoveBlockList = new ArrayList<String>();
 		AntiRedstoneRemoveBlockList.add("REDSTONE_WIRE");
