@@ -2,20 +2,19 @@ package com.mcml.space.util;
 
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.entity.Player;
-
 import com.google.common.collect.Lists;
 import com.mcml.space.util.AzureAPI.Coord;
 import com.mcml.space.util.AzureAPI.Coord3;
 
 public class Utils {
 	
-	public static List<Coord<Integer, Integer>> getShouldUseChunks(Location loc, Player player){
+	public static List<Coord<Integer, Integer>> getShouldUseChunks(Location loc){
 		List<Coord<Integer, Integer>> chunks = Lists.newArrayList();
-		int vd = AzureAPI.viewDistance(player);
+		int vd = Bukkit.getViewDistance();
 		int hvd = vd / 2;
         for(int i = loc.getChunk().getX() - hvd; i < loc.getChunk().getX() + hvd; i++){
             for(int ii = loc.getChunk().getZ() - hvd; ii<loc.getChunk().getZ() + hvd; ii++){
