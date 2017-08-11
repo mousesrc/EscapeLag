@@ -60,7 +60,6 @@ import com.mcml.space.util.Configurable;
 import com.mcml.space.util.NetWorker;
 import com.mcml.space.util.Perms;
 import com.mcml.space.util.TPSAndThread;
-import com.mcml.space.util.Ticker;
 import com.mcml.space.util.AzurePlayerList;
 import com.mcml.space.util.VersionLevel;
 
@@ -100,7 +99,6 @@ public class VLagger extends JavaPlugin implements Listener {
         AzurePlayerList.bind(this);
         AzurePlayerList.bind(new UpgradeNotifier());
 
-        Ticker.bind(MainThis);
         Perms.bind("VLagger.Admin");
 
         Bukkit.getPluginManager().registerEvents(new AntiInfItem(), this);
@@ -232,7 +230,7 @@ public class VLagger extends JavaPlugin implements Listener {
                         return true;
                     }
                     if (args[1].equalsIgnoreCase("list")) {
-                        sender.sendMessage("§e目前以及被保存的区块列表:ChunkKeeper.ShouldKeepList");
+                        sender.sendMessage("§e目前以及被保存的区块列表:" + ChunkKeeper.ShouldKeepList);
                     }
                     if (args[1].equalsIgnoreCase("addthis")) {
                         Player p = (Player) sender;
@@ -305,6 +303,7 @@ public class VLagger extends JavaPlugin implements Listener {
                     if (args.length == 1) {
                         sender.sendMessage("§a后置参数:");
                         sender.sendMessage("§esleep <ms> 停顿主线程毫秒");
+                        sender.sendMessage("§etps 获取服务器当前TPS");
                         return true;
                     }
                     if (args[1].equalsIgnoreCase("sleep")) {
@@ -315,7 +314,7 @@ public class VLagger extends JavaPlugin implements Listener {
                             sender.sendMessage("§c警告，出现错误!" + ex.toString());
                         }
                     }
-                    if (args[1].equalsIgnoreCase("sleep")) {
+                    if (args[1].equalsIgnoreCase("tps")) {
                         sender.sendMessage("§e目前服务器的TPS是 " + TPSAndThread.getTPS());
                     }
                 }
