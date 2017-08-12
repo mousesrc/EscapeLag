@@ -101,9 +101,6 @@ public abstract class ConfigOptimize extends Configurable {
     @Node(path = "OverLoadMemoryRestart.DelayTime")
     public static int OverLoadMemoryRestartDelayTime = 15;
     
-    @Node(path = "OverLoadMemoryRestart.CanCancel")
-    public static boolean OverLoadMemoryRestartCanCancel = true;
-    
     @Node(path = "AutoSet.enable")
     public static boolean AutoSetenable = true;
     
