@@ -8,22 +8,30 @@ import org.bukkit.event.block.BlockPhysicsEvent;
 import com.mcml.space.config.ConfigPatch;
 
 public class AntiInfRail implements Listener {
+	
+	private long LastCheckedTime = System.currentTimeMillis();
 
     @SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void PhysicsCheck(BlockPhysicsEvent event) {
         if (ConfigPatch.fixInfRail == true) {
-            int checkedtimes = 0;
             if (event.getChangedType().name().contains("RAIL")) {
-                checkedtimes = checkedtimes + 1;
+                if(CheckFast()){
+                	event.setCancelled(true);
+                }
+                LastCheckedTime = System.currentTimeMillis();
             }
             if (event.getChangedTypeId() == 165) {
-                checkedtimes = checkedtimes + 1;
-            }
-            if (checkedtimes >= 2) {
-                event.setCancelled(true);
+            	if(CheckFast()){
+                	event.setCancelled(true);
+                }
+                LastCheckedTime = System.currentTimeMillis();
             }
         }
+    }
+    
+    public boolean CheckFast(){
+    	return LastCheckedTime + 50L > System.currentTimeMillis();
     }
 }
 // TODO confirm details
