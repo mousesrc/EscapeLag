@@ -17,7 +17,7 @@ public class AntiInfRail implements Listener {
             if (event.getChangedType().name().contains("RAIL")) {
                 checkedtimes = checkedtimes + 1;
             }
-            if (event.getChangedTypeId() == 355) {
+            if (event.getChangedTypeId() == 165) {
                 checkedtimes = checkedtimes + 1;
             }
             if (checkedtimes >= 2) {
