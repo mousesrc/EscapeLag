@@ -5,7 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.mcml.space.config.ConfigOptimize;
-import com.mcml.space.core.VLagger;
+import com.mcml.space.core.EscapeLag;
 import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.PluginExtends;
 
@@ -27,7 +27,7 @@ public class OverloadRestart implements Runnable, PluginExtends {
     public void run() {
         if (ConfigOptimize.OverLoadMemoryRestartenable && isMemoryOverload()) {
             AzureAPI.bc(ConfigOptimize.OverLoadMemoryRestartWarnMessage);
-            Bukkit.getServer().getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+            Bukkit.getServer().getScheduler().runTaskLater(EscapeLag.MainThis, new Runnable() {
                 @Override
                 public void run() {
                     AzureAPI.tryRestartServer();

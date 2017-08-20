@@ -13,7 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.world.ChunkUnloadEvent;
 
 import com.mcml.space.config.ConfigOptimize;
-import com.mcml.space.core.VLagger;
+import com.mcml.space.core.EscapeLag;
 import com.mcml.space.util.AzurePlayerList;
 
 public class ChunkKeeper implements Listener {
@@ -29,14 +29,14 @@ public class ChunkKeeper implements Listener {
     }
 
     public static void ChunkKeeperofTask() {
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(VLagger.MainThis, new Runnable() {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(EscapeLag.MainThis, new Runnable() {
 
             @Override
             public void run() {
                 ChunkKeeper.ChunkTimes.clear();
             }
         }, 60 * 60 * 20, 60 * 60 * 20);
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(VLagger.MainThis, new Runnable() {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(EscapeLag.MainThis, new Runnable() {
 
             @Override
             public void run() {

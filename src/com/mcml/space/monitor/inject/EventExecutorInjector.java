@@ -77,8 +77,8 @@ public class EventExecutorInjector extends AbstractInjector implements EventExec
 				long endTime = System.nanoTime();
 				long executeTime = endTime - startTime;
 				if(ConfigOptimize.MonitorPluginLagWarningenable){
-					if(executeTime/1000 > ConfigOptimize.MonitorPluginLagWarningPeriod){
-						AzureAPI.log("警告！服务器主线程陷入停顿超过1秒！因为插件" + this.getPlugin().getName() + " 执行了一次超过1秒耗时的操作！");
+					if(executeTime/1000000 > ConfigOptimize.MonitorPluginLagWarningPeriod){
+						AzureAPI.log("警告！服务器主线程陷入停顿超过配置设定值！因为插件" + this.getPlugin().getName() + " 执行了一次耗时 " + executeTime/1000000 + " 毫秒的位于 " + listener.getClass().getName() + " 的监听器 " + e.getEventName() + " 的操作！");
 					}
 				}
 				this.record(e.getEventName(), executeTime);

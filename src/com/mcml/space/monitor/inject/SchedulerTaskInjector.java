@@ -94,8 +94,8 @@ public class SchedulerTaskInjector extends AbstractInjector implements Runnable 
 			long endTime = System.nanoTime();
 			long useTime = endTime - startTime;
 			if(ConfigOptimize.MonitorPluginLagWarningenable){
-				if(useTime/1000 > ConfigOptimize.MonitorPluginLagWarningPeriod){
-					AzureAPI.log("警告！服务器主线程陷入停顿超过1秒！因为插件" + this.getPlugin().getName() + " 执行了一次超过1秒耗时的操作！");
+				if(useTime/1000000 > ConfigOptimize.MonitorPluginLagWarningPeriod){
+					AzureAPI.log("警告！服务器主线程陷入停顿超过配置设定值！因为插件" + this.getPlugin().getName() + " 执行了一次耗时 " + useTime/1000000 + " 毫秒的位于 " + this.getRunnable().getClass().getName() + " 的任务 " + this.getRunnable().toString() + " 的操作！");
 				}
 			}
 			if (useTime > this.maxExecuteTime) {

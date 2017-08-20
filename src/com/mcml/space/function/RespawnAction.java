@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.mcml.space.core.VLagger;
+import com.mcml.space.core.EscapeLag;
 import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.PluginExtends;
 import com.mcml.space.util.VersionLevel;
@@ -38,7 +38,7 @@ public class RespawnAction implements Listener, PluginExtends {
     public void autoRespawn(PlayerDeathEvent evt) {
         if (canAutoRespawn) {
             val player = evt.getEntity();
-            Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+            Bukkit.getScheduler().runTaskLater(EscapeLag.MainThis, new Runnable() {
                 @Override
                 @SuppressWarnings("all")
                 public void run() {

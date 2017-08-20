@@ -18,7 +18,7 @@ import org.bukkit.util.Vector;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.Lists;
-import com.mcml.space.core.VLagger;
+import com.mcml.space.core.EscapeLag;
 import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.PluginExtends;
 import com.mcml.space.util.AzureAPI.Coord;
@@ -92,7 +92,7 @@ public class TeleportPreloaderSotr implements Listener, PluginExtends {
         val secondStage = preChunks * 2;
         
         if (invulnerable) player.setInvulnerable(true);
-        Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+        Bukkit.getScheduler().runTaskLater(EscapeLag.MainThis, new Runnable() {
             @Override
             public void run() {
                 Coord<Integer, Integer> coord;
@@ -102,7 +102,7 @@ public class TeleportPreloaderSotr implements Listener, PluginExtends {
                 }
             }
         }, 1L);
-        Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+        Bukkit.getScheduler().runTaskLater(EscapeLag.MainThis, new Runnable() {
             @Override
             public void run() {
                 Coord<Integer, Integer> coord;
@@ -112,7 +112,7 @@ public class TeleportPreloaderSotr implements Listener, PluginExtends {
                 }
             }
         }, 3L);
-        Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+        Bukkit.getScheduler().runTaskLater(EscapeLag.MainThis, new Runnable() {
             @Override
             public void run() {
                 Coord<Integer, Integer> coord;
@@ -122,7 +122,7 @@ public class TeleportPreloaderSotr implements Listener, PluginExtends {
                 }
             }
         }, 5L);
-        Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+        Bukkit.getScheduler().runTaskLater(EscapeLag.MainThis, new Runnable() {
             @Override
             public void run() {
                 if (invulnerable) player.setInvulnerable(false);

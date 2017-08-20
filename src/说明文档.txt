@@ -1,5 +1,5 @@
 欢迎来到配置指南！
-首先感谢您使用了 VLagger 插件。
+首先感谢您使用了 EscapeLag 插件。
 该插件是一款 集成优化、修复漏洞、限制动作、高算法效率 的技术性为主的优化插件。
 
 查阅该指南即可将你的Config.yml文件配置正确，
@@ -20,9 +20,9 @@
 提示：如果你的提示信息选项输入了“”或 '' (留空但需要保持引号)，那么意味着你关闭了这个提示信息。
 
 2.PluginMainConfig —— 为插件的主要工作
-PluginPrefix: '&3Vlagger' #插件的前缀
+PluginPrefix: '&3EscapeLag' #插件的前缀
 AutoUpdate: false #是否开启插件的自动更新（推荐开启）
-internal-version: build-270 #插件目前的版本
+internal-version: build-287 #插件目前的版本
 language: zh_cn #插件语言（暂不可用）
 
 3.ClearLagConfig —— 为插件的优化模块配置

@@ -24,7 +24,6 @@ import com.mcml.space.config.ConfigMain;
 import com.mcml.space.config.ConfigOptimize;
 import com.mcml.space.config.ConfigPatch;
 import com.mcml.space.function.AntiSpam;
-import com.mcml.space.function.BlockCommander;
 import com.mcml.space.function.ExplosionController;
 import com.mcml.space.function.FarmProtecter;
 import com.mcml.space.function.RespawnAction;
@@ -75,8 +74,8 @@ import com.mcml.space.util.VersionLevel.Version;
 
 import lombok.val;
 
-public class VLagger extends JavaPlugin implements Listener {
-	public static VLagger MainThis;
+public class EscapeLag extends JavaPlugin implements Listener {
+	public static EscapeLag MainThis;
 	public static Coord<File, FileConfiguration> configOptimize;
 	public static Coord<File, FileConfiguration> configPatch;
 	public static Coord<File, FileConfiguration> configMain;
@@ -101,7 +100,7 @@ public class VLagger extends JavaPlugin implements Listener {
 
 		if (ConfigOptimize.AutoSetenable == true) {
 			try {
-				VLagger.AutoSetServer();
+				EscapeLag.AutoSetServer();
 			} catch (IOException | InterruptedException e) {
 			}
 		}
@@ -130,7 +129,6 @@ public class VLagger extends JavaPlugin implements Listener {
 		AntiDupeDropItem.init();
 		Bukkit.getPluginManager().registerEvents(new AntiDoorInfItem(), this);
 		Bukkit.getPluginManager().registerEvents(new AntiBedExplode(), this);
-		Bukkit.getPluginManager().registerEvents(new BlockCommander(), this);
 		Bukkit.getPluginManager().registerEvents(new WaterFlowLimitor(), this);
 		Bukkit.getPluginManager().registerEvents(new FireLimitor(), this);
 		Bukkit.getPluginManager().registerEvents(new FarmProtecter(), this);
@@ -175,11 +173,11 @@ public class VLagger extends JavaPlugin implements Listener {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (label.equalsIgnoreCase("vlg")) {
-			sender.sendMessage("§b------§a§lVLagger - §e版本 " + getDescription().getVersion() + "§b------");
+		if (label.equalsIgnoreCase("el")) {
+			sender.sendMessage("§b------§a§lEscapeLag - §e版本 " + getDescription().getVersion() + "§b------");
 			if (Perms.has(sender)) {
 				if (args.length == 0) {
-					sender.sendMessage("§c请输入/vlg help 来获取帮助");
+					sender.sendMessage("§c请输入/el help 来获取帮助");
 					return true;
 				}
 				if (args[0].equalsIgnoreCase("updateon")) {
@@ -193,14 +191,14 @@ public class VLagger extends JavaPlugin implements Listener {
 					sender.sendMessage("§a§l[VLagger]§b已经成功开启自动更新！");
 				}
 				if (args[0].equalsIgnoreCase("help")) {
-					sender.sendMessage("§e/vlg reload 重载插件");
-					sender.sendMessage("§e/vlg chunkkeeper 查看关于区块保持者的帮助");
-					sender.sendMessage("§e/vlg heap 查阅关于内存清理和分配的内容");
-					sender.sendMessage("§e/vlg autosave 查阅关于自动储存的内容");
-					sender.sendMessage("§e/vlg tps 查阅关于TPS和主线程");
-					sender.sendMessage("§e/vlg autoset 查阅关于自动配端");
-					sender.sendMessage("§e/vlg antiattack 查阅关于反压测模块");
-					sender.sendMessage("§e/vlg monitor 查阅关于插件耗能侦测");
+					sender.sendMessage("§e/el reload 重载插件");
+					sender.sendMessage("§e/el chunkkeeper 查看关于区块保持者的帮助");
+					sender.sendMessage("§e/el heap 查阅关于内存清理和分配的内容");
+					sender.sendMessage("§e/el autosave 查阅关于自动储存的内容");
+					sender.sendMessage("§e/el tps 查阅关于TPS和主线程");
+					sender.sendMessage("§e/el autoset 查阅关于自动配端");
+					sender.sendMessage("§e/el antiattack 查阅关于反压测模块");
+					sender.sendMessage("§e/el monitor 查阅关于插件耗能侦测");
 				}
 				if (args[0].equalsIgnoreCase("antiattack")) {
 					if (args.length == 1) {
@@ -253,7 +251,7 @@ public class VLagger extends JavaPlugin implements Listener {
 						while (itpet.hasNext()) {
 							MonitorRecord thispet = (MonitorRecord) itpet.next();
 							sender.sendMessage(
-									"§b|--§a" + thispet.getName() + " , §c" + thispet.getTotalTime() / 1000000 + "秒");
+									"§b|--§a" + thispet.getName() + " , §c" + thispet.getTotalTime() / 1000000000 + "秒");
 						}
 					}
 					if (args[1].equalsIgnoreCase("command")) {
@@ -269,7 +267,7 @@ public class VLagger extends JavaPlugin implements Listener {
 						while (itpct.hasNext()) {
 							MonitorRecord thispet = (MonitorRecord) itpct.next();
 							sender.sendMessage(
-									"§b|--§a" + thispet.getName() + " , §c" + thispet.getTotalTime() / 1000000 + "秒");
+									"§b|--§a" + thispet.getName() + " , §c" + thispet.getTotalTime() / 1000000000 + "秒");
 						}
 					}
 					if (args[1].equalsIgnoreCase("task")) {
@@ -282,7 +280,7 @@ public class VLagger extends JavaPlugin implements Listener {
 						sender.sendMessage("§a监听器名字,§c耗时总量");
 						MonitorRecord plugintasktime = MonitorUtils.getTaskTimingsByPlugin(plugin);
 						sender.sendMessage(
-								"§b|--§a" + plugintasktime.getName() + " , §c" + plugintasktime.getTotalTime() / 1000000 + "秒");
+								"§b|--§a" + plugintasktime.getName() + " , §c" + plugintasktime.getTotalTime() / 1000000000 + "秒");
 					}
 					if (args[1].equalsIgnoreCase("topall")) {
 						if (args.length == 2) {
@@ -310,6 +308,7 @@ public class VLagger extends JavaPlugin implements Listener {
 								}
 								MonitorRecord plugintasktime = MonitorUtils.getTaskTimingsByPlugin(plugin);
 								UsedTime = UsedTime + plugintasktime.getTotalTime();
+								UsedTime = UsedTime/1000000;
 								TimeMap.put(plugin, UsedTime);
 							}
 							ArrayList<Map.Entry<Plugin, Long>> timetop = Utils.sortMap(TimeMap);
@@ -317,12 +316,12 @@ public class VLagger extends JavaPlugin implements Listener {
 								int tts = timetop.size();
 								for (int i = 0; i < tts; i++) {
 									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
-											+ timetop.get(i).getValue() / 1000000 + "秒");
+											+ timetop.get(i).getValue() / 1000 + "秒");
 								}
 							} else {
 								for (int i = 0; i < 10; i++) {
 									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
-											+ timetop.get(i).getValue() / 1000000 + "秒");
+											+ timetop.get(i).getValue() / 1000 + "秒");
 								}
 							}
 						} else {
@@ -350,6 +349,7 @@ public class VLagger extends JavaPlugin implements Listener {
 								}
 								MonitorRecord plugintasktime = MonitorUtils.getTaskTimingsByPlugin(plugin);
 								UsedTime = UsedTime + plugintasktime.getTotalTime();
+								UsedTime = UsedTime/1000000;
 								TimeMap.put(plugin, UsedTime);
 							}
 							ArrayList<Map.Entry<Plugin, Long>> timetop = Utils.sortMap(TimeMap);
@@ -358,12 +358,12 @@ public class VLagger extends JavaPlugin implements Listener {
 								int tts = timetop.size();
 								for (int i = 0; i < tts; i++) {
 									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
-											+ timetop.get(i).getValue() / 1000000 + "秒");
+											+ timetop.get(i).getValue() / 1000 + "秒");
 								}
 							} else {
 								for (int i = 0; i < toShowLength; i++) {
 									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
-											+ timetop.get(i).getValue() / 1000000 + "秒");
+											+ timetop.get(i).getValue() / 1000 + "秒");
 								}
 							}
 						}
@@ -385,6 +385,7 @@ public class VLagger extends JavaPlugin implements Listener {
 									MonitorRecord thispct = (MonitorRecord) itpct.next();
 									UsedTime = UsedTime + thispct.getTotalTime();
 								}
+								UsedTime = UsedTime/1000000;
 								TimeMap.put(plugin, UsedTime);
 							}
 							ArrayList<Map.Entry<Plugin, Long>> timetop = Utils.sortMap(TimeMap);
@@ -392,12 +393,12 @@ public class VLagger extends JavaPlugin implements Listener {
 								int tts = timetop.size();
 								for (int i = 0; i < tts; i++) {
 									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
-											+ timetop.get(i).getValue() / 1000000 + "秒");
+											+ timetop.get(i).getValue() / 1000 + "秒");
 								}
 							} else {
 								for (int i = 0; i < 10; i++) {
 									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
-											+ timetop.get(i).getValue() / 1000000 + "秒");
+											+ timetop.get(i).getValue() / 1000 + "秒");
 								}
 							}
 						} else {
@@ -416,6 +417,7 @@ public class VLagger extends JavaPlugin implements Listener {
 									MonitorRecord thispct = (MonitorRecord) itpct.next();
 									UsedTime = UsedTime + thispct.getTotalTime();
 								}
+								UsedTime = UsedTime/1000000;
 								TimeMap.put(plugin, UsedTime);
 							}
 							ArrayList<Map.Entry<Plugin, Long>> timetop = Utils.sortMap(TimeMap);
@@ -424,12 +426,12 @@ public class VLagger extends JavaPlugin implements Listener {
 								int tts = timetop.size();
 								for (int i = 0; i < tts; i++) {
 									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
-											+ timetop.get(i).getValue() / 1000000 + "秒");
+											+ timetop.get(i).getValue() / 1000 + "秒");
 								}
 							} else {
 								for (int i = 0; i < toShowLength; i++) {
 									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
-											+ timetop.get(i).getValue() / 1000000 + "秒");
+											+ timetop.get(i).getValue() / 1000 + "秒");
 								}
 							}
 						}
@@ -446,6 +448,7 @@ public class VLagger extends JavaPlugin implements Listener {
 								long UsedTime = 0L;
 								MonitorRecord plugintasktime = MonitorUtils.getTaskTimingsByPlugin(plugin);
 								UsedTime = UsedTime + plugintasktime.getTotalTime();
+								UsedTime = UsedTime/1000000;
 								TimeMap.put(plugin, UsedTime);
 							}
 							ArrayList<Map.Entry<Plugin, Long>> timetop = Utils.sortMap(TimeMap);
@@ -453,12 +456,12 @@ public class VLagger extends JavaPlugin implements Listener {
 								int tts = timetop.size();
 								for (int i = 0; i < tts; i++) {
 									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
-											+ timetop.get(i).getValue() / 1000000 + "秒");
+											+ timetop.get(i).getValue() / 1000 + "秒");
 								}
 							} else {
 								for (int i = 0; i < 10; i++) {
 									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
-											+ timetop.get(i).getValue() / 1000000 + "秒");
+											+ timetop.get(i).getValue() / 1000 + "秒");
 								}
 							}
 						} else {
@@ -472,6 +475,7 @@ public class VLagger extends JavaPlugin implements Listener {
 								long UsedTime = 0L;
 								MonitorRecord plugintasktime = MonitorUtils.getTaskTimingsByPlugin(plugin);
 								UsedTime = UsedTime + plugintasktime.getTotalTime();
+								UsedTime = UsedTime/1000000;
 								TimeMap.put(plugin, UsedTime);
 							}
 							ArrayList<Map.Entry<Plugin, Long>> timetop = Utils.sortMap(TimeMap);
@@ -480,12 +484,12 @@ public class VLagger extends JavaPlugin implements Listener {
 								int tts = timetop.size();
 								for (int i = 0; i < tts; i++) {
 									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
-											+ timetop.get(i).getValue() / 1000000 + "秒");
+											+ timetop.get(i).getValue() / 1000 + "秒");
 								}
 							} else {
 								for (int i = 0; i < toShowLength; i++) {
 									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
-											+ timetop.get(i).getValue() / 1000000 + "秒");
+											+ timetop.get(i).getValue() / 1000 + "秒");
 								}
 							}
 						}
@@ -507,6 +511,7 @@ public class VLagger extends JavaPlugin implements Listener {
 									MonitorRecord thispet = (MonitorRecord) itpet.next();
 									UsedTime = UsedTime + thispet.getTotalTime();
 								}
+								UsedTime = UsedTime/1000000;
 								TimeMap.put(plugin, UsedTime);
 							}
 							ArrayList<Map.Entry<Plugin, Long>> timetop = Utils.sortMap(TimeMap);
@@ -514,12 +519,12 @@ public class VLagger extends JavaPlugin implements Listener {
 								int tts = timetop.size();
 								for (int i = 0; i < tts; i++) {
 									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
-											+ timetop.get(i).getValue() / 1000000 + "秒");
+											+ timetop.get(i).getValue() / 1000 + "秒");
 								}
 							} else {
 								for (int i = 0; i < 10; i++) {
 									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
-											+ timetop.get(i).getValue() / 1000000 + "秒");
+											+ timetop.get(i).getValue() / 1000 + "秒");
 								}
 							}
 						} else {
@@ -538,6 +543,7 @@ public class VLagger extends JavaPlugin implements Listener {
 									MonitorRecord thispet = (MonitorRecord) itpet.next();
 									UsedTime = UsedTime + thispet.getTotalTime();
 								}
+								UsedTime = UsedTime/1000000;
 								TimeMap.put(plugin, UsedTime);
 							}
 							ArrayList<Map.Entry<Plugin, Long>> timetop = Utils.sortMap(TimeMap);
@@ -546,12 +552,12 @@ public class VLagger extends JavaPlugin implements Listener {
 								int tts = timetop.size();
 								for (int i = 0; i < tts; i++) {
 									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
-											+ timetop.get(i).getValue() / 1000000 + "秒");
+											+ timetop.get(i).getValue() / 1000 + "秒");
 								}
 							} else {
 								for (int i = 0; i < toShowLength; i++) {
 									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
-											+ timetop.get(i).getValue() / 1000000 + "秒");
+											+ timetop.get(i).getValue() / 1000 + "秒");
 								}
 							}
 						}
@@ -565,7 +571,7 @@ public class VLagger extends JavaPlugin implements Listener {
 					}
 					if (args[1].equalsIgnoreCase("set")) {
 						try {
-							VLagger.AutoSetServer();
+							EscapeLag.AutoSetServer();
 						} catch (IOException | InterruptedException e) {
 						}
 						sender.sendMessage("§a配端完成！重启服务器即可生效！");
@@ -852,7 +858,7 @@ public class VLagger extends JavaPlugin implements Listener {
 		getLogger().info("感谢您的使用——乐乐");
 	}
 
-	public static File getPluginsFolder() {
-		return VLagger.MainThis.getFile();
+	public static File getPluginsFile() {
+		return EscapeLag.MainThis.getFile();
 	}
 }

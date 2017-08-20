@@ -15,7 +15,7 @@ public abstract class ConfigOptimize extends Configurable {
     public static boolean MonitorPluginLagWarningenable = true;
 	
 	@Node(path = "Monitor.PluginLagWarning.Period")
-    public static long MonitorPluginLagWarningPeriod = 1000;
+    public static long MonitorPluginLagWarningPeriod = 1000L;
 	
 	@Node(path = "EntityClear.enable")
     public static boolean EntityClearenable = true;

@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.mcml.space.config.ConfigOptimize;
-import com.mcml.space.core.VLagger;
+import com.mcml.space.core.EscapeLag;
 
 public class AutoSave implements Listener {
     // TODO benchmark!
@@ -27,7 +27,7 @@ public class AutoSave implements Listener {
             return;
         }
         final Player p = e.getPlayer();
-        TaskId.put(p, Bukkit.getScheduler().scheduleSyncRepeatingTask(VLagger.MainThis, new Runnable() {
+        TaskId.put(p, Bukkit.getScheduler().scheduleSyncRepeatingTask(EscapeLag.MainThis, new Runnable() {
 
             @Override
             public void run() {

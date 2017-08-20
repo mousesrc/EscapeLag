@@ -28,9 +28,6 @@ public abstract class ConfigFunction extends Configurable {
 	@Node(path = "NoEggChangeSpawner.TipMessage")
 	public static String messagePreventSpawnerModify = "&c抱歉，禁止使用刷怪蛋修改刷怪笼";
 
-	@Node(path = "BlockCommander.enable")
-	public static boolean canBlockCommand = true;
-
 	@Node(path = "ProtectFarm.enable")
 	public static boolean ProtectFarmenable = true;
 

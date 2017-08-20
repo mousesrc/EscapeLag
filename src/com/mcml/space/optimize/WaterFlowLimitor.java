@@ -11,7 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFromToEvent;
 
 import com.mcml.space.config.ConfigOptimize;
-import com.mcml.space.core.VLagger;
+import com.mcml.space.core.EscapeLag;
 
 public class WaterFlowLimitor implements Listener {
 	
@@ -19,7 +19,7 @@ public class WaterFlowLimitor implements Listener {
 	private final static HashMap<Chunk, Integer> CheckedTimes = new HashMap<Chunk, Integer>();
 	
 	public WaterFlowLimitor(){
-		Bukkit.getScheduler().runTaskTimer(VLagger.MainThis, new Runnable(){
+		Bukkit.getScheduler().runTaskTimer(EscapeLag.MainThis, new Runnable(){
 			@Override
             public void run(){
 				CheckedTimes.clear();

@@ -14,7 +14,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.util.Vector;
 
 import com.mcml.space.config.ConfigOptimize;
-import com.mcml.space.core.VLagger;
+import com.mcml.space.core.EscapeLag;
 import com.mcml.space.util.AzureAPI.Coord;
 import com.mcml.space.util.Utils;
 
@@ -50,7 +50,7 @@ public class TeleportPreLoader implements Listener {
 
 				if (TeleportPreloaderSotr.invulnerable)
 					player.setInvulnerable(true);
-				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+				Bukkit.getScheduler().runTaskLater(EscapeLag.MainThis, new Runnable() {
 					@Override
 					public void run() {
 						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
@@ -60,7 +60,7 @@ public class TeleportPreLoader implements Listener {
 						}
 					}
 				}, 1);
-				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+				Bukkit.getScheduler().runTaskLater(EscapeLag.MainThis, new Runnable() {
 					@Override
 					public void run() {
 						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
@@ -70,7 +70,7 @@ public class TeleportPreLoader implements Listener {
 						}
 					}
 				}, 2);
-				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+				Bukkit.getScheduler().runTaskLater(EscapeLag.MainThis, new Runnable() {
 					@Override
 					public void run() {
 						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
@@ -80,7 +80,7 @@ public class TeleportPreLoader implements Listener {
 						}
 					}
 				}, 3);
-				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+				Bukkit.getScheduler().runTaskLater(EscapeLag.MainThis, new Runnable() {
 					@Override
 					public void run() {
 						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
@@ -90,7 +90,7 @@ public class TeleportPreLoader implements Listener {
 						}
 					}
 				}, 4);
-				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+				Bukkit.getScheduler().runTaskLater(EscapeLag.MainThis, new Runnable() {
 					@Override
 					public void run() {
 						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
@@ -100,7 +100,7 @@ public class TeleportPreLoader implements Listener {
 						}
 					}
 				}, 5);
-				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+				Bukkit.getScheduler().runTaskLater(EscapeLag.MainThis, new Runnable() {
 					@Override
 					public void run() {
 						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
@@ -110,7 +110,7 @@ public class TeleportPreLoader implements Listener {
 						}
 					}
 				}, 6);
-				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+				Bukkit.getScheduler().runTaskLater(EscapeLag.MainThis, new Runnable() {
 					@Override
 					public void run() {
 						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
@@ -120,7 +120,7 @@ public class TeleportPreLoader implements Listener {
 						}
 					}
 				}, 7);
-				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+				Bukkit.getScheduler().runTaskLater(EscapeLag.MainThis, new Runnable() {
 					@Override
 					public void run() {
 						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
@@ -130,7 +130,7 @@ public class TeleportPreLoader implements Listener {
 						}
 					}
 				}, 8);
-				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+				Bukkit.getScheduler().runTaskLater(EscapeLag.MainThis, new Runnable() {
 					@Override
 					public void run() {
 						nowint.put(thistpid, nowint.get(thistpid) + cs / 10);
@@ -140,7 +140,7 @@ public class TeleportPreLoader implements Listener {
 						}
 					}
 				}, 9);
-				Bukkit.getScheduler().runTaskLater(VLagger.MainThis, new Runnable() {
+				Bukkit.getScheduler().runTaskLater(EscapeLag.MainThis, new Runnable() {
 					@Override
 					public void run() {
 						if (TeleportPreloaderSotr.invulnerable)

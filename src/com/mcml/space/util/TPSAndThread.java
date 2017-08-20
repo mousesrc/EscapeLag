@@ -6,7 +6,7 @@ import java.util.TimerTask;
 import org.bukkit.Bukkit;
 
 import com.mcml.space.config.ConfigOptimize;
-import com.mcml.space.core.VLagger;
+import com.mcml.space.core.EscapeLag;
 
 public class TPSAndThread implements Runnable{
 	
@@ -16,7 +16,7 @@ public class TPSAndThread implements Runnable{
 	
 	
 	public TPSAndThread(){
-		Bukkit.getScheduler().runTaskTimer(VLagger.MainThis, new Runnable(){
+		Bukkit.getScheduler().runTaskTimer(EscapeLag.MainThis, new Runnable(){
 			public void run(){
 				ServerTime = System.currentTimeMillis();
 				ServerTick++;

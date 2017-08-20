@@ -1,13 +1,13 @@
-name: VLagger
-main: com.mcml.space.core.VLagger
-version: 2.8.6-%BUILD_NUMBER%
+name: EscapeLag
+main: com.mcml.space.core.EscapeLag
+version: Build-%BUILD_NUMBER%
 softdepend: [ProtocolLib, AntiAttack, Essentials, RPG Items, RPGItems]
 author: Vlvxingze
 authors: [IzzelAliz, Sotr]
-website: "https://github.com/Vlvxingze/VLagger"
+website: "https://github.com/Vlvxingze/EscapeLag"
 database: false
 
 commands:
-  vlg:
-    description: VLagger
-    usage: "/vlg help"
+  el:
+    description: EscapeLag
+    usage: "/el help"

@@ -13,7 +13,7 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.google.common.collect.Sets;
 import com.mcml.space.config.ConfigPatch;
-import com.mcml.space.core.VLagger;
+import com.mcml.space.core.EscapeLag;
 import com.mcml.space.util.PluginExtends;
 
 public class RecipeDupePatch implements Listener, PluginExtends {
@@ -22,7 +22,7 @@ public class RecipeDupePatch implements Listener, PluginExtends {
     public RecipeDupePatch() {
         keepers = Sets.newHashSet();
         
-        ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(VLagger.MainThis, Play.Client.AUTO_RECIPE) {
+        ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(EscapeLag.MainThis, Play.Client.AUTO_RECIPE) {
             @Override
             public void onPacketReceiving(PacketEvent evt) {
                 if (!ConfigPatch.autoRecipePatch) return;

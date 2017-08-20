@@ -14,7 +14,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.google.common.collect.Maps;
 import com.mcml.space.config.ConfigFunction;
-import com.mcml.space.core.VLagger;
+import com.mcml.space.core.EscapeLag;
 import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.AzurePlayerList;
 import com.mcml.space.util.QuitReactor;
@@ -28,7 +28,7 @@ public class AntiSpam implements Listener, QuitReactor {
         timeRecord = Maps.newHashMap();
         AzurePlayerList.bind(this);
         
-        Bukkit.getScheduler().runTaskTimer(VLagger.MainThis, new Runnable() {
+        Bukkit.getScheduler().runTaskTimer(EscapeLag.MainThis, new Runnable() {
             @Override
             public void run() {
                 timeRecord.clear();

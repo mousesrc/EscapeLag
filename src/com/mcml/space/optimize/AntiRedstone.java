@@ -12,7 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockRedstoneEvent;
 
 import com.mcml.space.config.ConfigOptimize;
-import com.mcml.space.core.VLagger;
+import com.mcml.space.core.EscapeLag;
 import com.mcml.space.util.AzureAPI;
 
 public class AntiRedstone implements Listener {
@@ -20,7 +20,7 @@ public class AntiRedstone implements Listener {
     private HashMap<Location,Integer> CheckedTimes = new HashMap<Location, Integer>();
 
     public AntiRedstone(){
-        Bukkit.getScheduler().runTaskTimer(VLagger.MainThis, new Runnable(){
+        Bukkit.getScheduler().runTaskTimer(EscapeLag.MainThis, new Runnable(){
             @Override
             public void run(){
                 CheckedTimes.clear();
@@ -43,7 +43,7 @@ public class AntiRedstone implements Listener {
 
             if(CheckedTimes.get(loc) > ConfigOptimize.AntiRedstoneTimes){
                 if(ConfigOptimize.AntiRedstoneRemoveBlockList.contains(block.getType().name())){
-                    Bukkit.getScheduler().runTask(VLagger.MainThis, new Runnable() {
+                    Bukkit.getScheduler().runTask(EscapeLag.MainThis, new Runnable() {
                         @Override
                         public void run() {
                             block.setType(Material.AIR);
