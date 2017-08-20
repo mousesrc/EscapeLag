@@ -13,13 +13,15 @@ import org.bukkit.command.TabExecutor;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.SimplePluginManager;
 
+import com.mcml.space.config.ConfigOptimize;
+import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.Reflection;
 import com.mcml.space.util.Reflection.FieldAccessor;
 
 public class CommandInjector extends AbstractMultipleInjector implements TabExecutor {
 	/**
 	 * 
-	 * @author jiongjionger
+	 * @author jiongjionger,Vlvxingze
 	 */
 
 	public static void inject(Plugin plg) {
@@ -98,6 +100,11 @@ public class CommandInjector extends AbstractMultipleInjector implements TabExec
 			} finally {
 				long endTime = System.nanoTime();
 				long useTime = endTime - startTime;
+				if(ConfigOptimize.MonitorPluginLagWarningenable){
+					if(useTime/1000 > ConfigOptimize.MonitorPluginLagWarningPeriod){
+						AzureAPI.log("警告！服务器主线程陷入停顿超过1秒！因为插件" + this.getPlugin().getName() + " 执行了一次超过1秒耗时的操作！");
+					}
+				}
 				this.record(command.getName(), useTime);
 			}
 			return commandResult;

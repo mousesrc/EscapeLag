@@ -223,10 +223,10 @@ public class VLagger extends JavaPlugin implements Listener {
 						sender.sendMessage("§a后置参数:");
 						sender.sendMessage("§eenable 打开插件耗时侦测");
 						sender.sendMessage("§edisable 关闭插件耗时侦测");
-						sender.sendMessage("§etopall 列表插件主线程总耗时");
-						sender.sendMessage("§eeventall 查阅所有插件监听器耗时列表");
-						sender.sendMessage("§ecommandall 查阅所有插件命令耗时列表");
-						sender.sendMessage("§etaskall 查阅所有插件任务耗时列表");
+						sender.sendMessage("§etopall <显示条数> 列表插件主线程总耗时");
+						sender.sendMessage("§eeventall <显示条数> 查阅所有插件监听器耗时列表");
+						sender.sendMessage("§ecommandall <显示条数> 查阅所有插件命令耗时列表");
+						sender.sendMessage("§etaskall <显示条数> 查阅所有插件任务耗时列表");
 						sender.sendMessage("§eevent <插件名字> 查阅插件监听器耗时列表");
 						sender.sendMessage("§ecmd <插件名字> 查阅插件命令耗时列表");
 						sender.sendMessage("§etask <插件名字> 查阅插件任务耗时列表");
@@ -240,8 +240,52 @@ public class VLagger extends JavaPlugin implements Listener {
 						MonitorUtils.disable();
 						sender.sendMessage("§e成功注销了插件侦测器！");
 					}
+					if (args[1].equalsIgnoreCase("event")) {
+						Plugin plugin = Bukkit.getPluginManager().getPlugin(args[2]);
+						if (plugin == null) {
+							sender.sendMessage("§c错误！无法检查插件需要的数据！插件不存在？");
+							return true;
+						}
+						sender.sendMessage("§e以下是指定插件监听器耗时排序列表：");
+						sender.sendMessage("§a任务名字,§c耗时总量");
+						Map<String, MonitorRecord> plugineventtime = MonitorUtils.getEventTimingsByPlugin(plugin);
+						Iterator<MonitorRecord> itpet = plugineventtime.values().iterator();
+						while (itpet.hasNext()) {
+							MonitorRecord thispet = (MonitorRecord) itpet.next();
+							sender.sendMessage(
+									"§b|--§a" + thispet.getName() + " , §c" + thispet.getTotalTime() / 1000000 + "秒");
+						}
+					}
+					if (args[1].equalsIgnoreCase("command")) {
+						Plugin plugin = Bukkit.getPluginManager().getPlugin(args[2]);
+						if (plugin == null) {
+							sender.sendMessage("§c错误！无法检查插件需要的数据！插件不存在？");
+							return true;
+						}
+						sender.sendMessage("§e以下是指定插件命令耗时排序列表：");
+						sender.sendMessage("§a指令,§c耗时总量");
+						Map<String, MonitorRecord> plugincommandtime = MonitorUtils.getCommandTimingsByPlugin(plugin);
+						Iterator<MonitorRecord> itpct = plugincommandtime.values().iterator();
+						while (itpct.hasNext()) {
+							MonitorRecord thispet = (MonitorRecord) itpct.next();
+							sender.sendMessage(
+									"§b|--§a" + thispet.getName() + " , §c" + thispet.getTotalTime() / 1000000 + "秒");
+						}
+					}
+					if (args[1].equalsIgnoreCase("task")) {
+						Plugin plugin = Bukkit.getPluginManager().getPlugin(args[2]);
+						if (plugin == null) {
+							sender.sendMessage("§c错误！无法检查插件需要的数据！插件不存在？");
+							return true;
+						}
+						sender.sendMessage("§e以下是指定插件任务耗时排序列表：");
+						sender.sendMessage("§a监听器名字,§c耗时总量");
+						MonitorRecord plugintasktime = MonitorUtils.getTaskTimingsByPlugin(plugin);
+						sender.sendMessage(
+								"§b|--§a" + plugintasktime.getName() + " , §c" + plugintasktime.getTotalTime() / 1000000 + "秒");
+					}
 					if (args[1].equalsIgnoreCase("topall")) {
-						if(args.length == 2){
+						if (args.length == 2) {
 							sender.sendMessage("§e以下是插件耗时排序列表：");
 							sender.sendMessage("§a插件名字,§c耗时总量");
 							Map<Plugin, Long> TimeMap = new HashMap<Plugin, Long>();
@@ -250,7 +294,8 @@ public class VLagger extends JavaPlugin implements Listener {
 							for (int i = 0; i < pl; i++) {
 								Plugin plugin = plugins[i];
 								long UsedTime = 0L;
-								Map<String, MonitorRecord> plugineventtime = MonitorUtils.getEventTimingsByPlugin(plugin);
+								Map<String, MonitorRecord> plugineventtime = MonitorUtils
+										.getEventTimingsByPlugin(plugin);
 								Iterator<MonitorRecord> itpet = plugineventtime.values().iterator();
 								while (itpet.hasNext()) {
 									MonitorRecord thispet = (MonitorRecord) itpet.next();
@@ -268,17 +313,19 @@ public class VLagger extends JavaPlugin implements Listener {
 								TimeMap.put(plugin, UsedTime);
 							}
 							ArrayList<Map.Entry<Plugin, Long>> timetop = Utils.sortMap(TimeMap);
-							if(timetop.size() < 10){
+							if (timetop.size() < 10) {
 								int tts = timetop.size();
 								for (int i = 0; i < tts; i++) {
-									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c" + timetop.get(i).getValue() / 1000 + "秒");
+									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
+											+ timetop.get(i).getValue() / 1000000 + "秒");
 								}
-							}else{
+							} else {
 								for (int i = 0; i < 10; i++) {
-									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c" + timetop.get(i).getValue() / 1000 + "秒");
+									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
+											+ timetop.get(i).getValue() / 1000000 + "秒");
 								}
 							}
-						}else{
+						} else {
 							sender.sendMessage("§e以下是插件耗时排序列表：");
 							sender.sendMessage("§a插件名字,§c耗时总量");
 							Map<Plugin, Long> TimeMap = new HashMap<Plugin, Long>();
@@ -287,7 +334,8 @@ public class VLagger extends JavaPlugin implements Listener {
 							for (int i = 0; i < pl; i++) {
 								Plugin plugin = plugins[i];
 								long UsedTime = 0L;
-								Map<String, MonitorRecord> plugineventtime = MonitorUtils.getEventTimingsByPlugin(plugin);
+								Map<String, MonitorRecord> plugineventtime = MonitorUtils
+										.getEventTimingsByPlugin(plugin);
 								Iterator<MonitorRecord> itpet = plugineventtime.values().iterator();
 								while (itpet.hasNext()) {
 									MonitorRecord thispet = (MonitorRecord) itpet.next();
@@ -306,20 +354,22 @@ public class VLagger extends JavaPlugin implements Listener {
 							}
 							ArrayList<Map.Entry<Plugin, Long>> timetop = Utils.sortMap(TimeMap);
 							int toShowLength = Integer.parseInt(args[2]);
-							if(timetop.size() < toShowLength){
+							if (timetop.size() < toShowLength) {
 								int tts = timetop.size();
 								for (int i = 0; i < tts; i++) {
-									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c" + timetop.get(i).getValue() / 1000 + "秒");
+									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
+											+ timetop.get(i).getValue() / 1000000 + "秒");
 								}
-							}else{
+							} else {
 								for (int i = 0; i < toShowLength; i++) {
-									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c" + timetop.get(i).getValue() / 1000 + "秒");
+									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
+											+ timetop.get(i).getValue() / 1000000 + "秒");
 								}
 							}
 						}
 					}
 					if (args[1].equalsIgnoreCase("commandall")) {
-						if(args.length == 2){
+						if (args.length == 2) {
 							sender.sendMessage("§e以下是插件命令耗时排序列表：");
 							sender.sendMessage("§a插件名字,§c耗时总量");
 							Map<Plugin, Long> TimeMap = new HashMap<Plugin, Long>();
@@ -338,17 +388,19 @@ public class VLagger extends JavaPlugin implements Listener {
 								TimeMap.put(plugin, UsedTime);
 							}
 							ArrayList<Map.Entry<Plugin, Long>> timetop = Utils.sortMap(TimeMap);
-							if(timetop.size() < 10){
+							if (timetop.size() < 10) {
 								int tts = timetop.size();
 								for (int i = 0; i < tts; i++) {
-									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c" + timetop.get(i).getValue() / 1000 + "秒");
+									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
+											+ timetop.get(i).getValue() / 1000000 + "秒");
 								}
-							}else{
+							} else {
 								for (int i = 0; i < 10; i++) {
-									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c" + timetop.get(i).getValue() / 1000 + "秒");
+									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
+											+ timetop.get(i).getValue() / 1000000 + "秒");
 								}
 							}
-						}else{
+						} else {
 							sender.sendMessage("§e以下是插件命令耗时排序列表：");
 							sender.sendMessage("§a插件名字,§c耗时总量");
 							Map<Plugin, Long> TimeMap = new HashMap<Plugin, Long>();
@@ -368,20 +420,22 @@ public class VLagger extends JavaPlugin implements Listener {
 							}
 							ArrayList<Map.Entry<Plugin, Long>> timetop = Utils.sortMap(TimeMap);
 							int toShowLength = Integer.parseInt(args[2]);
-							if(timetop.size() < toShowLength){
+							if (timetop.size() < toShowLength) {
 								int tts = timetop.size();
 								for (int i = 0; i < tts; i++) {
-									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c" + timetop.get(i).getValue() / 1000 + "秒");
+									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
+											+ timetop.get(i).getValue() / 1000000 + "秒");
 								}
-							}else{
+							} else {
 								for (int i = 0; i < toShowLength; i++) {
-									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c" + timetop.get(i).getValue() / 1000 + "秒");
+									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
+											+ timetop.get(i).getValue() / 1000000 + "秒");
 								}
 							}
 						}
 					}
 					if (args[1].equalsIgnoreCase("taskall")) {
-						if(args.length == 2){
+						if (args.length == 2) {
 							sender.sendMessage("§e以下是插件任务耗时排序列表：");
 							sender.sendMessage("§a插件名字,§c耗时总量");
 							Map<Plugin, Long> TimeMap = new HashMap<Plugin, Long>();
@@ -395,17 +449,19 @@ public class VLagger extends JavaPlugin implements Listener {
 								TimeMap.put(plugin, UsedTime);
 							}
 							ArrayList<Map.Entry<Plugin, Long>> timetop = Utils.sortMap(TimeMap);
-							if(timetop.size() < 10){
+							if (timetop.size() < 10) {
 								int tts = timetop.size();
 								for (int i = 0; i < tts; i++) {
-									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c" + timetop.get(i).getValue() / 1000 + "秒");
+									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
+											+ timetop.get(i).getValue() / 1000000 + "秒");
 								}
-							}else{
+							} else {
 								for (int i = 0; i < 10; i++) {
-									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c" + timetop.get(i).getValue() / 1000 + "秒");
+									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
+											+ timetop.get(i).getValue() / 1000000 + "秒");
 								}
 							}
-						}else{
+						} else {
 							sender.sendMessage("§e以下是插件任务耗时排序列表：");
 							sender.sendMessage("§a插件名字,§c耗时总量");
 							Map<Plugin, Long> TimeMap = new HashMap<Plugin, Long>();
@@ -420,20 +476,22 @@ public class VLagger extends JavaPlugin implements Listener {
 							}
 							ArrayList<Map.Entry<Plugin, Long>> timetop = Utils.sortMap(TimeMap);
 							int toShowLength = Integer.parseInt(args[2]);
-							if(timetop.size() < toShowLength){
+							if (timetop.size() < toShowLength) {
 								int tts = timetop.size();
 								for (int i = 0; i < tts; i++) {
-									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c" + timetop.get(i).getValue() / 1000 + "秒");
+									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
+											+ timetop.get(i).getValue() / 1000000 + "秒");
 								}
-							}else{
+							} else {
 								for (int i = 0; i < toShowLength; i++) {
-									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c" + timetop.get(i).getValue() / 1000 + "秒");
+									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
+											+ timetop.get(i).getValue() / 1000000 + "秒");
 								}
 							}
 						}
 					}
-					if (args[1].equalsIgnoreCase("eventall")){
-						if(args.length == 2){
+					if (args[1].equalsIgnoreCase("eventall")) {
+						if (args.length == 2) {
 							sender.sendMessage("§e以下是插件监听器耗时排序列表：");
 							sender.sendMessage("§a插件名字,§c耗时总量");
 							Map<Plugin, Long> TimeMap = new HashMap<Plugin, Long>();
@@ -442,7 +500,8 @@ public class VLagger extends JavaPlugin implements Listener {
 							for (int i = 0; i < pl; i++) {
 								Plugin plugin = plugins[i];
 								long UsedTime = 0L;
-								Map<String, MonitorRecord> plugineventtime = MonitorUtils.getEventTimingsByPlugin(plugin);
+								Map<String, MonitorRecord> plugineventtime = MonitorUtils
+										.getEventTimingsByPlugin(plugin);
 								Iterator<MonitorRecord> itpet = plugineventtime.values().iterator();
 								while (itpet.hasNext()) {
 									MonitorRecord thispet = (MonitorRecord) itpet.next();
@@ -451,17 +510,19 @@ public class VLagger extends JavaPlugin implements Listener {
 								TimeMap.put(plugin, UsedTime);
 							}
 							ArrayList<Map.Entry<Plugin, Long>> timetop = Utils.sortMap(TimeMap);
-							if(timetop.size() < 10){
+							if (timetop.size() < 10) {
 								int tts = timetop.size();
 								for (int i = 0; i < tts; i++) {
-									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c" + timetop.get(i).getValue() / 1000 + "秒");
+									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
+											+ timetop.get(i).getValue() / 1000000 + "秒");
 								}
-							}else{
+							} else {
 								for (int i = 0; i < 10; i++) {
-									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c" + timetop.get(i).getValue() / 1000 + "秒");
+									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
+											+ timetop.get(i).getValue() / 1000000 + "秒");
 								}
 							}
-						}else{
+						} else {
 							sender.sendMessage("§e以下是插件监听器耗时排序列表：");
 							sender.sendMessage("§a插件名字,§c耗时总量");
 							Map<Plugin, Long> TimeMap = new HashMap<Plugin, Long>();
@@ -470,7 +531,8 @@ public class VLagger extends JavaPlugin implements Listener {
 							for (int i = 0; i < pl; i++) {
 								Plugin plugin = plugins[i];
 								long UsedTime = 0L;
-								Map<String, MonitorRecord> plugineventtime = MonitorUtils.getEventTimingsByPlugin(plugin);
+								Map<String, MonitorRecord> plugineventtime = MonitorUtils
+										.getEventTimingsByPlugin(plugin);
 								Iterator<MonitorRecord> itpet = plugineventtime.values().iterator();
 								while (itpet.hasNext()) {
 									MonitorRecord thispet = (MonitorRecord) itpet.next();
@@ -480,14 +542,16 @@ public class VLagger extends JavaPlugin implements Listener {
 							}
 							ArrayList<Map.Entry<Plugin, Long>> timetop = Utils.sortMap(TimeMap);
 							int toShowLength = Integer.parseInt(args[2]);
-							if(timetop.size() < toShowLength){
+							if (timetop.size() < toShowLength) {
 								int tts = timetop.size();
 								for (int i = 0; i < tts; i++) {
-									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c" + timetop.get(i).getValue() / 1000 + "秒");
+									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
+											+ timetop.get(i).getValue() / 1000000 + "秒");
 								}
-							}else{
+							} else {
 								for (int i = 0; i < toShowLength; i++) {
-									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c" + timetop.get(i).getValue() / 1000 + "秒");
+									sender.sendMessage("§b|--§a" + timetop.get(i).getKey().getName() + " , §c"
+											+ timetop.get(i).getValue() / 1000000 + "秒");
 								}
 							}
 						}
@@ -545,10 +609,10 @@ public class VLagger extends JavaPlugin implements Listener {
 						sender.sendMessage("§a后置参数:");
 						sender.sendMessage("§elook 查阅内存使用情况");
 						sender.sendMessage("§eclearheap 强制用java回收内存");
-						sender.sendMessage("§ecleartiles 执行一次清理无用tiles");
 						sender.sendMessage("§eclearchunk 执行一次检测清理区块");
 						sender.sendMessage("§eheapshut 执行一次濒临崩溃内存检测");
 						sender.sendMessage("§echunkunloadlog 查阅区块卸载计数器");
+						sender.sendMessage("§edump 将服务器当前内存堆化为.hprof文件");
 						return true;
 					}
 					if (args[1].equalsIgnoreCase("look")) {
@@ -571,6 +635,9 @@ public class VLagger extends JavaPlugin implements Listener {
 					}
 					if (args[1].equalsIgnoreCase("chunkunloadlog")) {
 						sender.sendMessage("§a截止到目前，插件已经卸载了" + ChunkUnloader.ChunkUnloaderTimes + "个无用区块");
+					}
+					if (args[1].equalsIgnoreCase("dump")) {
+						sender.sendMessage("§a开始 dump 内存堆！这可能会花费一些时间！");
 					}
 				}
 				if (args[0].equalsIgnoreCase("autosave")) {

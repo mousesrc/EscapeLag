@@ -5,12 +5,6 @@ import java.util.List;
 
 public class Default { //Sotr你那个判定大小写我真的很难受
 	
-	public static List<String> ClearItemNoClearItemType(){
-		List<String> ClearItemNoClearItemType = new ArrayList<String>();
-		ClearItemNoClearItemType.add("DIAMOND");
-		return ClearItemNoClearItemType;
-	}
-	
 	public static List<String> NoCrowdedEntityTypeList(){
 		List<String> NoCrowdedEntityTypeList = new ArrayList<String>();
 		NoCrowdedEntityTypeList.add("ZOMBIE");

@@ -8,13 +8,15 @@ import org.bukkit.plugin.EventExecutor;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredListener;
 
+import com.mcml.space.config.ConfigOptimize;
+import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.Reflection;
 import com.mcml.space.util.Reflection.FieldAccessor;
 
 public class EventExecutorInjector extends AbstractInjector implements EventExecutor {
 	/**
 	 * 
-	 * @author jiongjionger
+	 * @author jiongjionger,Vlvxingze
 	 */
 
 	// 将监听器原本的EventExecutor替换成带性能统计的版本
@@ -74,6 +76,11 @@ public class EventExecutorInjector extends AbstractInjector implements EventExec
 			} finally {
 				long endTime = System.nanoTime();
 				long executeTime = endTime - startTime;
+				if(ConfigOptimize.MonitorPluginLagWarningenable){
+					if(executeTime/1000 > ConfigOptimize.MonitorPluginLagWarningPeriod){
+						AzureAPI.log("警告！服务器主线程陷入停顿超过1秒！因为插件" + this.getPlugin().getName() + " 执行了一次超过1秒耗时的操作！");
+					}
+				}
 				this.record(e.getEventName(), executeTime);
 			}
 		}

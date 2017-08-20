@@ -4,13 +4,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
 
+import com.mcml.space.config.ConfigOptimize;
+import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.Reflection;
 import com.mcml.space.util.Reflection.FieldAccessor;
 
 public class SchedulerTaskInjector extends AbstractInjector implements Runnable {
 	/**
 	 * 
-	 * @author jiongjionger
+	 * @author jiongjionger,Vlvxingze
 	 */
 
 	// 替换原本的Runnable为带性能统计的版本
@@ -91,6 +93,11 @@ public class SchedulerTaskInjector extends AbstractInjector implements Runnable 
 		} finally {
 			long endTime = System.nanoTime();
 			long useTime = endTime - startTime;
+			if(ConfigOptimize.MonitorPluginLagWarningenable){
+				if(useTime/1000 > ConfigOptimize.MonitorPluginLagWarningPeriod){
+					AzureAPI.log("警告！服务器主线程陷入停顿超过1秒！因为插件" + this.getPlugin().getName() + " 执行了一次超过1秒耗时的操作！");
+				}
+			}
 			if (useTime > this.maxExecuteTime) {
 				this.maxExecuteTime = useTime;
 			}

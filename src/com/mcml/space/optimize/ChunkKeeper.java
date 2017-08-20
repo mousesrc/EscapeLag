@@ -23,7 +23,7 @@ public class ChunkKeeper implements Listener {
 
     @EventHandler
     public void onChunkUnload(ChunkUnloadEvent event) {
-        if (ShouldKeepList.contains(event.getChunk()) & ConfigOptimize.ChunkKeeperenable == true) {
+        if (ShouldKeepList.contains(event.getChunk()) && ConfigOptimize.ChunkKeeperenable == true) {
             event.setCancelled(true);
         }
     }

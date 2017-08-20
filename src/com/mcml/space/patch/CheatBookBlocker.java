@@ -60,7 +60,7 @@ public class CheatBookBlocker implements Listener, PluginExtends {
         }
         
         // Book and quill doesn't has a generation!
-        if (meta.getGeneration() != null) meta.setGeneration(null);
+        //if (meta.getGeneration() != null) meta.setGeneration(null); 刷错，，暂时关闭，临时
         
         // Book and quill doesn't has an author!
         if (meta.getAuthor() != null) meta.setAuthor(null);

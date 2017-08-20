@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import com.mcml.space.config.ConfigOptimize;
 import com.mcml.space.core.VLagger;
@@ -31,14 +32,14 @@ public class TeleportPreLoader implements Listener {
 			if (player.getVehicle() != null) {
 				return;
 			}
-			if (event.getFrom().getBlock().getType().name().contains("PORTAL")) {
+			if (event.getCause() == TeleportCause.END_GATEWAY) {
 				return;
 			}
 			nowteleportid++;
 			if (isPreLoading == false) {
 				event.setCancelled(true);
 				final int thistpid = nowteleportid;
-				final List<Coord<Integer, Integer>> chunks = Utils.getShouldUseChunks(event.getTo()); //player.getvd和bukkit.getvd没啥区别吧、、
+				final List<Coord<Integer, Integer>> chunks = Utils.getShouldUseChunks(event.getTo());
 				final int cs = chunks.size();
 				if (nowint.get(thistpid) == null) {
 					nowint.put(thistpid, 0);

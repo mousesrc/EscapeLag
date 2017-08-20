@@ -5,6 +5,18 @@ import java.util.List;
 import com.mcml.space.util.Configurable;
 
 public abstract class ConfigOptimize extends Configurable {
+	@Node(path = "Monitor.enable")
+    public static boolean Monitorenable = true;
+	
+	@Node(path = "Monitor.ThreadLagWarning")
+    public static boolean MonitorThreadLagWarning = true;
+	
+	@Node(path = "Monitor.PluginLagWarning.enable")
+    public static boolean MonitorPluginLagWarningenable = true;
+	
+	@Node(path = "Monitor.PluginLagWarning.Period")
+    public static long MonitorPluginLagWarningPeriod = 1000;
+	
 	@Node(path = "EntityClear.enable")
     public static boolean EntityClearenable = true;
 	
@@ -27,7 +39,7 @@ public abstract class ConfigOptimize extends Configurable {
 	public static long emptyRestartDelay = 1200;
 	
     @Node(path = "OverLoadMemoryRestart.enable")
-    public static boolean OverLoadMemoryRestartenable = true; //用户反馈关闭默认比较好
+    public static boolean OverLoadMemoryRestartenable = true;
     
     @Node(path = "ChunkUnloader.Interval")
     public static long ChunkUnloaderInterval = 30;
@@ -62,15 +74,12 @@ public abstract class ConfigOptimize extends Configurable {
     
     @Node(path = "TimerGc.Period")
     public static long TimerGcPeriod = 600;
-    
-    @Node(path = "ClearItem.NoClearItemType")
-    public static List<String> ClearItemNoClearItemType = Default.ClearItemNoClearItemType();
 
     @Node(path = "ClearItem.NoCleatDeath")
     public static boolean ClearItemNoCleatDeath = true;
     
     @Node(path = "ClearItem.NoClearTeleport")
-    public static boolean ClearItemNoClearTeleport = true;
+    public static boolean ClearItemNoClearTeleport = false;
     
     @Node(path = "NoCrowdedEntity.enable")
     public static boolean NoCrowdedEntityenable = true;

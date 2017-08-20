@@ -82,19 +82,4 @@ public class Utils {
 			return false;
 		}
 	}
-
-	@Deprecated
-	public static boolean isSameChunk(Chunk chunk1, Coord3<Integer, Integer, World> chunk2) {
-		String c1w = chunk1.getWorld().getName();
-		String c2w = chunk2.getExtra().getName();
-		int c1x = chunk1.getX();
-		int c2x = chunk2.getKey();
-		int c1z = chunk1.getZ();
-		int c2z = chunk2.getValue();
-		if (c1w.equals(c2w) && c1x == c2x && c1z == c2z) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 }

@@ -166,7 +166,7 @@ AutoRespawn: #自动复活
     MiniMessage: "§c已为您自动复活！" #小标题文字
 
 感谢您对 VLagger 插件的支持，本插件由PCD小组全员开发。
-您可以随时查阅本插件的发布帖子在MCBBS（或ZUIMC论坛）：
-http://www.mcbbs.net/forum.php?mod=viewthread&tid=703929
+您可以随时查阅本插件的发布帖子在MCKU论坛（或ZUIMC论坛 OR MCBBS）：
+http://www.mcku.org/thread-94-1-1.html
 
 Have A Good Time! XD!

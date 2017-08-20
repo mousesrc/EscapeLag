@@ -1,14 +1,10 @@
 package com.mcml.space.optimize;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import org.bukkit.Chunk;
-import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,33 +14,30 @@ import org.bukkit.event.world.ChunkUnloadEvent;
 
 import com.google.common.collect.Lists;
 import com.mcml.space.config.ConfigOptimize;
-import com.mcml.space.util.AzureAPI.Coord3;
 import com.mcml.space.util.Utils;
 
 public class ItemClear implements Listener {
-	public static ArrayList<Coord3<Integer, Integer, World>> DeathChunk = Lists.newArrayList();
+	public static ArrayList<Chunk> DeathChunk = Lists.newArrayList();
 
-	@SuppressWarnings("deprecation")
-    @EventHandler
+	@EventHandler
 	public void ChunkloadClear(ChunkUnloadEvent event) {
 		if (ConfigOptimize.ClearItemenable != true) {
 			return;
 		}
 		Chunk chunk = event.getChunk();
-		Iterator<Coord3<Integer, Integer, World>> it = DeathChunk.iterator();
-		while (it.hasNext()) {
-		    if (Utils.isSameChunk(chunk, it.next())) {
-		        it.remove();
-		        return;
-		    }
+		int dcs = DeathChunk.size();
+		for (int i = 0; i < dcs; i++) {
+			Chunk deathchunk = DeathChunk.get(i);
+			if (Utils.isSameChunk(chunk, deathchunk)) {
+				DeathChunk.remove(chunk);
+				return;
+			}
 		}
 		Entity[] entities = chunk.getEntities();
 		for (int i = 0; i < entities.length; i++) {
 			Entity ent = entities[i];
 			if (ent.getType() == EntityType.DROPPED_ITEM) {
-				if (ConfigOptimize.ClearItemNoClearItemType.contains(((Item) ent).getType().name()) == false) {
-					ent.remove();
-				}
+				ent.remove();
 			}
 		}
 	}
@@ -56,8 +49,7 @@ public class ItemClear implements Listener {
 		}
 		Player player = event.getEntity();
 		Chunk chunk = player.getLocation().getChunk();
-		List<Coord3<Integer, Integer, World>> chunks = Utils.getNearbyChunks(chunk);
-		DeathChunk.addAll(chunks);
+		DeathChunk.add(chunk);
 	}
 
 	@EventHandler
@@ -67,7 +59,6 @@ public class ItemClear implements Listener {
 		}
 		Player player = event.getPlayer();
 		Chunk chunk = player.getLocation().getChunk();
-		List<Coord3<Integer, Integer, World>> chunks = Utils.getNearbyChunks(chunk);
-		DeathChunk.addAll(chunks);
+		DeathChunk.add(chunk);
 	}
 }
