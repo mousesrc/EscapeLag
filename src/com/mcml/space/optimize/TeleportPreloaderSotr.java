@@ -13,6 +13,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.Vector;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -135,10 +136,12 @@ public class TeleportPreloaderSotr implements Listener, PluginExtends {
     
     public static boolean canPreload(Location from, Location to, Player player) {
         if (from.getWorld() != to.getWorld()) return true;
-        if (equals2D(from, to) || from.distance(to) < AzureAPI.viewDistanceBlock(player)) {
-            return false;
+        Vector fvec = from.toVector();
+        Vector tvec = to.toVector();
+        double distance = fvec.distance(tvec);
+        if(distance < 6){
+        	return false;
         }
-
         return true;
     }
     
