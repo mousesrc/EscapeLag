@@ -188,7 +188,7 @@ public class EscapeLag extends JavaPlugin implements Listener {
 					} catch (IOException ex) {
 					}
 					ConfigMain.AutoUpdate = true;
-					sender.sendMessage("§a§l[VLagger]§b已经成功开启自动更新！");
+					sender.sendMessage("§a§l[EscapeLag]§b已经成功开启自动更新！");
 				}
 				if (args[0].equalsIgnoreCase("help")) {
 					sender.sendMessage("§e/el reload 重载插件");
