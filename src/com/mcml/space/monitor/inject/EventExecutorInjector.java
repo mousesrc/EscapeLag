@@ -72,7 +72,24 @@ public class EventExecutorInjector extends AbstractInjector implements EventExec
 		} else {
 			long startTime = System.nanoTime();
 			try {
-				this.eventExecutor.execute(listener, e);
+				try{
+					this.eventExecutor.execute(listener, e);
+				}catch(Throwable ex){
+					AzureAPI.log("警告！插件 " + this.getPlugin().getName() + " 出错，刷错信息为：");
+					StackTraceElement[] stes = ex.getStackTrace();
+					int stesl = stes.length;
+					for(int i = 0;i<stesl;i++){
+						StackTraceElement ste = stes[i];
+						String stestring = ste.toString();
+						if(stestring.contains("com.mcml.space.monitor") == false){
+							System.out.println(stestring);
+						}else{
+							if(this.getPlugin().getName().equalsIgnoreCase("EscapeLag")){
+								System.out.println(ste.toString());
+							}
+						}
+					}
+				}
 			} finally {
 				long endTime = System.nanoTime();
 				long executeTime = endTime - startTime;
