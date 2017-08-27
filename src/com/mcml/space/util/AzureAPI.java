@@ -277,12 +277,7 @@ public abstract class AzureAPI<K, V> {
     }
 
     public static void tryRestartServer(){
-        if (VersionLevel.isSpigot() | VersionLevel.isHigherEquals(Version.MINECRAFT_1_7_R1)) {
-            new org.spigotmc.RestartCommand("restart").execute(Bukkit.getConsoleSender(), null, null);
-        } else {
-            // handle by lanuch-script
-            Bukkit.shutdown();
-        }
+		Bukkit.shutdown();
     }
     
     public static void playSound(Player player, Sound sound) {
