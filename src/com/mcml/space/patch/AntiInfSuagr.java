@@ -15,7 +15,7 @@ import com.mcml.space.config.ConfigPatch;
 /**
  * @author jiongjionger
  */
-public class AntiDoorInfItem implements Listener {
+public class AntiInfSuagr implements Listener {
 
     @EventHandler
     public void PlaceCheckDoor(BlockPlaceEvent e) {

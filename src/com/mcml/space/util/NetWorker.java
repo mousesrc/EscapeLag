@@ -44,13 +44,13 @@ public class NetWorker implements Runnable {
 
     public static void DownloadAntiAttack() {
         if (Bukkit.getPluginManager().getPlugin("AntiAttack") != null) {
-            Bukkit.broadcastMessage("§a§l[VLagger]§c错误！您的服务器已经安装了AntiAttack反压测模块！无需再次安装！");
+            Bukkit.broadcastMessage("§a§l[EscapeLag]§c错误！您的服务器已经安装了AntiAttack反压测模块！无需再次安装！");
             return;
         }
         try {
             File AntiAttackFile = new File("/plugins", "AntiAttack.jar");
             DowloadFile("http://bgm.mcml.space/AntiAttack.jar", AntiAttackFile);
-            Bukkit.broadcastMessage("§a§l[VLagger]§b成功下载了AntiAttack反压测插件，重启即可生效！");
+            Bukkit.broadcastMessage("§a§l[EscapeLag]§b成功下载了AntiAttack反压测插件，重启即可生效！");
         } catch (IOException ex) {
         }
     }

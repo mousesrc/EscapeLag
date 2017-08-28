@@ -47,7 +47,7 @@ import com.mcml.space.optimize.TimerGarbageCollect;
 import com.mcml.space.optimize.WaterFlowLimitor;
 import com.mcml.space.patch.AntiBedExplode;
 import com.mcml.space.patch.AntiCrashSign;
-import com.mcml.space.patch.AntiDoorInfItem;
+import com.mcml.space.patch.AntiInfSuagr;
 import com.mcml.space.patch.AntiDupeDropItem;
 import com.mcml.space.patch.AntiFakeDeath;
 import com.mcml.space.patch.AntiInfItem;
@@ -87,7 +87,7 @@ public class EscapeLag extends JavaPlugin implements Listener {
 		AzureAPI.bind(this);
 		trySetupConfig();
 
-		AzureAPI.log("VLagger —— 新一代的优化/稳定插件");
+		AzureAPI.log("EscapeLag —— 新一代的优化/稳定插件");
 		AzureAPI.log("~(@^_^@)~ 玩的开心！~");
 
 		AzureAPI.log("开始收集服务器信息中...");
@@ -108,7 +108,7 @@ public class EscapeLag extends JavaPlugin implements Listener {
 		AzurePlayerList.bind(this);
 		AzurePlayerList.bind(new UpgradeNotifier());
 
-		Perms.bind("VLagger.Admin");
+		Perms.bind("EscapeLag.Admin");
 
 		Bukkit.getPluginManager().registerEvents(new AntiInfItem(), this);
 		Bukkit.getPluginManager().registerEvents(new AntiPortalInfItem(), this);
@@ -127,7 +127,7 @@ public class EscapeLag extends JavaPlugin implements Listener {
 		DupeLoginPatch.init(this);
 		SpawnerController.init(this);
 		AntiDupeDropItem.init();
-		Bukkit.getPluginManager().registerEvents(new AntiDoorInfItem(), this);
+		Bukkit.getPluginManager().registerEvents(new AntiInfSuagr(), this);
 		Bukkit.getPluginManager().registerEvents(new AntiBedExplode(), this);
 		Bukkit.getPluginManager().registerEvents(new WaterFlowLimitor(), this);
 		Bukkit.getPluginManager().registerEvents(new FireLimitor(), this);
@@ -166,9 +166,9 @@ public class EscapeLag extends JavaPlugin implements Listener {
 		AzureAPI.log("乐乐感谢您的使用——有建议务必反馈，QQ1207223090");
 		AzureAPI.log("您可以在插件根目录找到本插件的说明文档 说明文档.txt");
 		List<String> devs = getDescription().getAuthors();
-		AzureAPI.log("|||" + devs.get(0) + "/VLagger 合作作品.|||");
+		AzureAPI.log("|||" + devs.get(0) + "/EscapeLag 合作作品.|||");
 		AzureAPI.log("|||" + AzureAPI.contactBetween(devs, 1, ", ") + " 合作开发.|||");
-		AzureAPI.log("§a您正在使用VLagger构建号 %BUILD_NUMBER%");
+		AzureAPI.log("§a您正在使用EscapeLag构建号 %BUILD_NUMBER%");
 	}
 
 	@Override
@@ -680,11 +680,11 @@ public class EscapeLag extends JavaPlugin implements Listener {
 				}
 				if (args[0].equalsIgnoreCase("reload")) {
 					trySetupConfig();
-					sender.sendMessage("§a§l[VLagger]配置已经成功重载！");
+					sender.sendMessage("§a§l[EscapeLag]配置已经成功重载！");
 					return true;
 				}
 			} else {
-				sender.sendMessage("§a§l[VLagger]§4抱歉！您没有足够的权限！");
+				sender.sendMessage("§a§l[EscapeLag]§4抱歉！您没有足够的权限！");
 			}
 			return true;
 		}
@@ -766,7 +766,7 @@ public class EscapeLag extends JavaPlugin implements Listener {
 			if (heapmb <= 4000) {
 				bukkit.set("ticks-per.monster-spawns", 2);
 			}
-			bukkit.set("VLagger.Changed", "如果Config的AutoSet开启，该参数会被改变。");
+			bukkit.set("EscapeLag.Changed", "如果Config的AutoSet开启，该参数会被改变。");
 			bukkit.save(BukkitFile);
 		}
 		File SpigotFile = new File("spigot.yml");
@@ -812,7 +812,7 @@ public class EscapeLag extends JavaPlugin implements Listener {
 			}
 			spigot.set("world-settings.default.max-entity-collisions", 2);
 			spigot.set("world-settings.default.max-tnt-per-tick", 20);
-			spigot.set("VLagger.Changed", "如果Config的AutoSet开启，该参数会被改变。");
+			spigot.set("EscapeLag.Changed", "如果Config的AutoSet开启，该参数会被改变。");
 			spigot.save(SpigotFile);
 		}
 		File PaperFile = new File("paper.yml");
@@ -836,15 +836,15 @@ public class EscapeLag extends JavaPlugin implements Listener {
 		}
 		if (BukkitFile.exists()) {
 			FileConfiguration bukkit = AzureAPI.loadOrCreateFile(BukkitFile);
-			if (bukkit.getInt("VLagger.SetStep") == 1) {
-				bukkit.set("VLagger.SetStep", 2);
+			if (bukkit.getInt("EscapeLag.SetStep") == 1) {
+				bukkit.set("EscapeLag.SetStep", 2);
 				try {
 					bukkit.save(BukkitFile);
 				} catch (IOException ex) {
 				}
 			}
 			if (bukkit.getInt("VLagger.SetStep") == 0) {
-				bukkit.set("VLagger.SetStep", 1);
+				bukkit.set("EscapeLag.SetStep", 1);
 				bukkit.save(BukkitFile);
 				AzureAPI.log("成功改动服务器配端，正在重启来启用它.");
 				AzureAPI.RestartServer();
@@ -854,7 +854,7 @@ public class EscapeLag extends JavaPlugin implements Listener {
 
 	@Override
 	public void onDisable() {
-		getLogger().info("VLagger —— 已经停止使用");
+		getLogger().info("EscapeLag —— 已经停止使用");
 		getLogger().info("感谢您的使用——乐乐");
 	}
 

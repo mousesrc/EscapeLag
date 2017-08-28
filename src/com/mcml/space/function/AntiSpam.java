@@ -48,7 +48,7 @@ public class AntiSpam implements Listener, QuitReactor {
         if (!ConfigFunction.AntiSpamenable) return;
         
         val player = evt.getPlayer();
-        if (AzureAPI.hasPerm(player, "VLagger.bypass.Spam")) {
+        if (AzureAPI.hasPerm(player, "EscapeLag.bypass.Spam")) {
             return;
         }
         
@@ -66,7 +66,7 @@ public class AntiSpam implements Listener, QuitReactor {
         if (ConfigFunction.AntiSpamenable && ConfigFunction.enableAntiDirty) {
             val player = evt.getPlayer();
             String message = evt.getMessage().toLowerCase();
-            if (AzureAPI.hasPerm(player, "VLagger.bypass.Spam")) {
+            if (AzureAPI.hasPerm(player, "EscapeLag.bypass.Spam")) {
                 return;
             }
             
