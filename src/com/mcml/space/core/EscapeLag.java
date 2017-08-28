@@ -847,7 +847,7 @@ public class EscapeLag extends JavaPlugin implements Listener {
 				bukkit.set("VLagger.SetStep", 1);
 				bukkit.save(BukkitFile);
 				AzureAPI.log("成功改动服务器配端，正在重启来启用它.");
-				AzureAPI.tryRestartServer();
+				AzureAPI.RestartServer();
 			}
 		}
 	}

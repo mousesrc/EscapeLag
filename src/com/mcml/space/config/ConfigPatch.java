@@ -55,8 +55,8 @@ public abstract class ConfigPatch extends Configurable {
     @Node(path = "AntiCrashSign.enable")
     public static boolean fixCrashSign = true;
 
-    @Node(path = "AntiDoorInfItem.enable")
-    public static boolean fixDoorInfItem = true;
+    @Node(path = "AntiInfSuagr.enable")
+    public static boolean AntiInfSuagrenable = true;
 
     @Node(path = "AntiDupeDropItem.enable")
     public static boolean fixDupeDropItem = true;

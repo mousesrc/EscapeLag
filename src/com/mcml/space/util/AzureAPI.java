@@ -276,13 +276,15 @@ public abstract class AzureAPI<K, V> {
         return YamlConfiguration.loadConfiguration(file);
     }
 
-    public static void tryRestartServer(){
-        if (VersionLevel.isSpigot() | VersionLevel.isHigherEquals(Version.MINECRAFT_1_7_R1)) {
-            new org.spigotmc.RestartCommand("restart").execute(Bukkit.getConsoleSender(), null, null);
-        } else {
-            // handle by lanuch-script
-            Bukkit.shutdown();
-        }
+    public static void RestartServer(String message){
+		AzureApi.log("开始以理由 " + message +"重启服务器...");
+		List<Player> players = AzurePlayerList.players();
+		int ps = players.size();
+		for(int i=0;i<ps;i++){
+			Player player = players.get(i);
+			player.kickPlayer(loggerPrefix + message);
+		}
+        Bukkit.shutdown();
     }
     
     public static void playSound(Player player, Sound sound) {

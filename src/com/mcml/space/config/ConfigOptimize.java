@@ -90,12 +90,14 @@ public abstract class ConfigOptimize extends Configurable {
     @Node(path = "NoCrowdedEntity.PerChunkLimit")
     public static int NoCrowdedEntityPerChunkLimit = 30;
     
-    @Locale
     @Node(path = "AntiRedstone.Message")
     public static String AntiRedstoneMessage = "§c检测到高频红石在 %location% ，插件已经将其清除，不许玩了！ (╰_╯)#";
     
     @Node(path = "OverLoadMemoryRestart.Percent")
     public static int OverLoadMemoryRestartPercent = 90;
+	
+	@Node(path = "OverLoadMemoryRestart.KickMessage")
+    public static String OverLoadMemoryRestartKickMessage = "抱歉！由于服务器内存过载，需要重启服务器！";
     
     @Node(path = "AntiRedstone.RemoveBlockList")
     public static List<String> AntiRedstoneRemoveBlockList = Default.AntiRedstoneRemoveBlockList();
@@ -103,7 +105,6 @@ public abstract class ConfigOptimize extends Configurable {
     @Node(path = "AutoSave.Interval")
     public static long AutoSaveInterval = 15;
     
-    @Locale
     @Node(path = "OverLoadMemoryRestart.WarnMessage")
     public static String OverLoadMemoryRestartWarnMessage = "服务器会在15秒后重启，请玩家不要游戏，耐心等待！ ╮(╯_╰)╭";
     

@@ -19,9 +19,9 @@ public class AntiDoorInfItem implements Listener {
 
     @EventHandler
     public void PlaceCheckDoor(BlockPlaceEvent e) {
-        if(ConfigPatch.fixDoorInfItem){
-            if(e.getBlock().getType().name().contains("DOOR")){
-                Player p = e.getPlayer();
+        if(ConfigPatch.AntiInfSuagrenable){
+			if(e.isCancelled()){
+				Player p = e.getPlayer();
                 Chunk chunk = p.getLocation().getChunk();
                 Entity[] entities = chunk.getEntities();
                 for(int i=0;i<entities.length;i++){
@@ -33,7 +33,7 @@ public class AntiDoorInfItem implements Listener {
                         }
                     }
                 }
-            }
+			}
         }
     }
 }

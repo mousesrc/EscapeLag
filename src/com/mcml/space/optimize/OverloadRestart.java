@@ -30,7 +30,7 @@ public class OverloadRestart implements Runnable, PluginExtends {
             Bukkit.getServer().getScheduler().runTaskLater(EscapeLag.MainThis, new Runnable() {
                 @Override
                 public void run() {
-                    AzureAPI.tryRestartServer();
+                    AzureAPI.RestartServer(ConfigOptimize.OverLoadMemoryRestartKickMessage);
                 }
             }, ConfigOptimize.OverLoadMemoryRestartDelayTime * 20);
         }
