@@ -11,3 +11,5 @@ commands:
   el:
     description: EscapeLag
     usage: "/el help"
+  eltest:
+    description: EscapeLag

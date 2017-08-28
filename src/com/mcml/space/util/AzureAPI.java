@@ -277,7 +277,7 @@ public abstract class AzureAPI<K, V> {
     }
 
     public static void RestartServer(String message){
-		AzureApi.log("开始以理由 " + message +"重启服务器...");
+		AzureAPI.log("开始以理由 " + message +"重启服务器...");
 		List<Player> players = AzurePlayerList.players();
 		int ps = players.size();
 		for(int i=0;i<ps;i++){
