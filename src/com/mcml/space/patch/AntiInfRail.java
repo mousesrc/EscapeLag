@@ -31,7 +31,7 @@ public class AntiInfRail implements Listener {
     }
     
     public boolean CheckFast(){
-    	return LastCheckedTime + 50L > System.currentTimeMillis();
+    	return LastCheckedTime + 10L > System.currentTimeMillis();
     }
 }
 // TODO confirm details
