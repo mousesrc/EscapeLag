@@ -98,6 +98,8 @@ public class EscapeLag extends JavaPlugin implements Listener {
 
 		AzureAPI.log("开始加载插件模块中...");
 
+		AzurePlayerList.bind(this);
+		
 		if (ConfigOptimize.AutoSetenable == true) {
 			try {
 				EscapeLag.AutoSetServer();
@@ -105,7 +107,6 @@ public class EscapeLag extends JavaPlugin implements Listener {
 			}
 		}
 
-		AzurePlayerList.bind(this);
 		AzurePlayerList.bind(new UpgradeNotifier());
 
 		Perms.bind("EscapeLag.Admin");
