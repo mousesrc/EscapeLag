@@ -784,9 +784,9 @@ public class EscapeLag extends JavaPlugin implements Listener {
 			if (heapmb >= 6000) {
 				spigot.set("settings.user-cache-size", 5000);
 			}
-			if (heapmb >= 10000) {
+			if (heapmb >= 8000) {
 				spigot.set("world-settings.default.view-distance", 4);
-			} else if (heapmb >= 6000) {
+			} else if (heapmb >= 4000) {
 				spigot.set("world-settings.default.view-distance", 3);
 			} else {
 				spigot.set("world-settings.default.view-distance", 2);
