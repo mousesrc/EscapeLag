@@ -48,8 +48,6 @@ public class TeleportPreLoader implements Listener {
 				}
 				final World world = event.getTo().getWorld();
 
-				if (TeleportPreloaderSotr.invulnerable)
-					player.setInvulnerable(true);
 				Bukkit.getScheduler().runTaskLater(EscapeLag.MainThis, new Runnable() {
 					@Override
 					public void run() {
@@ -143,8 +141,6 @@ public class TeleportPreLoader implements Listener {
 				Bukkit.getScheduler().runTaskLater(EscapeLag.MainThis, new Runnable() {
 					@Override
 					public void run() {
-						if (TeleportPreloaderSotr.invulnerable)
-							player.setInvulnerable(false);
 						isPreLoading = true;
 						player.teleport(event.getTo());
 						isPreLoading = false;
