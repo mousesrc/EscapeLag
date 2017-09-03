@@ -1,5 +1,7 @@
 package com.mcml.space.patch;
 
+import java.util.List;
+
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -12,9 +14,6 @@ import org.bukkit.event.block.BlockPlaceEvent;
 
 import com.mcml.space.config.ConfigPatch;
 
-/**
- * @author jiongjionger
- */
 public class AntiInfSuagr implements Listener {
 
     @EventHandler
@@ -22,10 +21,9 @@ public class AntiInfSuagr implements Listener {
         if(ConfigPatch.AntiInfSuagrenable){
 			if(e.isCancelled()){
 				Player p = e.getPlayer();
-                Chunk chunk = p.getLocation().getChunk();
-                Entity[] entities = chunk.getEntities();
-                for(int i=0;i<entities.length;i++){
-                    Entity ent = entities[i];
+                List<Entity> entities = p.getNearbyEntities(2, 2, 2);
+                for(int i=0;i<entities.size();i++){
+                    Entity ent = entities.get(i);
                     if(ent.getType() == EntityType.DROPPED_ITEM){
                         Item item = (Item)ent;
                         if(item.getItemStack().getType() == Material.SUGAR_CANE||item.getItemStack().getType() == Material.CACTUS){

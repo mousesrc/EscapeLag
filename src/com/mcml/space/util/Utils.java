@@ -33,8 +33,8 @@ public class Utils {
 		List<Coord<Integer, Integer>> chunks = Lists.newArrayList();
 		int vd = Bukkit.getViewDistance();
 		int hvd = vd / 2;
-		for (int i = loc.getChunk().getX() - hvd; i < loc.getChunk().getX() + hvd; i++) {
-			for (int ii = loc.getChunk().getZ() - hvd; ii < loc.getChunk().getZ() + hvd; ii++) {
+		for (int i = loc.getChunk().getX() - hvd; i <= loc.getChunk().getX() + hvd; i++) {
+			for (int ii = loc.getChunk().getZ() - hvd; ii <= loc.getChunk().getZ() + hvd; ii++) {
 				chunks.add(AzureAPI.wrapCoord(i, ii));
 			}
 		}
