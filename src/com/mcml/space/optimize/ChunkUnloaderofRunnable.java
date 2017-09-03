@@ -16,7 +16,7 @@ public class ChunkUnloaderofRunnable implements Runnable {
     public void run() {
         if (ConfigOptimize.chunkUnloader == true) {
             List<World> worlds = Bukkit.getWorlds();
-            Iterator<World> it = worlds.iterator();
+            final Iterator<World> it = worlds.iterator();
             int dotick = 0;
             while(it.hasNext()) {
             	dotick = dotick + 5;

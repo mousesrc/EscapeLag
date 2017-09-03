@@ -36,7 +36,7 @@ public class RespawnAction implements Listener, PluginExtends {
     @EventHandler(priority = EventPriority.MONITOR)
     public void autoRespawn(PlayerDeathEvent evt) {
         if (canAutoRespawn) {
-            Player player = evt.getEntity();
+            final Player player = evt.getEntity();
             Bukkit.getScheduler().runTaskLater(EscapeLag.MainThis, new Runnable() {
                 @Override
                 @SuppressWarnings("all")
