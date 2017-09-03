@@ -11,8 +11,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 import com.mcml.space.util.AzureAPI.Coord;
 
-import lombok.val;
-
 /**
  * @author SotrForgotten
  */
@@ -28,18 +26,18 @@ public abstract class Configurable {
     protected static @interface Locale {}
 
     public static void restoreNodes(Coord<File, FileConfiguration> coord, Class<? extends Configurable> clazz) throws IllegalArgumentException, IllegalAccessException, IOException {
-        val config = coord.getValue();
+    	FileConfiguration config = coord.getValue();
 
         for (Field field : clazz.getDeclaredFields()) {
             Node node = field.getAnnotation(Node.class);
             if (node == null) continue;
             field.setAccessible(true);
 
-            val def = field.get(null);
-            val mod = field.getModifiers();
+            Object def = field.get(null);
+            int mod = field.getModifiers();
             if (Modifier.isStatic(mod) && !Modifier.isFinal(mod)) {
-                val path = node.path();
-                val value = config.get(path);
+                String path = node.path();
+                Object value = config.get(path);
                 if (value == null) {
                     config.set(path, def);
                     field.set(null, AzureAPI.colorzine(def)); // for colorzine

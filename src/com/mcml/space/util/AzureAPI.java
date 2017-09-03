@@ -25,7 +25,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.mcml.space.util.VersionLevel.Version;
 
 /**
  * @author SotrForgotten, Vlvxingze
@@ -38,22 +37,22 @@ public abstract class AzureAPI<K, V> {
     }
 
     public static int viewDistance(final Player player) {
-        return isPaper() && player != null ? player.getViewDistance() : Bukkit.getViewDistance();
+        return isPaper() && player != null ? Bukkit.getViewDistance() : Bukkit.getViewDistance();
     }
 
     public static int viewDistanceBlock(final Player player) {
-        if (player != null && customViewDistance(player)) return player.getViewDistance() * 16;
+        if (player != null && customViewDistance(player)) return Bukkit.getViewDistance() * 16;
         return bukkitVDBlock;
     }
 
     public static int viewDistanceChunk(final Player player) {
-        if (player != null && customViewDistance(player)) return (player.getViewDistance() * 2) ^ 2 + 1;
+        if (player != null && customViewDistance(player)) return (Bukkit.getViewDistance() * 2) ^ 2 + 1;
         return bukkitVDChunk;
     }
 
     public static boolean customViewDistance(final Player player) {
         if (!isPaper()) return false;
-        return Bukkit.getViewDistance() != player.getViewDistance();
+        return Bukkit.getViewDistance() != Bukkit.getViewDistance();
     }
 
     public static String setPrefix(final String prefix) {

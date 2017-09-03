@@ -2,7 +2,6 @@ package com.mcml.space.patch;
 
 import java.util.List;
 
-import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;

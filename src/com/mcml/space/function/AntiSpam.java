@@ -19,8 +19,6 @@ import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.AzurePlayerList;
 import com.mcml.space.util.QuitReactor;
 
-import lombok.val;
-
 public class AntiSpam implements Listener, QuitReactor {
     private final Map<Player, Long> timeRecord;
 
@@ -47,12 +45,12 @@ public class AntiSpam implements Listener, QuitReactor {
     public void spamChecker(AsyncPlayerChatEvent evt) {
         if (!ConfigFunction.AntiSpamenable) return;
         
-        val player = evt.getPlayer();
+        Player player = evt.getPlayer();
         if (AzureAPI.hasPerm(player, "EscapeLag.bypass.Spam")) {
             return;
         }
         
-        val now = System.currentTimeMillis();
+        long now = System.currentTimeMillis();
         if (isSpamming(player, now)) {
             evt.setCancelled(true);
             AzureAPI.log(player, ConfigFunction.AntiSpamPeriodWarnMessage);
@@ -64,7 +62,7 @@ public class AntiSpam implements Listener, QuitReactor {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void checkDirty(AsyncPlayerChatEvent evt) {
         if (ConfigFunction.AntiSpamenable && ConfigFunction.enableAntiDirty) {
-            val player = evt.getPlayer();
+        	Player player = evt.getPlayer();
             String message = evt.getMessage().toLowerCase();
             if (AzureAPI.hasPerm(player, "EscapeLag.bypass.Spam")) {
                 return;

@@ -35,7 +35,7 @@ import com.mcml.space.monitor.MonitorUtils;
 import com.mcml.space.optimize.AntiRedstone;
 import com.mcml.space.optimize.AutoSave;
 import com.mcml.space.optimize.ChunkKeeper;
-import com.mcml.space.optimize.ChunkUnloader;
+import com.mcml.space.optimize.ChunkUnloaderofRunnable;
 import com.mcml.space.optimize.EmptyRestart;
 import com.mcml.space.optimize.FireLimitor;
 import com.mcml.space.optimize.ItemClear;
@@ -71,8 +71,6 @@ import com.mcml.space.util.TPSAndThread;
 import com.mcml.space.util.Utils;
 import com.mcml.space.util.VersionLevel;
 import com.mcml.space.util.VersionLevel.Version;
-
-import lombok.val;
 
 public class EscapeLag extends JavaPlugin implements Listener {
 	public static EscapeLag MainThis;
@@ -154,7 +152,7 @@ public class EscapeLag extends JavaPlugin implements Listener {
 		}
 
 		ChunkKeeper.ChunkKeeperofTask();
-		getServer().getScheduler().runTaskTimer(this, new ChunkUnloader(), 0,
+		getServer().getScheduler().runTaskTimer(this, new ChunkUnloaderofRunnable(), 0,
 				ConfigOptimize.ChunkUnloaderInterval * 20);
 
 		TimerGarbageCollect.init(this);
@@ -633,7 +631,7 @@ public class EscapeLag extends JavaPlugin implements Listener {
 						sender.sendMessage("§6内存清理完毕！");
 					}
 					if (args[1].equalsIgnoreCase("clearchunk")) {
-						getServer().getScheduler().runTask(this, new ChunkUnloader());
+						getServer().getScheduler().runTask(this, new ChunkUnloaderofRunnable());
 						sender.sendMessage("§6区块清理完毕！");
 					}
 					if (args[1].equalsIgnoreCase("heapshut")) {
@@ -641,7 +639,7 @@ public class EscapeLag extends JavaPlugin implements Listener {
 						sender.sendMessage("§6成功检测一次内存濒临重启！");
 					}
 					if (args[1].equalsIgnoreCase("chunkunloadlog")) {
-						sender.sendMessage("§a截止到目前，插件已经卸载了" + ChunkUnloader.ChunkUnloaderTimes + "个无用区块");
+						sender.sendMessage("§a截止到目前，插件已经卸载了" + ChunkUnloaderofRunnable.ChunkUnloaderTimes + "个无用区块");
 					}
 					if (args[1].equalsIgnoreCase("dump")) {
 						sender.sendMessage("§a开始 dump 内存堆！这可能会花费一些时间！");
@@ -704,16 +702,16 @@ public class EscapeLag extends JavaPlugin implements Listener {
 	private void setupConfig() throws IllegalArgumentException, IllegalAccessException {
 		this.saveResource("说明文档.txt", true);
 
-		val pluginMainConfigFile = new File(this.getDataFolder(), "PluginMainConfig.yml");
+		File pluginMainConfigFile = new File(this.getDataFolder(), "PluginMainConfig.yml");
 		configMain = AzureAPI.wrapCoord(pluginMainConfigFile, AzureAPI.loadOrCreateFile(pluginMainConfigFile));
 
-		val clearLagConfig = new File(this.getDataFolder(), "ClearLagConfig.yml");
+		File clearLagConfig = new File(this.getDataFolder(), "ClearLagConfig.yml");
 		configOptimize = AzureAPI.wrapCoord(clearLagConfig, AzureAPI.loadOrCreateFile(clearLagConfig));
 
-		val antiBugConfig = new File(this.getDataFolder(), "AntiBugConfig.yml");
+		File antiBugConfig = new File(this.getDataFolder(), "AntiBugConfig.yml");
 		configPatch = AzureAPI.wrapCoord(antiBugConfig, AzureAPI.loadOrCreateFile(antiBugConfig));
 
-		val doEventConfig = new File(this.getDataFolder(), "DoEventConfig.yml");
+		File doEventConfig = new File(this.getDataFolder(), "DoEventConfig.yml");
 		configFunction = AzureAPI.wrapCoord(doEventConfig, AzureAPI.loadOrCreateFile(doEventConfig));
 
 		try {

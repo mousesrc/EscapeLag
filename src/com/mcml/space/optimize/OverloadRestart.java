@@ -9,8 +9,6 @@ import com.mcml.space.core.EscapeLag;
 import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.PluginExtends;
 
-import lombok.val;
-
 /**
  * @author Vlvxingze, SotrForgotten
  */
@@ -37,7 +35,7 @@ public class OverloadRestart implements Runnable, PluginExtends {
     }
     
     public static boolean isMemoryOverload() {
-        val run = Runtime.getRuntime();
+        Runtime run = Runtime.getRuntime();
         return run.totalMemory() - run.freeMemory() > run.maxMemory() / 100 * ConfigOptimize.OverLoadMemoryRestartPercent;
     }
     

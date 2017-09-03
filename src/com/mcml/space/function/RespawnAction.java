@@ -1,6 +1,7 @@
 package com.mcml.space.function;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -12,8 +13,6 @@ import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.PluginExtends;
 import com.mcml.space.util.VersionLevel;
 import com.mcml.space.util.VersionLevel.Version;
-
-import lombok.val;
 
 import static com.mcml.space.config.ConfigFunction.canAutoRespawn;
 import static com.mcml.space.config.ConfigFunction.sendTitleAutoRespawn;
@@ -37,7 +36,7 @@ public class RespawnAction implements Listener, PluginExtends {
     @EventHandler(priority = EventPriority.MONITOR)
     public void autoRespawn(PlayerDeathEvent evt) {
         if (canAutoRespawn) {
-            val player = evt.getEntity();
+            Player player = evt.getEntity();
             Bukkit.getScheduler().runTaskLater(EscapeLag.MainThis, new Runnable() {
                 @Override
                 @SuppressWarnings("all")

@@ -1,5 +1,11 @@
 package com.mcml.space.util;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -80,6 +86,41 @@ public class Utils {
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	public static String readTxtFile(File file) {
+		String read;
+		FileReader fileread;
+		String readResult = "";
+		try {
+			fileread = new FileReader(file);
+			BufferedReader br = new BufferedReader(fileread);
+			try {
+				while ((read = br.readLine()) != null) {
+					readResult = readResult + read + "/r/n";
+				}
+			} catch (IOException e) {
+			}
+		} catch (FileNotFoundException e) {
+		}
+		return readResult;
+	}
+
+	public static void ChangeTxtFileAndSave(String LastFileString, String newStringToWriteIn, File file) {
+		// 先读取原有文件内容，然后进行写入操作
+		String NewResult = newStringToWriteIn + "/r/n" + LastFileString;
+		RandomAccessFile raf = null;
+		try {
+			raf = new RandomAccessFile(file, "rw");
+			raf.writeBytes(NewResult);
+		} catch (IOException e1) {
+		}
+		if (raf != null) {
+			try {
+				raf.close();
+			} catch (IOException e2) {
+			}
 		}
 	}
 }

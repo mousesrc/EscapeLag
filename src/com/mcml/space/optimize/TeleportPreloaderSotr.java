@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -24,8 +25,6 @@ import com.mcml.space.util.PluginExtends;
 import com.mcml.space.util.AzureAPI.Coord;
 import com.mcml.space.util.VersionLevel;
 import com.mcml.space.util.VersionLevel.Version;
-
-import lombok.val;
 
 import static com.mcml.space.config.ConfigOptimize.TeleportPreLoaderenable;
 
@@ -62,9 +61,9 @@ public class TeleportPreloaderSotr implements Listener, PluginExtends {
     public void onTeleport(PlayerTeleportEvent evt) throws ExecutionException {
         if (evt.isAsynchronous() || pending || !TeleportPreLoaderenable) return;
 
-        val from = evt.getFrom();
-        val to = evt.getTo();
-        val player = evt.getPlayer();
+        Location from = evt.getFrom();
+        Location to = evt.getTo();
+        Player player = evt.getPlayer();
         if (from.equals(to)) {
             evt.setCancelled(true);
             return;
@@ -74,7 +73,7 @@ public class TeleportPreloaderSotr implements Listener, PluginExtends {
         }
         evt.setCancelled(true);
 
-        val world = player.getWorld();
+        World world = player.getWorld();
 
         boolean custom = AzureAPI.customViewDistance(player);
         List<Coord<Integer, Integer>> chunks = custom ? collectPreloadChunks(to, player) : (useCache ? caches.get(to, new Callable<List<Coord<Integer, Integer>>>() {
@@ -86,10 +85,10 @@ public class TeleportPreloaderSotr implements Listener, PluginExtends {
             }
         }) : collectPreloadChunks(to, player));
         
-        val fChunks = chunks;
-        val total = chunks.size();
-        val preChunks = total / 3;
-        val secondStage = preChunks * 2;
+        List<Coord<Integer, Integer>> fChunks = chunks;
+        int total = chunks.size();
+        int preChunks = total / 3;
+        int secondStage = preChunks * 2;
         
         if (invulnerable) player.setInvulnerable(true);
         Bukkit.getScheduler().runTaskLater(EscapeLag.MainThis, new Runnable() {
@@ -150,7 +149,7 @@ public class TeleportPreloaderSotr implements Listener, PluginExtends {
     }
     
     public static List<Coord<Integer, Integer>> collectPreloadChunks(Location loc, Player player) {
-        val view = AzureAPI.viewDistanceBlock(player) / (2);
+        int view = AzureAPI.viewDistanceBlock(player) / (2);
         int bX, bZ;
         bX = loc.getBlockX();
         bZ = loc.getBlockZ();

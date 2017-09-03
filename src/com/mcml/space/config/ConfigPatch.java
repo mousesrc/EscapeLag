@@ -30,7 +30,6 @@ public abstract class ConfigPatch extends Configurable {
     @Node(path = "AntiFakeDeath.enable")
     public static boolean noFakedeath = true;
 
-    @SuppressWarnings("deprecation")
     @Node(path = "NoDoubleOnline.enable")
     public static boolean fixDupeOnline = !Bukkit.getOnlineMode() && !(VersionLevel.isHigherEquals(Version.MINECRAFT_1_7_R4) &&
             VersionLevel.isSpigot() ? Bukkit.spigot().getConfig().getBoolean("settings.bungeecord") : false); // since 1.7.10

@@ -1,6 +1,11 @@
 package com.mcml.space.monitor;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -16,21 +21,64 @@ import org.bukkit.plugin.RegisteredListener;
 import org.bukkit.plugin.SimplePluginManager;
 import org.bukkit.scheduler.BukkitTask;
 
+import com.mcml.space.config.ConfigFunction;
+import com.mcml.space.core.EscapeLag;
 import com.mcml.space.monitor.inject.CommandInjector;
 import com.mcml.space.monitor.inject.EventExecutorInjector;
 import com.mcml.space.monitor.inject.SchedulerTaskInjector;
+import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.Reflection;
+import com.mcml.space.util.Utils;
 import com.mcml.space.util.Reflection.FieldAccessor;
 
 public class MonitorUtils {
-	
+
 	/**
 	 * 
-	 * @author jiongjionger
+	 * @author jiongjionger,Vlvxingze
 	 */
 
 	private static boolean enable = false;
 	private static long enable_time;
+
+	public static void AExceptionCatcher(Plugin plugin, Throwable ex) {
+		AzureAPI.log("警告！插件 " + plugin.getName() + " 出错，刷错信息为：");
+		StackTraceElement[] stes = ex.getStackTrace();
+		if (ConfigFunction.PluginErrorMessageLoggerenable == true) {
+			File LoggerFile = new File(EscapeLag.MainThis.getDataFolder(), "PluginErrorLogger.txt");
+			if(LoggerFile.exists() == false) {
+				try {
+					LoggerFile.createNewFile();
+				} catch (IOException e) {
+				}
+			}
+			String LastTxT = Utils.readTxtFile(LoggerFile);
+			SimpleDateFormat myFmt1 = new SimpleDateFormat("yyyy-MM-dd  hh:mm:ss");
+			Date data = new Date();
+			String NowTime = myFmt1.format(data);
+			Utils.ChangeTxtFileAndSave(LastTxT, NowTime, LoggerFile);
+		}
+		int stesl = stes.length;
+		for (int i = 0; i < stesl; i++) {
+			StackTraceElement ste = stes[i];
+			String stestring = ste.toString();
+			if (stestring.contains("com.mcml.space.monitor") == false) {
+				if (ConfigFunction.PluginErrorMessageBlockerenable == true) {
+					List<String> MessageList = ConfigFunction.PluginErrorMessageBlockerMessage;
+					int mls = MessageList.size();
+					for (int ii = 0; ii < mls; ii++) {
+						if (stestring.contains(MessageList.get(ii)) == false) {
+							System.out.println(stestring);
+						}
+					}
+				}
+			} else {
+				if (plugin.getName().equalsIgnoreCase("EscapeLag")) {
+					System.out.println(ste.toString());
+				}
+			}
+		}
+	}
 
 	// 关闭性能统计
 	public static void disable() {
@@ -63,12 +111,15 @@ public class MonitorUtils {
 			return record;
 		}
 		try {
-			SimpleCommandMap simpleCommandMap = Reflection.getField(SimplePluginManager.class, "commandMap", SimpleCommandMap.class).get(Bukkit.getPluginManager());
+			SimpleCommandMap simpleCommandMap = Reflection
+					.getField(SimplePluginManager.class, "commandMap", SimpleCommandMap.class)
+					.get(Bukkit.getPluginManager());
 			for (Command command : simpleCommandMap.getCommands()) {
 				if (command instanceof PluginCommand) {
 					PluginCommand pluginCommand = (PluginCommand) command;
 					if (plg.equals(pluginCommand.getPlugin())) {
-						FieldAccessor<CommandExecutor> commandField = Reflection.getField(PluginCommand.class, "executor", CommandExecutor.class);
+						FieldAccessor<CommandExecutor> commandField = Reflection.getField(PluginCommand.class,
+								"executor", CommandExecutor.class);
 						CommandExecutor executor = commandField.get(pluginCommand);
 						if (executor instanceof CommandInjector) {
 							CommandInjector commandInjector = (CommandInjector) executor;
@@ -100,14 +151,15 @@ public class MonitorUtils {
 		}
 		for (RegisteredListener listener : HandlerList.getRegisteredListeners(plg)) {
 			try {
-				FieldAccessor<EventExecutor> field = Reflection.getField(RegisteredListener.class, "executor", EventExecutor.class);
+				FieldAccessor<EventExecutor> field = Reflection.getField(RegisteredListener.class, "executor",
+						EventExecutor.class);
 				EventExecutor executor = field.get(listener);
 				if (executor instanceof EventExecutorInjector) {
 					EventExecutorInjector eventExecutorInjector = (EventExecutorInjector) executor;
 					String eventName = eventExecutorInjector.getEventName();
 					if (eventName != null) {
-						MonitorRecord monitorRecord = getMonitorRecord(eventName, eventExecutorInjector.getTotalTime(), eventExecutorInjector.getTotalCount(),
-								eventExecutorInjector.getMaxExecuteTime());
+						MonitorRecord monitorRecord = getMonitorRecord(eventName, eventExecutorInjector.getTotalTime(),
+								eventExecutorInjector.getTotalCount(), eventExecutorInjector.getMaxExecuteTime());
 						if (record.containsKey(eventName)) {
 							MonitorRecord otherMonitorRecord = record.get(eventName);
 							record.put(eventName, otherMonitorRecord.merge(monitorRecord));
@@ -148,8 +200,9 @@ public class MonitorUtils {
 					Runnable runnable = field.get(pendingTask);
 					if (runnable instanceof SchedulerTaskInjector) {
 						SchedulerTaskInjector schedulerTaskInjector = (SchedulerTaskInjector) runnable;
-						monitorRecord = monitorRecord
-								.merge(getMonitorRecord("Scheduler", schedulerTaskInjector.getTotalTime(), schedulerTaskInjector.getTotalCount(), schedulerTaskInjector.getMaxExecuteTime()));
+						monitorRecord = monitorRecord.merge(getMonitorRecord("Scheduler",
+								schedulerTaskInjector.getTotalTime(), schedulerTaskInjector.getTotalCount(),
+								schedulerTaskInjector.getMaxExecuteTime()));
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -168,7 +221,8 @@ public class MonitorUtils {
 		return enable;
 	}
 
-	private static Map<String, MonitorRecord> mergeRecordMap(Map<String, MonitorRecord> record1, Map<String, MonitorRecord> record2) {
+	private static Map<String, MonitorRecord> mergeRecordMap(Map<String, MonitorRecord> record1,
+			Map<String, MonitorRecord> record2) {
 		for (Entry<String, MonitorRecord> entry : record2.entrySet()) {
 			if (record1.containsKey(entry.getKey())) {
 				record1.put(entry.getKey(), record1.get(entry.getKey()).merge(entry.getValue()));

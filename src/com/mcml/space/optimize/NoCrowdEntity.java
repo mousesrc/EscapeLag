@@ -1,5 +1,6 @@
 package com.mcml.space.optimize;
 
+import org.bukkit.Chunk;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
@@ -8,19 +9,17 @@ import org.bukkit.event.world.ChunkLoadEvent;
 
 import com.mcml.space.config.ConfigOptimize;
 
-import lombok.val;
-
 public class NoCrowdEntity implements Listener {
 
     @EventHandler
     @SuppressWarnings("all")
     public void CheckCrowd(ChunkLoadEvent evt) {
         if (ConfigOptimize.NoCrowdedEntityenable) {
-            val chunk = evt.getChunk();
-            val entities = chunk.getEntities();
+            Chunk chunk = evt.getChunk();
+            Entity[] entities = chunk.getEntities();
 
             for (Entity e : entities) {
-                val type = e.getType();
+                EntityType type = e.getType();
                 int count = 0;
                 if (ConfigOptimize.NoCrowdedEntityTypeList.contains(type.getName())) {
                     count++;

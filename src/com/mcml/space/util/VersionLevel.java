@@ -2,8 +2,6 @@ package com.mcml.space.util;
 
 import org.bukkit.Bukkit;
 
-import lombok.val;
-
 /**
  * @author SotrForgotten
  */
@@ -18,7 +16,7 @@ public class VersionLevel {
     }
     
     private static Version check() {
-        val version = Bukkit.getServer().getVersion();
+        String version = Bukkit.getServer().getVersion();
         checkType(version);
         
         if (version.contains("1.12")) {

@@ -5,6 +5,15 @@ import java.util.List;
 import com.mcml.space.util.Configurable;
 
 public abstract class ConfigFunction extends Configurable {
+	@Node(path = "PluginErrorMessageBlocker.enable")
+	public static boolean PluginErrorMessageBlockerenable = true;
+	
+	@Node(path = "PluginErrorMessageBlocker.Message")
+	public static List<String> PluginErrorMessageBlockerMessage = Default.PluginErrorMessageBlockerMessage();
+	
+	@Node(path = "PluginErrorMessageLogger.enable")
+	public static boolean PluginErrorMessageLoggerenable = false;
+	
 	@Node(path = "AntiSpam.enable")
 	public static boolean AntiSpamenable = true;
 

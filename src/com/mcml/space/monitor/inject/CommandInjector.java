@@ -1,6 +1,8 @@
 package com.mcml.space.monitor.inject;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -14,6 +16,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.SimplePluginManager;
 
 import com.mcml.space.config.ConfigOptimize;
+import com.mcml.space.monitor.MonitorUtils;
 import com.mcml.space.util.AzureAPI;
 import com.mcml.space.util.Reflection;
 import com.mcml.space.util.Reflection.FieldAccessor;
@@ -95,31 +98,29 @@ public class CommandInjector extends AbstractMultipleInjector implements TabExec
 		if (Bukkit.isPrimaryThread()) {
 			long startTime = System.nanoTime();
 			boolean commandResult;
+			Timer AsyncCountTimer = new Timer();
 			try {
 				commandResult = false;
 				try{
-					commandResult = this.commandExecutor.onCommand(sender, command, label, args);
-				}catch(Throwable ex){
-					AzureAPI.log("警告！插件 " + this.getPlugin().getName() + " 出错，刷错信息为：");
-					StackTraceElement[] stes = ex.getStackTrace();
-					int stesl = stes.length;
-					for(int i = 0;i<stesl;i++){
-						StackTraceElement ste = stes[i];
-						String stestring = ste.toString();
-						if(stestring.contains("com.mcml.space.monitor") == false){
-							System.out.println(stestring);
-						}else{
-							if(this.getPlugin().getName().equalsIgnoreCase("EscapeLag")){
-								System.out.println(ste.toString());
+					AsyncCountTimer.schedule(new TimerTask() {
+						public void run() {
+							if(getPlugin().getName().equalsIgnoreCase("EscapeLag") == false) {
+								AzureAPI.log("严重警告！证实插件 " + getPlugin().getName() + " 出现一次长时间卡顿并且即将导致服务器崩溃！");
+								AzureAPI.log("这可能是因为插件设计缺陷或内存不足或其他原因造成的，尝试卸载该插件来解决问题！");
 							}
 						}
-					}
+					}, 30 * 1000);
+					commandResult = this.commandExecutor.onCommand(sender, command, label, args);
+				}catch(Throwable ex){
+					AsyncCountTimer.cancel();
+					MonitorUtils.AExceptionCatcher(plugin, ex);
 				}
 			} finally {
+				AsyncCountTimer.cancel();
 				long endTime = System.nanoTime();
 				long useTime = endTime - startTime;
 				if(ConfigOptimize.MonitorPluginLagWarningenable){
-					if(useTime/1000000 > ConfigOptimize.MonitorPluginLagWarningPeriod){
+					if(useTime/1000000 > ConfigOptimize.MonitorPluginLagWarningPeriod && this.getPlugin().getName().equalsIgnoreCase("EscapeLag") == false){
 						AzureAPI.log("警告！服务器主线程陷入停顿超过配置设定值！因为插件" + this.getPlugin().getName() + " 执行了一次耗时 " + useTime/1000000 + " 毫秒的 " + command.getName() + " 指令操作！");
 					}
 				}

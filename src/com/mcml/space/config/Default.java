@@ -17,6 +17,13 @@ public class Default { //Sotr你那个判定大小写我真的很难受
 		return NoCrowdedEntityTypeList;
 	}
 	
+	public static List<String> PluginErrorMessageBlockerMessage(){
+		List<String> NoCrowdedEntityTypeList = new ArrayList<String>();
+		NoCrowdedEntityTypeList.add("ErrorPluginName");
+		NoCrowdedEntityTypeList.add("ErrorPluginMessage");
+		return NoCrowdedEntityTypeList;
+	}
+	
 	public static List<String> EntityClearClearEntityType(){
 		List<String> NoCrowdedEntityTypeList = new ArrayList<String>();
 		NoCrowdedEntityTypeList.add("ZOMBIE");
