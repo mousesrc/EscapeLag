@@ -842,7 +842,7 @@ public class EscapeLag extends JavaPlugin implements Listener {
 				} catch (IOException ex) {
 				}
 			}
-			if (bukkit.getInt("VLagger.SetStep") == 0) {
+			if (bukkit.getInt("EscapeLag.SetStep") == 0) {
 				bukkit.set("EscapeLag.SetStep", 1);
 				bukkit.save(BukkitFile);
 				AzureAPI.log("成功改动服务器配端，正在重启来启用它.");
