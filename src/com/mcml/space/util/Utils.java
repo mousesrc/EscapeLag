@@ -108,8 +108,7 @@ public class Utils {
 	}
 
 	public static void ChangeTxtFileAndSave(String LastFileString, String newStringToWriteIn, File file) {
-		// 先读取原有文件内容，然后进行写入操作
-		String NewResult = newStringToWriteIn + "/r/n" + LastFileString;
+		String NewResult = newStringToWriteIn + LastFileString;
 		RandomAccessFile raf = null;
 		try {
 			raf = new RandomAccessFile(file, "rw");
