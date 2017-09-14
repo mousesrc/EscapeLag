@@ -108,7 +108,7 @@ public class Utils {
 	}
 
 	public static void ChangeTxtFileAndSave(String LastFileString, String newStringToWriteIn, File file) {
-		String NewResult = newStringToWriteIn + LastFileString;
+		String NewResult = newStringToWriteIn + "\r\n" + LastFileString;
 		RandomAccessFile raf = null;
 		try {
 			raf = new RandomAccessFile(file, "rw");

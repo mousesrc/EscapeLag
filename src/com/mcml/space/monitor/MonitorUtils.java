@@ -42,47 +42,47 @@ public class MonitorUtils {
 	private static long enable_time;
 
 	public static void AExceptionCatcher(Plugin plugin, Throwable ex) {
-		AzureAPI.log("警告！插件 " + plugin.getName() + " 出错，刷错信息为：");
 		StackTraceElement[] exstes = ex.getStackTrace();
 		StackTraceElement[] Causestes = ex.getCause().getStackTrace();
 		int exstesl = exstes.length;
-		for (int i = 0; i < exstesl; i++) {
-			StackTraceElement ste = exstes[i];
-			String stestring = ste.toString();
-			if (stestring.contains("com.mcml.space.monitor") == false) {
-				if (ConfigFunction.PluginErrorMessageBlockerenable == true) {
-					List<String> MessageList = ConfigFunction.PluginErrorMessageBlockerMessage;
-					int mls = MessageList.size();
-					for (int ii = 0; ii < mls; ii++) {
-						if (stestring.contains(MessageList.get(ii)) == false) {
-							System.out.println(stestring);
-						}
-					}
-				}
-			} else {
-				if (plugin.getName().equalsIgnoreCase("EscapeLag")) {
-					System.out.println(ste.toString());
-				}
-			}
-		}
-		AzureAPI.log("错误原因：" + ex.getCause().toString());
 		int Causestesl = Causestes.length;
-		for (int i = 0; i < Causestesl; i++) {
-			StackTraceElement ste = Causestes[i];
-			String stestring = ste.toString();
-			if (stestring.contains("com.mcml.space.monitor") == false) {
+		for (int i = 0; i < exstesl; i++) {
+			StackTraceElement thisexste = exstes[i];
+			String thisexstestring = thisexste.toString();
+			if (thisexstestring.contains("com.mcml.space.monitor") == false) {
 				if (ConfigFunction.PluginErrorMessageBlockerenable == true) {
-					List<String> MessageList = ConfigFunction.PluginErrorMessageBlockerMessage;
-					int mls = MessageList.size();
+					List<String> thisexstestringMessageList = ConfigFunction.PluginErrorMessageBlockerMessage;
+					int mls = thisexstestringMessageList.size();
 					for (int ii = 0; ii < mls; ii++) {
-						if (stestring.contains(MessageList.get(ii)) == false) {
-							System.out.println(stestring);
+						if (thisexstestring.contains(thisexstestringMessageList.get(ii)) == false) {
+							AzureAPI.log("警告！插件 " + plugin.getName() + " 出错，刷错信息为：");
+							System.out.println(thisexstestring);
+							AzureAPI.log("错误原因：" + ex.getCause().toString());
+							for (int iii = 0; iii < Causestesl; iii++) {
+								StackTraceElement thisCauseste = Causestes[i];
+								String thisCausestestring = thisCauseste.toString();
+								if (thisCausestestring.contains("com.mcml.space.monitor") == false) {
+									if (ConfigFunction.PluginErrorMessageBlockerenable == true) {
+										List<String> thisCausestestringMessageList = ConfigFunction.PluginErrorMessageBlockerMessage;
+										int tcssmls = thisCausestestringMessageList.size();
+										for (int iiii = 0; iiii < tcssmls; iiii++) {
+											if (thisCausestestring.contains(thisCausestestringMessageList.get(ii)) == false) {
+												System.out.println(thisCausestestring);
+											}
+										}
+									}
+								} else {
+									if (plugin.getName().equalsIgnoreCase("EscapeLag")) {
+										System.out.println(thisCauseste.toString());
+									}
+								}
+							}
 						}
 					}
 				}
 			} else {
 				if (plugin.getName().equalsIgnoreCase("EscapeLag")) {
-					System.out.println(ste.toString());
+					System.out.println(thisexste.toString());
 				}
 			}
 		}
@@ -94,11 +94,12 @@ public class MonitorUtils {
 				} catch (IOException e) {
 				}
 			}
-			String LastTxT = Utils.readTxtFile(LoggerFile);
 			SimpleDateFormat myFmt1 = new SimpleDateFormat("yyyy-MM-dd  hh:mm:ss");
 			Date data = new Date();
 			String NowTime = myFmt1.format(data);
-			String ToWriteInString = NowTime + "Plugin Error: " + plugin.getName() + ":" + "\r\n";
+			String LastTxT;
+			LastTxT = Utils.readTxtFile(LoggerFile);
+			Utils.ChangeTxtFileAndSave(LastTxT, NowTime + "Plugin Cause Error Log: " + plugin.getName() + ":", LoggerFile);
 			for (int i = 0; i < exstesl; i++) {
 				StackTraceElement ste = exstes[i];
 				String stestring = ste.toString();
@@ -108,17 +109,20 @@ public class MonitorUtils {
 						int mls = MessageList.size();
 						for (int ii = 0; ii < mls; ii++) {
 							if (stestring.contains(MessageList.get(ii)) == false) {
-								ToWriteInString = ToWriteInString + stestring + "\r\n";
+								LastTxT = Utils.readTxtFile(LoggerFile);
+								Utils.ChangeTxtFileAndSave(LastTxT, stestring, LoggerFile);
 							}
 						}
 					}
 				} else {
 					if (plugin.getName().equalsIgnoreCase("EscapeLag")) {
-						ToWriteInString = ToWriteInString + ste.toString() + "\r\n";
+						LastTxT = Utils.readTxtFile(LoggerFile);
+						Utils.ChangeTxtFileAndSave(LastTxT, ste.toString(), LoggerFile);
 					}
 				}
 			}
-			ToWriteInString = ToWriteInString + "Caused by：" + ex.getCause().toString() + "\r\n";
+			LastTxT = Utils.readTxtFile(LoggerFile);
+			Utils.ChangeTxtFileAndSave(LastTxT, "Caused by：" + ex.getCause().toString(), LoggerFile);
 			for (int i = 0; i < Causestesl; i++) {
 				StackTraceElement ste = Causestes[i];
 				String stestring = ste.toString();
@@ -128,17 +132,18 @@ public class MonitorUtils {
 						int mls = MessageList.size();
 						for (int ii = 0; ii < mls; ii++) {
 							if (stestring.contains(MessageList.get(ii)) == false) {
-								ToWriteInString = ToWriteInString + stestring + "\r\n";
+								LastTxT = Utils.readTxtFile(LoggerFile);
+								Utils.ChangeTxtFileAndSave(LastTxT, stestring, LoggerFile);
 							}
 						}
 					}
 				} else {
 					if (plugin.getName().equalsIgnoreCase("EscapeLag")) {
-						ToWriteInString = ToWriteInString + ste.toString() + "\r\n";
+						LastTxT = Utils.readTxtFile(LoggerFile);
+						Utils.ChangeTxtFileAndSave(LastTxT, ste.toString(), LoggerFile);
 					}
 				}
 			}
-			Utils.ChangeTxtFileAndSave(LastTxT, ToWriteInString, LoggerFile);
 		}
 	}
 
