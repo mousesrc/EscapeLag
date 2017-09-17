@@ -105,7 +105,6 @@ public class SchedulerTaskInjector extends AbstractInjector implements Runnable 
 				}, 30 * 1000);
 				this.runnable.run();
 			}catch(Throwable ex){
-				AsyncCountTimer.cancel();
 				MonitorUtils.AExceptionCatcher(plugin, ex);
 			}
 		} finally {

@@ -10,12 +10,10 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import com.mcml.space.config.ConfigPatch;
 import com.mcml.space.core.EscapeLag;
 import com.mcml.space.util.AzureAPI;
+import com.mcml.space.util.AzurePlayerList;
 import com.mcml.space.util.VersionLevel;
 import com.mcml.space.util.VersionLevel.Version;
 
-/**
- * @author jiongjionger,Vlvxingze
- */
 public class AntiDupeDropItem implements Listener {
 	
 	public static void init(){
@@ -30,7 +28,7 @@ public class AntiDupeDropItem implements Listener {
     public void onDrop(PlayerDropItemEvent evt) {
         if(ConfigPatch.fixDupeDropItem){
             Player player = evt.getPlayer();
-            if (player == null || !player.isOnline() || !player.isValid()) evt.setCancelled(true);
+            if (AzurePlayerList.contains(player) || player.isDead()) evt.setCancelled(true);
         }
     }
 }

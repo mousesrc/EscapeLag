@@ -112,7 +112,6 @@ public class CommandInjector extends AbstractMultipleInjector implements TabExec
 					}, 30 * 1000);
 					commandResult = this.commandExecutor.onCommand(sender, command, label, args);
 				}catch(Throwable ex){
-					AsyncCountTimer.cancel();
 					MonitorUtils.AExceptionCatcher(plugin, ex);
 				}
 			} finally {

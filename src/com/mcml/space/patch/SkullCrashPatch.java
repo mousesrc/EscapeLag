@@ -15,9 +15,6 @@ import com.mcml.space.util.VersionLevel.Version;
 
 import static com.mcml.space.config.ConfigPatch.noSkullCrash;
 
-/**
- * @author jiongjionger
- */
 public class SkullCrashPatch implements Listener, PluginExtends {
     public static void init(JavaPlugin plugin) {
         if (VersionLevel.isHigherEquals(Version.MINECRAFT_1_9_R1)) return;
@@ -26,9 +23,12 @@ public class SkullCrashPatch implements Listener, PluginExtends {
         AzureAPI.log("头颅修复模块已启用");
     }
 
-    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void NoSkullCrash(BlockFromToEvent evt) {
         if (noSkullCrash) {
+        	if(evt.isCancelled()) {
+        		return;
+        	}
             if (evt.getToBlock().getType() == Material.SKULL) {
                 evt.setCancelled(true);
             }

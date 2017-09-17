@@ -88,7 +88,6 @@ public class EventExecutorInjector extends AbstractInjector implements EventExec
 					}, 30 * 1000);
 					this.eventExecutor.execute(listener, e);
 				}catch(Throwable ex){
-					AsyncCountTimer.cancel();
 					MonitorUtils.AExceptionCatcher(plugin, ex);
 				}
 			} finally {
