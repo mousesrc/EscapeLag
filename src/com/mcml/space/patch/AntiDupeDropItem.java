@@ -28,7 +28,7 @@ public class AntiDupeDropItem implements Listener {
     public void onDrop(PlayerDropItemEvent evt) {
         if(ConfigPatch.fixDupeDropItem){
             Player player = evt.getPlayer();
-            if (AzurePlayerList.contains(player) || player.isDead()) evt.setCancelled(true);
+            if (AzurePlayerList.contains(player) && player.isDead()) evt.setCancelled(true);
         }
     }
 }
